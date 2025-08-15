@@ -124,7 +124,7 @@ export default function CivicEducation() {
             <Button 
               className="w-full mt-6" 
               variant="outline"
-              onClick={() => window.open('https://www.youtube.com/watch?v=66f4-NKEbzg', '_blank')}
+              onClick={() => window.open('https://www.youtube.com/watch?v=66f4-NKEYz4', '_blank')}
             >
               <Play className="w-4 h-4 mr-2" />
               Watch Official Tutorial

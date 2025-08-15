@@ -261,12 +261,16 @@ export class MemStorage implements IStorage {
   }): Promise<Legislator[]> {
     let legislators = Array.from(this.legislators.values());
 
+    // For TX-23, return all Texas legislators (including senators who represent the whole state)
     if (params.state) {
       legislators = legislators.filter(leg => leg.state === params.state);
     }
 
+    // For district filtering, include both the specific district and statewide positions (senators)
     if (params.district) {
-      legislators = legislators.filter(leg => leg.district === params.district);
+      legislators = legislators.filter(leg => 
+        leg.district === params.district || leg.district === null // senators have null district
+      );
     }
 
     const limit = params.limit || 10;
@@ -475,6 +479,8 @@ export class MemStorage implements IStorage {
     sampleLegislators.forEach(legislator => {
       this.legislators.set(legislator.id, legislator);
     });
+    
+    console.log(`Seeded ${sampleLegislators.length} legislators:`, sampleLegislators.map(l => l.name));
 
     // Seed San Antonio civic events for August 2025
     const sampleEvents: CivicEvent[] = [

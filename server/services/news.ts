@@ -82,21 +82,23 @@ export class NewsService {
 
   async getBreakingNews(): Promise<NewsArticle[]> {
     try {
-      // Use broader political terms to get more results
+      // Use top headlines to avoid rate limits and get better results
       const searchParams = new URLSearchParams({
-        q: "Biden OR Trump OR Congress OR politics OR government OR election OR policy",
         apiKey: this.apiKey,
-        language: "en",
-        sortBy: "publishedAt",
+        country: "us",
+        category: "general",
         pageSize: "20",
-        from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // Last 7 days for more results
       });
 
       const response = await fetch(
-        `${this.baseUrl}/everything?${searchParams.toString()}`
+        `${this.baseUrl}/top-headlines?${searchParams.toString()}`
       );
 
       if (!response.ok) {
+        if (response.status === 429) {
+          console.log("NewsAPI rate limit hit, using fallback news");
+          return this.getFallbackNews();
+        }
         throw new Error(`NewsAPI error: ${response.statusText}`);
       }
 
@@ -108,9 +110,19 @@ export class NewsService {
       }
 
       console.log(`Found ${data.articles.length} articles from NewsAPI`);
-      // Return real news data, but fallback to our curated content if API fails
+      // Return real news data and filter for political/government content
       const realArticles = data.articles
-        .filter(article => article.title && article.url)
+        .filter(article => 
+          article.title && 
+          article.url && 
+          (article.title.toLowerCase().includes('government') ||
+           article.title.toLowerCase().includes('congress') ||
+           article.title.toLowerCase().includes('biden') ||
+           article.title.toLowerCase().includes('politics') ||
+           article.title.toLowerCase().includes('election') ||
+           article.title.toLowerCase().includes('senate') ||
+           article.title.toLowerCase().includes('house'))
+        )
         .map((article) => this.transformNewsAPIArticle(article))
         .slice(0, 10);
       
