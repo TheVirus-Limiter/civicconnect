@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "@/hooks/use-translation";
+// Removed translation hook - using hardcoded English for now
 import { useLocation } from "@/hooks/use-location";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { Users, Search, Mail, Plus, User } from "lucide-react";
 import type { Legislator } from "@shared/schema";
 
 export default function LegislatorTracker() {
-  const { t } = useTranslation();
   const { location } = useLocation();
 
   const { data: legislatorsData, isLoading, error } = useQuery({
@@ -116,7 +115,6 @@ export default function LegislatorTracker() {
 }
 
 function LegislatorCard({ legislator }: { legislator: Legislator }) {
-  const { t } = useTranslation();
 
   const getPartyColor = (party: string) => {
     switch (party?.toLowerCase()) {
@@ -133,12 +131,12 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
 
   const getActivityText = (activity: { action: string; bill: string; date: string }) => {
     const actionMap: Record<string, string> = {
-      "Voted Yes": t("legislators.votedYes"),
-      "Voted No": t("legislators.votedNo"),
-      "Sponsored": t("legislators.sponsored"),
-      "Co-sponsored": t("legislators.coSponsored"),
-      "Proposed": t("legislators.proposed"),
-      "Signed": t("legislators.signed"),
+      "Voted Yes": "Voted Yes",
+      "Voted No": "Voted No", 
+      "Sponsored": "Sponsored",
+      "Co-sponsored": "Co-sponsored",
+      "Proposed": "Proposed",
+      "Signed": "Signed",
     };
 
     return actionMap[activity.action] || activity.action;
@@ -154,10 +152,15 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
                 src={legislator.imageUrl} 
                 alt={legislator.name}
                 className="w-16 h-16 rounded-full object-cover"
+                onError={(e) => {
+                  // If image fails to load, show placeholder
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.nextElementSibling?.classList.remove('hidden');
+                }}
               />
-            ) : (
-              <User className="w-8 h-8 text-muted-foreground" />
-            )}
+            ) : null}
+            <User className={`w-8 h-8 text-muted-foreground ${legislator.imageUrl ? 'hidden' : ''}`} />
           </div>
           <div className="flex-1">
             <h4 className="text-lg font-semibold">{legislator.name}</h4>
@@ -170,23 +173,23 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
 
         <div className="space-y-3 mb-4">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">{t("legislators.party")}</span>
+            <span className="text-muted-foreground">Party</span>
             <span className={`font-medium ${getPartyColor(legislator.party || "")}`}>
               {legislator.party}
             </span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">{t("legislators.yearsInOffice")}</span>
+            <span className="text-muted-foreground">Years in Office</span>
             <span className="font-medium">{legislator.yearsInOffice}</span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">{t("legislators.billsSponsored")}</span>
+            <span className="text-muted-foreground">Bills Sponsored</span>
             <span className="font-medium">{legislator.billsSponsored}</span>
           </div>
         </div>
 
         <div className="border-t border-border pt-4">
-          <h5 className="text-sm font-medium mb-2">{t("legislators.recentActivity")}</h5>
+          <h5 className="text-sm font-medium mb-2">Recent Activity</h5>
           <div className="space-y-2">
             {legislator.recentActivity?.slice(0, 2).map((activity, index) => (
               <div key={index} className="text-xs text-muted-foreground">
@@ -199,13 +202,23 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
         </div>
 
         <div className="flex space-x-2 mt-4">
-          <Button variant="outline" size="sm" className="flex-1">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1"
+            onClick={() => window.open(`mailto:${legislator.email}`, '_blank')}
+          >
             <Mail className="w-4 h-4 mr-1" />
-            {t("legislators.contact")}
+            Contact
           </Button>
-          <Button variant="outline" size="sm" className="flex-1">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1"
+            onClick={() => legislator.website && window.open(legislator.website, '_blank')}
+          >
             <Plus className="w-4 h-4 mr-1" />
-            {t("legislators.track")}
+            Learn More
           </Button>
         </div>
       </CardContent>

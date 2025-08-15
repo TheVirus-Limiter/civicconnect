@@ -433,7 +433,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 225-4511",
         email: "tony.gonzales@mail.house.gov",
         website: "https://gonzales.house.gov",
-        imageUrl: "https://gonzales.house.gov/sites/evo-subsites/gonzales.house.gov/files/evo-media-image/tony-gonzales-headshot.jpg",
+        imageUrl: "https://bioguide.congress.gov/search/bio/G000594.jpg",
         yearsInOffice: 4,
         billsSponsored: 27,
         recentActivity: [
@@ -453,7 +453,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 224-2934",
         email: "john.cornyn@cornyn.senate.gov",
         website: "https://cornyn.senate.gov",
-        imageUrl: "https://cornyn.senate.gov/sites/default/files/2023-07/Cornyn%20Official%20Photo%202023.jpg",
+        imageUrl: "https://bioguide.congress.gov/search/bio/C001056.jpg",
         yearsInOffice: 22,
         billsSponsored: 89,
         recentActivity: [
@@ -473,7 +473,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 224-5922",
         email: "ted.cruz@cruz.senate.gov",
         website: "https://cruz.senate.gov",
-        imageUrl: "https://cruz.senate.gov/sites/default/files/styles/senator_large/public/Cruz%20Official%20Photo%202019_0.jpg",
+        imageUrl: "https://bioguide.congress.gov/search/bio/C001098.jpg",
         yearsInOffice: 12,
         billsSponsored: 156,
         recentActivity: [
