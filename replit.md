@@ -39,8 +39,7 @@ The schema includes several key entities:
 - **News Articles**: Curated civic news with categorization
 - **Bookmarks**: User-saved content for tracking
 - **Chat Sessions**: AI chatbot conversation history
-- **Civic Events**: Town halls, hearings, community forums with full event details, capacity limits, and scheduling
-- **Event RSVPs**: Registration management with attendee information, accessibility needs, and multilingual preferences
+- **Civic Events**: Town halls and public engagement opportunities
 
 ### Authentication and Authorization
 - Session-based authentication system
@@ -76,16 +75,6 @@ The schema includes several key entities:
 - **Code Splitting**: Vite-based code splitting for optimal loading performance
 - **Image Optimization**: Responsive images and lazy loading strategies
 - **Database**: Efficient queries with proper indexing through Drizzle ORM
-
-## Recent Major Updates
-
-### Town Halls & Events Feature (August 2025)
-- **Complete Civic Events System**: Full-stack implementation of town hall meetings, community forums, and public hearings
-- **Real TX-23 Data**: Authentic event information from Congressman Tony Gonzales, Senator Pete Flores, and local officials
-- **RSVP Management**: Complete registration system with capacity tracking and bilingual support
-- **Event Filtering**: Filter by federal, state, and local government levels
-- **Database Integration**: PostgreSQL schema for events and RSVPs with proper relations
-- **Accessibility Features**: ADA compliance information, Spanish interpretation details, and accommodation requests
 
 ## External Dependencies
 
