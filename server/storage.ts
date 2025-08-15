@@ -259,11 +259,14 @@ export class MemStorage implements IStorage {
     district?: string;
     limit?: number;
   }): Promise<Legislator[]> {
+    console.log(`Storage has ${this.legislators.size} legislators total`);
     let legislators = Array.from(this.legislators.values());
+    console.log(`All legislators:`, legislators.map(l => `${l.name} (${l.state}-${l.district})`));
 
     // For TX-23, return all Texas legislators (including senators who represent the whole state)
     if (params.state) {
       legislators = legislators.filter(leg => leg.state === params.state);
+      console.log(`After state filter (${params.state}):`, legislators.map(l => l.name));
     }
 
     // For district filtering, include both the specific district and statewide positions (senators)
@@ -271,10 +274,13 @@ export class MemStorage implements IStorage {
       legislators = legislators.filter(leg => 
         leg.district === params.district || leg.district === null // senators have null district
       );
+      console.log(`After district filter (${params.district}):`, legislators.map(l => l.name));
     }
 
     const limit = params.limit || 10;
-    return legislators.slice(0, limit);
+    const result = legislators.slice(0, limit);
+    console.log(`Final result:`, result.map(l => l.name));
+    return result;
   }
 
   async upsertLegislator(legislator: Legislator): Promise<Legislator> {

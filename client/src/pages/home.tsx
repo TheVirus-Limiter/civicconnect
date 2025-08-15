@@ -27,13 +27,13 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex space-x-8 overflow-x-auto">
               <a href="#bills" className="whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
-                {t("nav.bills")}
+                Bills
               </a>
               <a href="#news" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                {t("nav.news")}
+                News
               </a>
               <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                {t("nav.legislators")}
+                Legislators
               </a>
               <Link href="/community/polls" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
                 <Vote className="w-4 h-4" />
@@ -44,10 +44,10 @@ export default function Home() {
                 Feedback
               </Link>
               <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                {t("nav.engage")}
+                Engage
               </a>
               <a href="#education" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                {t("nav.education")}
+                Learn
               </a>
             </div>
             
@@ -78,12 +78,12 @@ export default function Home() {
           <div className="text-center">
             {/* Main headline */}
             <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
-              {t("hero.title")}
+              Stay Connected to Your Democracy
             </h1>
             
             {/* Subheadline */}
             <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto font-light leading-relaxed">
-              {t("hero.subtitle")}
+              Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.
             </p>
             
             {/* Location Input */}

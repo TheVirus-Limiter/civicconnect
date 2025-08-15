@@ -178,11 +178,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { state = "TX", district = "23", limit = 10 } = req.query;
       
+      console.log(`Getting legislators for state: ${state}, district: ${district}`);
+      
       const legislators = await storage.getLegislators({
         state: state as string,
         district: district as string,
         limit: Number(limit),
       });
+      
+      console.log(`Found ${legislators.length} legislators:`, legislators.map(l => l.name));
 
       res.json({ legislators });
     } catch (error) {
