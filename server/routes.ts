@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { govTrackService } from "./services/govtrack";
 import { newsService } from "./services/news";
 import { summarizeBill, chatWithCivica, translateText, generateContactTemplate } from "./services/openai";
+import { translationService } from "./services/translation";
 import { 
   insertBillSchema, 
   insertNewsArticleSchema, 
@@ -492,6 +493,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error creating comment:", error);
       res.status(500).json({ error: "Failed to create comment" });
+    }
+  });
+
+  // Translation API
+  app.post("/api/translate", async (req, res) => {
+    try {
+      const { content, targetLanguage, context } = req.body;
+      
+      if (!content || !targetLanguage) {
+        return res.status(400).json({ error: "Content and target language are required" });
+      }
+
+      if (!['es', 'en'].includes(targetLanguage)) {
+        return res.status(400).json({ error: "Target language must be 'es' or 'en'" });
+      }
+
+      const result = await translationService.translatePageContent({
+        content,
+        targetLanguage: targetLanguage as 'es' | 'en',
+        context
+      });
+
+      res.json(result);
+    } catch (error) {
+      console.error("Translation API error:", error);
+      res.status(500).json({ error: "Translation failed" });
     }
   });
 

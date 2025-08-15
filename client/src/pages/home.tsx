@@ -6,19 +6,44 @@ import LegislatorTracker from "@/components/legislator-tracker";
 import CivicEngagement from "@/components/civic-engagement";
 import CivicEducation from "@/components/civic-education";
 import Footer from "@/components/footer";
-import { useTranslation } from "@/hooks/use-translation";
+import React from "react";
+import { useAITranslation } from "@/hooks/use-ai-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Button } from "@/components/ui/button";
-import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare, Languages } from "lucide-react";
+import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare, Languages, Loader2 } from "lucide-react";
 import LocationSelector from "@/components/location-selector";
 import { Link } from "wouter";
 
 export default function Home() {
-  const { t, language, toggleLanguage } = useTranslation();
+  const { currentLanguage, isTranslating, toggleLanguage, applyTranslation, translatedContent } = useAITranslation();
   const { location, detectLocation, loading } = useLocation();
+
+  // Apply translation when content is ready
+  React.useEffect(() => {
+    if (translatedContent) {
+      applyTranslation();
+    }
+  }, [translatedContent, applyTranslation]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Translation Loading Overlay */}
+      {isTranslating && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 flex items-center space-x-4">
+            <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+            <div>
+              <p className="font-medium text-gray-900 dark:text-white">
+                {currentLanguage === 'en' ? 'Traduciendo página...' : 'Translating page...'}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {currentLanguage === 'en' ? 'Por favor espere' : 'Please wait'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <Header />
       
       {/* Main Navigation */}
@@ -56,10 +81,15 @@ export default function Home() {
               variant="ghost"
               size="sm"
               onClick={toggleLanguage}
+              disabled={isTranslating}
               className="ml-4 flex items-center gap-2"
             >
-              <Languages className="w-4 h-4" />
-              {language === 'en' ? 'ES' : 'EN'}
+              {isTranslating ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Languages className="w-4 h-4" />
+              )}
+              {currentLanguage === 'en' ? 'ES' : 'EN'}
             </Button>
           </div>
         </div>
