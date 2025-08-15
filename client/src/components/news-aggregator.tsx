@@ -28,10 +28,10 @@ export default function NewsAggregator() {
   const articles = newsData?.articles || [];
 
   const categories = [
-    { key: "breaking", label: t("news.breaking") },
-    { key: "local", label: t("news.local") },
-    { key: "national", label: t("news.national") },
-    { key: "explainer", label: t("news.explainer") },
+    { key: "breaking", label: "Breaking" },
+    { key: "local", label: "Local" },
+    { key: "national", label: "National" },
+    { key: "explainer", label: "Explainer" },
   ];
 
   const getCategoryColor = (category: string) => {
@@ -67,9 +67,9 @@ export default function NewsAggregator() {
     return (
       <section id="news" className="mb-12">
         <div className="text-center py-8">
-          <p className="text-destructive">{t("common.error")}: {(error as Error).message}</p>
+          <p className="text-destructive">Error: {(error as Error).message}</p>
           <Button variant="outline" onClick={() => window.location.reload()} className="mt-4">
-            {t("common.retry")}
+            Retry
           </Button>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function NewsAggregator() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-bold flex items-center">
           <Newspaper className="w-6 h-6 mr-3 text-primary" />
-          {t("news.title")}
+          Civic News
         </h3>
         <div className="flex space-x-2">
           {categories.map((category) => (

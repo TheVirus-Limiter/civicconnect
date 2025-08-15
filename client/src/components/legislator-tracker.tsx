@@ -46,9 +46,9 @@ export default function LegislatorTracker() {
     return (
       <section id="legislators" className="mb-12">
         <div className="text-center py-8">
-          <p className="text-destructive">{t("common.error")}: {(error as Error).message}</p>
+          <p className="text-destructive">Error: {(error as Error).message}</p>
           <Button variant="outline" onClick={() => window.location.reload()} className="mt-4">
-            {t("common.retry")}
+            Retry
           </Button>
         </div>
       </section>
@@ -60,11 +60,11 @@ export default function LegislatorTracker() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-bold flex items-center">
           <Users className="w-6 h-6 mr-3 text-primary" />
-          {t("legislators.title")}
+          Your Representatives
         </h3>
         <Button variant="outline">
           <Search className="w-4 h-4 mr-1" />
-          {t("legislators.findAll")}
+          Find All Reps
         </Button>
       </div>
 

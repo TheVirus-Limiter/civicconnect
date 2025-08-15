@@ -57,7 +57,7 @@ export default function CivicEngagement() {
     <section id="engage" className="mb-12">
       <h3 className="text-2xl font-bold mb-6 flex items-center">
         <Megaphone className="w-6 h-6 mr-3 text-primary" />
-        {t("engage.title")}
+        Take Action
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,17 +68,17 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <Mail className="text-primary-foreground w-5 h-5" />
               </div>
-              <span>{t("engage.contactReps")}</span>
+              <span>Contact Your Reps</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              {t("engage.contactRepsDesc")}
+              Generate personalized letters to your representatives about important legislation.
             </p>
             <div className="space-y-3">
               <Select value={selectedBill} onValueChange={setSelectedBill}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("engage.selectBill")} />
+                  <SelectValue placeholder="Select a bill to discuss" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="H.R. 1234 - Clean Energy Infrastructure">
@@ -97,7 +97,7 @@ export default function CivicEngagement() {
                 onClick={handleGenerateTemplate}
                 disabled={generateTemplateMutation.isPending}
               >
-                {generateTemplateMutation.isPending ? t("common.loading") : t("engage.generateTemplate")}
+                {generateTemplateMutation.isPending ? "Generating..." : "Generate Template"}
               </Button>
             </div>
           </CardContent>
@@ -110,12 +110,12 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
                 <Calendar className="text-white w-5 h-5" />
               </div>
-              <span>{t("engage.upcomingEvents")}</span>
+              <span>Upcoming Events</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              {t("engage.upcomingEventsDesc")}
+              Find town halls, city council meetings, and other civic events in your area.
             </p>
             <div className="space-y-3">
               <Card>
@@ -128,7 +128,7 @@ export default function CivicEngagement() {
                 </CardContent>
               </Card>
               <Button variant="outline" className="w-full">
-                {t("engage.viewAllEvents")}
+                View All Events
               </Button>
             </div>
           </CardContent>
@@ -141,24 +141,24 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
                 <Vote className="text-white w-5 h-5" />
               </div>
-              <span>{t("engage.voterInfo")}</span>
+              <span>Voter Information</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              {t("engage.voterInfoDesc")}
+              Check your registration status, find polling locations, and get important voting dates.
             </p>
             <div className="space-y-3">
               <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
                 <div className="flex items-center space-x-2">
                   <TriangleAlert className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
                   <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                    {t("engage.electionSoon", { days: 45 })}
+                    Next Election: November 5, 2024 (45 days)
                   </span>
                 </div>
               </div>
               <Button className="w-full bg-yellow-600 hover:bg-yellow-700">
-                {t("engage.checkRegistration")}
+                Check Registration Status
               </Button>
             </div>
           </CardContent>

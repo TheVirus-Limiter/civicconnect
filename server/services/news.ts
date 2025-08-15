@@ -74,6 +74,7 @@ export class NewsService {
       };
     } catch (error) {
       console.error("Error fetching news from NewsAPI:", error);
+      // Return fallback news if API fails
       const fallbackNews = this.getFallbackNews();
       return { articles: fallbackNews, total: fallbackNews.length };
     }
@@ -81,13 +82,14 @@ export class NewsService {
 
   async getBreakingNews(): Promise<NewsArticle[]> {
     try {
+      // Use broader political terms to get more results
       const searchParams = new URLSearchParams({
-        q: "politics OR congress OR legislation",
+        q: "Biden OR Trump OR Congress OR politics OR government OR election OR policy",
         apiKey: this.apiKey,
         language: "en",
         sortBy: "publishedAt",
-        pageSize: "10",
-        from: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // Last 24 hours
+        pageSize: "20",
+        from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // Last 7 days for more results
       });
 
       const response = await fetch(
@@ -100,15 +102,25 @@ export class NewsService {
 
       const data: NewsAPIResponse = await response.json();
 
-      if (data.status !== "ok") {
-        throw new Error("NewsAPI request failed");
+      if (data.status !== "ok" || !data.articles || data.articles.length === 0) {
+        console.log("No articles returned from NewsAPI, using comprehensive fallback news");
+        return this.getFallbackNews();
       }
 
-      // Return real news data 
-      return data.articles
+      console.log(`Found ${data.articles.length} articles from NewsAPI`);
+      // Return real news data, but fallback to our curated content if API fails
+      const realArticles = data.articles
         .filter(article => article.title && article.url)
         .map((article) => this.transformNewsAPIArticle(article))
-        .slice(0, 5);
+        .slice(0, 10);
+      
+      // If we have fewer than 3 real articles, supplement with fallback
+      if (realArticles.length < 3) {
+        const fallbackArticles = this.getFallbackNews();
+        return [...realArticles, ...fallbackArticles].slice(0, 10);
+      }
+      
+      return realArticles;
     } catch (error) {
       console.error("Error fetching breaking news:", error);
       return this.getFallbackNews();

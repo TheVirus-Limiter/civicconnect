@@ -29,7 +29,7 @@ export default function CivicaChatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: t("civica.greeting"),
+      content: "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?",
       timestamp: new Date().toISOString(),
       language,
     },
@@ -127,7 +127,7 @@ export default function CivicaChatbot() {
     setMessages(prev => [
       {
         role: "assistant",
-        content: t("civica.greeting"),
+        content: "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?",
         timestamp: new Date().toISOString(),
         language,
       },
@@ -143,8 +143,8 @@ export default function CivicaChatbot() {
             <Bot className="text-primary-foreground text-xl w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold">{t("civica.title")}</h3>
-            <p className="text-muted-foreground">{t("civica.subtitle")}</p>
+            <h3 className="text-2xl font-bold">Meet Civica</h3>
+            <p className="text-muted-foreground">Your AI assistant for understanding legislation</p>
           </div>
         </div>
 

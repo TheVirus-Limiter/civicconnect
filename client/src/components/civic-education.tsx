@@ -38,20 +38,20 @@ export default function CivicEducation() {
   const billSteps = [
     {
       number: 1,
-      title: t("education.introduction"),
-      description: t("education.introductionDesc"),
+      title: "Introduction",
+      description: "Bill is introduced in House or Senate",
       status: "completed" as const,
     },
     {
       number: 2,
-      title: t("education.committeeReview"),
-      description: t("education.committeeReviewDesc"),
+      title: "Committee Review",
+      description: "Committee studies and marks up bill",
       status: "completed" as const,
     },
     {
       number: 3,
-      title: t("education.floorVote"),
-      description: t("education.floorVoteDesc"),
+      title: "Floor Vote",
+      description: "Full chamber debates and votes",
       status: "current" as const,
     },
     {
@@ -94,14 +94,14 @@ export default function CivicEducation() {
     <section id="education" className="mb-12">
       <h3 className="text-2xl font-bold mb-6 flex items-center">
         <GraduationCap className="w-6 h-6 mr-3 text-primary" />
-        {t("education.title")}
+        Civic Education
       </h3>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* How a Bill Becomes Law */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">{t("education.howBillBecomesLaw")}</CardTitle>
+            <CardTitle className="text-xl">How a Bill Becomes Law</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -121,7 +121,7 @@ export default function CivicEducation() {
             </div>
             <Button className="w-full mt-6" variant="outline">
               <Play className="w-4 h-4 mr-2" />
-              {t("education.startTutorial")}
+              Start Interactive Tutorial
             </Button>
           </CardContent>
         </Card>
@@ -129,14 +129,14 @@ export default function CivicEducation() {
         {/* Knowledge Quiz */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">{t("education.testKnowledge")}</CardTitle>
+            <CardTitle className="text-xl">Test Your Knowledge</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-slate-700 dark:to-slate-600 rounded-lg p-4">
-                <h5 className="font-medium mb-2">{t("education.quiz")}</h5>
+                <h5 className="font-medium mb-2">Quick Quiz: Legislative Basics</h5>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {t("education.quizQuestion")}
+                  How many votes are needed to override a presidential veto?
                 </p>
                 <RadioGroup 
                   value={selectedAnswer} 
@@ -146,7 +146,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="simple-majority" id="simple-majority" />
                     <Label htmlFor="simple-majority" className="text-sm">
-                      {t("education.quizOptions.simpleMajority")}
+                      Simple Majority (51%)
                     </Label>
                     {showAnswer && selectedAnswer === "simple-majority" && (
                       <Badge variant="destructive" className="text-xs">Incorrect</Badge>
@@ -155,7 +155,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="two-thirds" id="two-thirds" />
                     <Label htmlFor="two-thirds" className="text-sm">
-                      {t("education.quizOptions.twoThirds")}
+                      Two-Thirds Majority (67%)
                     </Label>
                     {showAnswer && selectedAnswer === "two-thirds" && (
                       <Badge className="text-xs bg-green-600">Correct!</Badge>
@@ -164,7 +164,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="three-quarters" id="three-quarters" />
                     <Label htmlFor="three-quarters" className="text-sm">
-                      {t("education.quizOptions.threeQuarters")}
+                      Three-Quarters Majority (75%)
                     </Label>
                     {showAnswer && selectedAnswer === "three-quarters" && (
                       <Badge variant="destructive" className="text-xs">Incorrect</Badge>
@@ -179,10 +179,10 @@ export default function CivicEducation() {
                   className="w-full"
                   disabled={showAnswer}
                 >
-                  {t("education.submitAnswer")}
+                  Submit Answer
                 </Button>
                 <Button variant="outline" className="w-full">
-                  {t("education.takeFullQuiz")}
+                  Take Full Quiz
                 </Button>
               </div>
             </div>

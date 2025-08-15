@@ -91,9 +91,9 @@ export default function BillBrowser() {
     return (
       <section id="bills" className="mb-12">
         <div className="text-center py-8">
-          <p className="text-destructive">{t("common.error")}: {(error as Error).message}</p>
+          <p className="text-destructive">Error: {(error as Error).message}</p>
           <Button variant="outline" onClick={() => window.location.reload()} className="mt-4">
-            {t("common.retry")}
+            Retry
           </Button>
         </div>
       </section>
@@ -109,13 +109,13 @@ export default function BillBrowser() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-primary" />
-                <span>{t("bills.filterTitle")}</span>
+                <span>Filter Bills</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Search */}
               <div>
-                <Label className="text-sm font-medium">{t("common.search")}</Label>
+                <Label className="text-sm font-medium">Search</Label>
                 <div className="relative mt-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -129,7 +129,7 @@ export default function BillBrowser() {
 
               {/* Status Filter */}
               <div>
-                <Label className="text-sm font-medium mb-2 block">{t("bills.status")}</Label>
+                <Label className="text-sm font-medium mb-2 block">Status</Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Checkbox 
@@ -140,7 +140,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-active" className="text-sm flex items-center justify-between w-full">
-                      <span>{t("bills.active")}</span>
+                      <span>Active</span>
                       <Badge variant="secondary" className="text-xs">234</Badge>
                     </Label>
                   </div>
@@ -153,7 +153,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-passed" className="text-sm flex items-center justify-between w-full">
-                      <span>{t("bills.passed")}</span>
+                      <span>Passed</span>
                       <Badge variant="secondary" className="text-xs">67</Badge>
                     </Label>
                   </div>
@@ -166,7 +166,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-failed" className="text-sm flex items-center justify-between w-full">
-                      <span>{t("bills.failed")}</span>
+                      <span>Failed</span>
                       <Badge variant="secondary" className="text-xs">23</Badge>
                     </Label>
                   </div>
@@ -175,13 +175,13 @@ export default function BillBrowser() {
 
               {/* Category Filter */}
               <div>
-                <Label htmlFor="category" className="text-sm font-medium">{t("bills.category")}</Label>
+                <Label htmlFor="category" className="text-sm font-medium">Category</Label>
                 <Select>
                   <SelectTrigger className="mt-2">
-                    <SelectValue placeholder={t("bills.allCategories")} />
+                    <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("bills.allCategories")}</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
                     <SelectItem value="healthcare">Healthcare</SelectItem>
                     <SelectItem value="education">Education</SelectItem>
                     <SelectItem value="environment">Environment</SelectItem>
@@ -193,26 +193,26 @@ export default function BillBrowser() {
 
               {/* Jurisdiction Filter */}
               <div>
-                <Label className="text-sm font-medium mb-2 block">{t("bills.jurisdiction")}</Label>
+                <Label className="text-sm font-medium mb-2 block">Jurisdiction</Label>
                 <RadioGroup
                   value={filters.jurisdiction}
                   onValueChange={(value) => handleFilterChange("jurisdiction", value)}
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="" id="jurisdiction-all" />
-                    <Label htmlFor="jurisdiction-all" className="text-sm">{t("bills.allLevels")}</Label>
+                    <Label htmlFor="jurisdiction-all" className="text-sm">All Levels</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="federal" id="jurisdiction-federal" />
-                    <Label htmlFor="jurisdiction-federal" className="text-sm">{t("bills.federal")}</Label>
+                    <Label htmlFor="jurisdiction-federal" className="text-sm">Federal</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="state" id="jurisdiction-state" />
-                    <Label htmlFor="jurisdiction-state" className="text-sm">{t("bills.state")}</Label>
+                    <Label htmlFor="jurisdiction-state" className="text-sm">State</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="local" id="jurisdiction-local" />
-                    <Label htmlFor="jurisdiction-local" className="text-sm">{t("bills.local")}</Label>
+                    <Label htmlFor="jurisdiction-local" className="text-sm">Local</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -225,7 +225,7 @@ export default function BillBrowser() {
                   setOffset(0);
                 }}
               >
-                {t("bills.clearFilters")}
+                Clear Filters
               </Button>
             </CardContent>
           </Card>
@@ -234,7 +234,7 @@ export default function BillBrowser() {
         {/* Bills List */}
         <div className="lg:w-3/4">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold">{t("bills.title")}</h3>
+            <h3 className="text-2xl font-bold">Recent Bills</h3>
             <div className="flex items-center space-x-4">
               <Select defaultValue="recent">
                 <SelectTrigger className="w-40">
