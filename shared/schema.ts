@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, boolean, timestamp, jsonb, integer } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -173,3 +174,114 @@ export type InsertChatSession = z.infer<typeof insertChatSessionSchema>;
 export type ChatSession = typeof chatSessions.$inferSelect;
 export type InsertCivicEvent = z.infer<typeof insertCivicEventSchema>;
 export type CivicEvent = typeof civicEvents.$inferSelect;
+
+// Community Polls
+export const polls = pgTable("polls", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: varchar("title").notNull(),
+  description: text("description"),
+  options: jsonb("options").notNull().$type<string[]>(),
+  category: varchar("category").notNull(), // "local", "national", "state"
+  district: varchar("district"),
+  location: varchar("location"),
+  createdBy: varchar("created_by").references(() => users.id),
+  isActive: boolean("is_active").default(true),
+  allowMultipleChoice: boolean("allow_multiple_choice").default(false),
+  endDate: timestamp("end_date"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const pollVotes = pgTable("poll_votes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  pollId: varchar("poll_id").references(() => polls.id, { onDelete: "cascade" }).notNull(),
+  userId: varchar("user_id").references(() => users.id),
+  selectedOptions: jsonb("selected_options").notNull().$type<number[]>(),
+  ipAddress: varchar("ip_address"), // For anonymous voting
+  userAgent: varchar("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Community Feedback
+export const feedbackSubmissions = pgTable("feedback_submissions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: varchar("title").notNull(),
+  content: text("content").notNull(),
+  category: varchar("category").notNull(), // "bill_feedback", "general", "feature_request", "issue_report"
+  relatedBillId: varchar("related_bill_id"),
+  relatedPollId: varchar("related_poll_id").references(() => polls.id),
+  userId: varchar("user_id").references(() => users.id),
+  userEmail: varchar("user_email"),
+  status: varchar("status").default("pending"), // "pending", "reviewed", "responded", "closed"
+  priority: varchar("priority").default("medium"), // "low", "medium", "high", "urgent"
+  tags: jsonb("tags").$type<string[]>(),
+  upvotes: integer("upvotes").default(0),
+  downvotes: integer("downvotes").default(0),
+  isPublic: boolean("is_public").default(true),
+  adminResponse: text("admin_response"),
+  respondedAt: timestamp("responded_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const feedbackVotes = pgTable("feedback_votes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  feedbackId: varchar("feedback_id").references(() => feedbackSubmissions.id, { onDelete: "cascade" }).notNull(),
+  userId: varchar("user_id").references(() => users.id),
+  voteType: varchar("vote_type").notNull(), // "upvote", "downvote"
+  ipAddress: varchar("ip_address"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Community Comments
+export const feedbackComments = pgTable("feedback_comments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  feedbackId: varchar("feedback_id").references(() => feedbackSubmissions.id, { onDelete: "cascade" }).notNull(),
+  userId: varchar("user_id").references(() => users.id),
+  content: text("content").notNull(),
+  parentCommentId: varchar("parent_comment_id").references(() => feedbackComments.id),
+  isOfficial: boolean("is_official").default(false), // For official responses
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Insert schemas for validation
+export const insertPollSchema = createInsertSchema(polls).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPollVoteSchema = createInsertSchema(pollVotes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertFeedbackSubmissionSchema = createInsertSchema(feedbackSubmissions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertFeedbackVoteSchema = createInsertSchema(feedbackVotes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertFeedbackCommentSchema = createInsertSchema(feedbackComments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types
+export type InsertPoll = z.infer<typeof insertPollSchema>;
+export type Poll = typeof polls.$inferSelect;
+export type InsertPollVote = z.infer<typeof insertPollVoteSchema>;
+export type PollVote = typeof pollVotes.$inferSelect;
+export type InsertFeedbackSubmission = z.infer<typeof insertFeedbackSubmissionSchema>;
+export type FeedbackSubmission = typeof feedbackSubmissions.$inferSelect;
+export type InsertFeedbackVote = z.infer<typeof insertFeedbackVoteSchema>;
+export type FeedbackVote = typeof feedbackVotes.$inferSelect;
+export type InsertFeedbackComment = z.infer<typeof insertFeedbackCommentSchema>;
+export type FeedbackComment = typeof feedbackComments.$inferSelect;

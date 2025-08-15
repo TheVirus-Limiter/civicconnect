@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/toaster";
 // import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import CommunityPollsPage from "@/pages/community-polls";
+import CommunityFeedbackPage from "@/pages/community-feedback";
 
 // Error Boundary Component
 interface ErrorBoundaryState {
@@ -57,6 +59,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/community/polls" component={CommunityPollsPage} />
+      <Route path="/community/feedback" component={CommunityFeedbackPage} />
       <Route component={NotFound} />
     </Switch>
   );

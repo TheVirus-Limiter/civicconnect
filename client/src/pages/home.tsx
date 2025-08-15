@@ -9,8 +9,9 @@ import Footer from "@/components/footer";
 import { useTranslation } from "@/hooks/use-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Button } from "@/components/ui/button";
-import { MapPin, TrendingUp, Clock, Users } from "lucide-react";
+import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare } from "lucide-react";
 import LocationSelector from "@/components/location-selector";
+import { Link } from "wouter";
 
 export default function Home() {
   const { t, language } = useTranslation();
@@ -33,6 +34,14 @@ export default function Home() {
             <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
               Legislators
             </a>
+            <Link href="/community/polls" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
+              <Vote className="w-4 h-4" />
+              Community Polls
+            </Link>
+            <Link href="/community/feedback" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
+              <MessageSquare className="w-4 h-4" />
+              Feedback
+            </Link>
             <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
               Engage
             </a>
@@ -107,6 +116,57 @@ export default function Home() {
                 <div className="text-primary-foreground/80">Local Bills</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Features Showcase */}
+      <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Join the Community</h3>
+            <p className="text-gray-600 dark:text-gray-300">Make your voice heard on important issues in TX-23</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Link href="/community/polls" className="group">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50 transition-colors">
+                    <Vote className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Community Polls</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Vote on local issues</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.
+                </p>
+                <div className="text-sm text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300">
+                  View Active Polls →
+                </div>
+              </div>
+            </Link>
+            
+            <Link href="/community/feedback" className="group">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full group-hover:bg-green-200 dark:group-hover:bg-green-900/50 transition-colors">
+                    <MessageSquare className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Community Feedback</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Share your concerns</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Submit feedback about local issues, suggest improvements, and see responses from your representatives.
+                </p>
+                <div className="text-sm text-green-600 dark:text-green-400 font-medium group-hover:text-green-700 dark:group-hover:text-green-300">
+                  Submit Feedback →
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

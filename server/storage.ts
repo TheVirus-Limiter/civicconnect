@@ -12,7 +12,17 @@ import {
   type ChatSession,
   type InsertChatSession,
   type CivicEvent,
-  type InsertCivicEvent
+  type InsertCivicEvent,
+  type Poll,
+  type InsertPoll,
+  type PollVote,
+  type InsertPollVote,
+  type FeedbackSubmission,
+  type InsertFeedbackSubmission,
+  type FeedbackVote,
+  type InsertFeedbackVote,
+  type FeedbackComment,
+  type InsertFeedbackComment
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -70,6 +80,51 @@ export interface IStorage {
     limit?: number;
   }): Promise<CivicEvent[]>;
   createCivicEvent(event: InsertCivicEvent): Promise<CivicEvent>;
+
+  // Polls
+  getPoll(id: string): Promise<Poll | undefined>;
+  getPolls(params: {
+    category?: string;
+    location?: string;
+    district?: string;
+    isActive?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<Poll[]>;
+  createPoll(poll: InsertPoll): Promise<Poll>;
+  updatePoll(id: string, updates: Partial<Poll>): Promise<Poll | undefined>;
+  deletePoll(id: string): Promise<void>;
+
+  // Poll Votes
+  createPollVote(vote: InsertPollVote): Promise<PollVote>;
+  getUserPollVote(pollId: string, userId?: string, ipAddress?: string): Promise<PollVote | undefined>;
+  getPollResults(pollId: string): Promise<{
+    pollId: string;
+    totalVotes: number;
+    results: { optionIndex: number; count: number; percentage: number }[];
+  }>;
+
+  // Feedback Submissions
+  getFeedbackSubmission(id: string): Promise<FeedbackSubmission | undefined>;
+  getFeedbackSubmissions(params: {
+    category?: string;
+    status?: string;
+    userId?: string;
+    isPublic?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<FeedbackSubmission[]>;
+  createFeedbackSubmission(feedback: InsertFeedbackSubmission): Promise<FeedbackSubmission>;
+  updateFeedbackSubmission(id: string, updates: Partial<FeedbackSubmission>): Promise<FeedbackSubmission | undefined>;
+
+  // Feedback Votes
+  createFeedbackVote(vote: InsertFeedbackVote): Promise<FeedbackVote>;
+  getUserFeedbackVote(feedbackId: string, userId?: string): Promise<FeedbackVote | undefined>;
+  updateFeedbackVoteCount(feedbackId: string): Promise<void>;
+
+  // Feedback Comments
+  getFeedbackComments(feedbackId: string): Promise<FeedbackComment[]>;
+  createFeedbackComment(comment: InsertFeedbackComment): Promise<FeedbackComment>;
 }
 
 export class MemStorage implements IStorage {
@@ -80,6 +135,11 @@ export class MemStorage implements IStorage {
   private bookmarks: Map<string, Bookmark>;
   private chatSessions: Map<string, ChatSession>;
   private civicEvents: Map<string, CivicEvent>;
+  private polls: Map<string, Poll>;
+  private pollVotes: Map<string, PollVote>;
+  private feedbackSubmissions: Map<string, FeedbackSubmission>;
+  private feedbackVotes: Map<string, FeedbackVote>;
+  private feedbackComments: Map<string, FeedbackComment>;
 
   constructor() {
     this.users = new Map();
@@ -89,6 +149,11 @@ export class MemStorage implements IStorage {
     this.bookmarks = new Map();
     this.chatSessions = new Map();
     this.civicEvents = new Map();
+    this.polls = new Map();
+    this.pollVotes = new Map();
+    this.feedbackSubmissions = new Map();
+    this.feedbackVotes = new Map();
+    this.feedbackComments = new Map();
     
     this.seedData();
   }
@@ -426,6 +491,376 @@ export class MemStorage implements IStorage {
     };
 
     this.civicEvents.set(sampleEvent.id, sampleEvent);
+
+    // Seed sample polls
+    this.seedPolls();
+  }
+
+  // Polls
+  async getPoll(id: string): Promise<Poll | undefined> {
+    return this.polls.get(id);
+  }
+
+  async getPolls(params: {
+    category?: string;
+    location?: string;
+    district?: string;
+    isActive?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<Poll[]> {
+    let polls = Array.from(this.polls.values());
+    
+    if (params.category) {
+      polls = polls.filter(poll => poll.category === params.category);
+    }
+    if (params.location) {
+      polls = polls.filter(poll => poll.location === params.location);
+    }
+    if (params.district) {
+      polls = polls.filter(poll => poll.district === params.district);
+    }
+    if (params.isActive !== undefined) {
+      polls = polls.filter(poll => poll.isActive === params.isActive);
+    }
+
+    // Sort by creation date, newest first
+    polls.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    const offset = params.offset || 0;
+    const limit = params.limit || 20;
+    return polls.slice(offset, offset + limit);
+  }
+
+  async createPoll(insertPoll: InsertPoll): Promise<Poll> {
+    const id = randomUUID();
+    const poll: Poll = {
+      ...insertPoll,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      description: insertPoll.description || null,
+      district: insertPoll.district || null,
+      location: insertPoll.location || null,
+      createdBy: insertPoll.createdBy || null,
+      endDate: insertPoll.endDate || null
+    };
+    this.polls.set(id, poll);
+    return poll;
+  }
+
+  async updatePoll(id: string, updates: Partial<Poll>): Promise<Poll | undefined> {
+    const poll = this.polls.get(id);
+    if (!poll) return undefined;
+    
+    const updatedPoll = { ...poll, ...updates, updatedAt: new Date() };
+    this.polls.set(id, updatedPoll);
+    return updatedPoll;
+  }
+
+  async deletePoll(id: string): Promise<void> {
+    this.polls.delete(id);
+    // Also delete all votes for this poll
+    Array.from(this.pollVotes.values())
+      .filter(vote => vote.pollId === id)
+      .forEach(vote => this.pollVotes.delete(vote.id));
+  }
+
+  // Poll Votes
+  async createPollVote(insertVote: InsertPollVote): Promise<PollVote> {
+    const id = randomUUID();
+    const vote: PollVote = {
+      ...insertVote,
+      id,
+      createdAt: new Date(),
+      userId: insertVote.userId || null,
+      ipAddress: insertVote.ipAddress || null,
+      userAgent: insertVote.userAgent || null
+    };
+    this.pollVotes.set(id, vote);
+    return vote;
+  }
+
+  async getUserPollVote(pollId: string, userId?: string, ipAddress?: string): Promise<PollVote | undefined> {
+    return Array.from(this.pollVotes.values()).find(vote => {
+      if (vote.pollId !== pollId) return false;
+      if (userId && vote.userId === userId) return true;
+      if (!userId && ipAddress && vote.ipAddress === ipAddress) return true;
+      return false;
+    });
+  }
+
+  async getPollResults(pollId: string): Promise<{
+    pollId: string;
+    totalVotes: number;
+    results: { optionIndex: number; count: number; percentage: number }[];
+  }> {
+    const votes = Array.from(this.pollVotes.values()).filter(vote => vote.pollId === pollId);
+    const poll = await this.getPoll(pollId);
+    
+    if (!poll) {
+      return { pollId, totalVotes: 0, results: [] };
+    }
+
+    const optionCounts = new Map<number, number>();
+    let totalVotes = 0;
+
+    votes.forEach(vote => {
+      vote.selectedOptions.forEach(optionIndex => {
+        optionCounts.set(optionIndex, (optionCounts.get(optionIndex) || 0) + 1);
+        totalVotes++;
+      });
+    });
+
+    const results = poll.options.map((_, index) => {
+      const count = optionCounts.get(index) || 0;
+      const percentage = totalVotes > 0 ? (count / totalVotes) * 100 : 0;
+      return { optionIndex: index, count, percentage };
+    });
+
+    return { pollId, totalVotes, results };
+  }
+
+  // Feedback Submissions
+  async getFeedbackSubmission(id: string): Promise<FeedbackSubmission | undefined> {
+    return this.feedbackSubmissions.get(id);
+  }
+
+  async getFeedbackSubmissions(params: {
+    category?: string;
+    status?: string;
+    userId?: string;
+    isPublic?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<FeedbackSubmission[]> {
+    let submissions = Array.from(this.feedbackSubmissions.values());
+    
+    if (params.category) {
+      submissions = submissions.filter(sub => sub.category === params.category);
+    }
+    if (params.status) {
+      submissions = submissions.filter(sub => sub.status === params.status);
+    }
+    if (params.userId) {
+      submissions = submissions.filter(sub => sub.userId === params.userId);
+    }
+    if (params.isPublic !== undefined) {
+      submissions = submissions.filter(sub => sub.isPublic === params.isPublic);
+    }
+
+    // Sort by creation date, newest first
+    submissions.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    const offset = params.offset || 0;
+    const limit = params.limit || 20;
+    return submissions.slice(offset, offset + limit);
+  }
+
+  async createFeedbackSubmission(insertFeedback: InsertFeedbackSubmission): Promise<FeedbackSubmission> {
+    const id = randomUUID();
+    const feedback: FeedbackSubmission = {
+      ...insertFeedback,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      relatedBillId: insertFeedback.relatedBillId || null,
+      relatedPollId: insertFeedback.relatedPollId || null,
+      userId: insertFeedback.userId || null,
+      userEmail: insertFeedback.userEmail || null,
+      tags: insertFeedback.tags || null,
+      adminResponse: insertFeedback.adminResponse || null,
+      respondedAt: insertFeedback.respondedAt || null
+    };
+    this.feedbackSubmissions.set(id, feedback);
+    return feedback;
+  }
+
+  async updateFeedbackSubmission(id: string, updates: Partial<FeedbackSubmission>): Promise<FeedbackSubmission | undefined> {
+    const feedback = this.feedbackSubmissions.get(id);
+    if (!feedback) return undefined;
+    
+    const updatedFeedback = { ...feedback, ...updates, updatedAt: new Date() };
+    this.feedbackSubmissions.set(id, updatedFeedback);
+    return updatedFeedback;
+  }
+
+  // Feedback Votes
+  async createFeedbackVote(insertVote: InsertFeedbackVote): Promise<FeedbackVote> {
+    const id = randomUUID();
+    const vote: FeedbackVote = {
+      ...insertVote,
+      id,
+      createdAt: new Date(),
+      userId: insertVote.userId || null,
+      ipAddress: insertVote.ipAddress || null
+    };
+    this.feedbackVotes.set(id, vote);
+    await this.updateFeedbackVoteCount(insertVote.feedbackId);
+    return vote;
+  }
+
+  async getUserFeedbackVote(feedbackId: string, userId?: string): Promise<FeedbackVote | undefined> {
+    return Array.from(this.feedbackVotes.values()).find(vote => 
+      vote.feedbackId === feedbackId && vote.userId === userId
+    );
+  }
+
+  async updateFeedbackVoteCount(feedbackId: string): Promise<void> {
+    const votes = Array.from(this.feedbackVotes.values()).filter(vote => vote.feedbackId === feedbackId);
+    const upvotes = votes.filter(vote => vote.voteType === 'upvote').length;
+    const downvotes = votes.filter(vote => vote.voteType === 'downvote').length;
+    
+    const feedback = this.feedbackSubmissions.get(feedbackId);
+    if (feedback) {
+      const updatedFeedback = { ...feedback, upvotes, downvotes, updatedAt: new Date() };
+      this.feedbackSubmissions.set(feedbackId, updatedFeedback);
+    }
+  }
+
+  // Feedback Comments
+  async getFeedbackComments(feedbackId: string): Promise<FeedbackComment[]> {
+    const comments = Array.from(this.feedbackComments.values())
+      .filter(comment => comment.feedbackId === feedbackId);
+    
+    // Sort by creation date, oldest first for threaded display
+    comments.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    return comments;
+  }
+
+  async createFeedbackComment(insertComment: InsertFeedbackComment): Promise<FeedbackComment> {
+    const id = randomUUID();
+    const comment: FeedbackComment = {
+      ...insertComment,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      userId: insertComment.userId || null,
+      parentCommentId: insertComment.parentCommentId || null
+    };
+    this.feedbackComments.set(id, comment);
+    return comment;
+  }
+
+  private seedPolls() {
+    // Sample community polls
+    const samplePolls: Poll[] = [
+      {
+        id: "poll-healthcare",
+        title: "Healthcare Access in TX-23",
+        description: "What is your biggest concern about healthcare access in our district?",
+        options: [
+          "Cost of prescription medications",
+          "Lack of specialists in rural areas", 
+          "Long wait times for appointments",
+          "Limited mental health services",
+          "Hospital closures"
+        ],
+        category: "local",
+        district: "TX-23",
+        location: "San Antonio, TX",
+        createdBy: null,
+        isActive: true,
+        allowMultipleChoice: false,
+        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      },
+      {
+        id: "poll-infrastructure", 
+        title: "Infrastructure Priorities",
+        description: "Which infrastructure improvements should be prioritized in our community?",
+        options: [
+          "Road and bridge repairs",
+          "Public transportation expansion",
+          "Broadband internet access",
+          "Water and sewage systems",
+          "Green energy projects"
+        ],
+        category: "local",
+        district: "TX-23",
+        location: "San Antonio, TX",
+        createdBy: null,
+        isActive: true,
+        allowMultipleChoice: true,
+        endDate: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000), // 3 weeks from now
+        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+        updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+      },
+      {
+        id: "poll-border-security",
+        title: "Border Security Approaches",
+        description: "What approach to border security do you think would be most effective?",
+        options: [
+          "Increased physical barriers and walls",
+          "Enhanced technology and surveillance",
+          "More border patrol agents",
+          "Comprehensive immigration reform",
+          "Focus on legal pathways for immigration"
+        ],
+        category: "national",
+        district: "TX-23",
+        location: "Texas Border Region",
+        createdBy: null,
+        isActive: true,
+        allowMultipleChoice: false,
+        endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 2 weeks from now
+        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+        updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+      }
+    ];
+
+    samplePolls.forEach(poll => {
+      this.polls.set(poll.id, poll);
+    });
+
+    // Sample feedback submissions
+    const sampleFeedback: FeedbackSubmission[] = [
+      {
+        id: "feedback-transportation",
+        title: "Public Transit Concerns",
+        content: "The bus routes in our area are inadequate and unreliable. Many residents cannot get to work or medical appointments without a car. We need more frequent service and expanded routes.",
+        category: "general",
+        relatedBillId: null,
+        relatedPollId: "poll-infrastructure",
+        userId: null,
+        userEmail: "concerned.citizen@example.com",
+        status: "pending",
+        priority: "medium",
+        tags: ["transportation", "public-transit", "accessibility"],
+        upvotes: 12,
+        downvotes: 2,
+        isPublic: true,
+        adminResponse: null,
+        respondedAt: null,
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+        updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      },
+      {
+        id: "feedback-education",
+        title: "School Funding Inequity",
+        content: "Schools in rural parts of TX-23 are severely underfunded compared to urban areas. This creates an unfair disadvantage for our children's education and future opportunities.",
+        category: "feature_request",
+        relatedBillId: null,
+        relatedPollId: null,
+        userId: null,
+        userEmail: "parent.advocate@example.com",
+        status: "reviewed",
+        priority: "high",
+        tags: ["education", "funding", "rural", "equity"],
+        upvotes: 25,
+        downvotes: 3,
+        isPublic: true,
+        adminResponse: "Thank you for raising this important issue. We are currently working with the Texas Education Agency to address funding disparities and will provide updates as we make progress.",
+        respondedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
+        updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      }
+    ];
+
+    sampleFeedback.forEach(feedback => {
+      this.feedbackSubmissions.set(feedback.id, feedback);
+    });
   }
 }
 
