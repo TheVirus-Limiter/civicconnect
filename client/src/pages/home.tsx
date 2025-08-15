@@ -88,21 +88,21 @@ export default function Home() {
               <div className="text-center">
                 <div className="text-2xl font-bold flex items-center justify-center space-x-2">
                   <TrendingUp className="w-6 h-6" />
-                  <span>324</span>
+                  <span>1,247</span>
                 </div>
                 <div className="text-primary-foreground/80">Active Bills</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold flex items-center justify-center space-x-2">
                   <Clock className="w-6 h-6" />
-                  <span>47</span>
+                  <span>89</span>
                 </div>
                 <div className="text-primary-foreground/80">Recent Updates</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold flex items-center justify-center space-x-2">
                   <Users className="w-6 h-6" />
-                  <span>12</span>
+                  <span>23</span>
                 </div>
                 <div className="text-primary-foreground/80">Local Bills</div>
               </div>
