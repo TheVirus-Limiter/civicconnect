@@ -1,12 +1,12 @@
 import { useTranslation } from "@/hooks/use-translation";
 import { Button } from "@/components/ui/button";
+import { Languages } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Globe, ChevronDown } from "lucide-react";
 
 export function LanguageToggle() {
   const { language, changeLanguage } = useTranslation();
@@ -14,30 +14,23 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center space-x-2">
-          <Globe className="h-4 w-4" />
-          <span className="text-sm font-medium">{language.toUpperCase()}</span>
-          <ChevronDown className="h-3 w-3" />
+        <Button variant="ghost" size="icon">
+          <Languages className="h-[1.2rem] w-[1.2rem]" />
+          <span className="sr-only">Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem 
           onClick={() => changeLanguage("en")}
-          className={language === "en" ? "bg-muted" : ""}
+          className={language === "en" ? "bg-accent" : ""}
         >
-          <div className="flex items-center space-x-2">
-            <span className="text-lg">🇺🇸</span>
-            <span>English</span>
-          </div>
+          English
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => changeLanguage("es")}
-          className={language === "es" ? "bg-muted" : ""}
+          className={language === "es" ? "bg-accent" : ""}
         >
-          <div className="flex items-center space-x-2">
-            <span className="text-lg">🇪🇸</span>
-            <span>Español</span>
-          </div>
+          Español
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

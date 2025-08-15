@@ -10,6 +10,7 @@ import { useTranslation } from "@/hooks/use-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Button } from "@/components/ui/button";
 import { MapPin, TrendingUp, Clock, Users } from "lucide-react";
+import LocationSelector from "@/components/location-selector";
 
 export default function Home() {
   const { t, language } = useTranslation();
@@ -24,19 +25,19 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8 overflow-x-auto">
             <a href="#bills" className="whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
-              {t("nav.bills")}
+              Bills
             </a>
             <a href="#news" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              {t("nav.news")}
+              News
             </a>
             <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              {t("nav.legislators")}
+              Legislators
             </a>
             <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              {t("nav.engage")}
+              Engage
             </a>
             <a href="#education" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              {t("nav.education")}
+              Learn
             </a>
           </div>
         </div>
@@ -46,33 +47,36 @@ export default function Home() {
       <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("hero.title")}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Stay Connected to Your Democracy</h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto">
-              {t("hero.subtitle")}
+              Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.
             </p>
             
-            {/* Location Detector */}
+            {/* Location Display */}
             <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-lg p-6 max-w-md mx-auto mb-8">
               <div className="flex items-center justify-center space-x-3 mb-4">
                 <MapPin className="w-6 h-6" />
-                <span className="text-lg font-medium">{t("hero.location")}</span>
+                <span className="text-lg font-medium">Your Location</span>
               </div>
-              <div className="text-primary-foreground/90">
+              <div className="text-primary-foreground/90 text-center">
                 {location.city && location.state ? (
                   <>
                     <p className="font-medium">{location.city}, {location.state}</p>
                     {location.district && <p className="text-sm">District {location.district}</p>}
                   </>
                 ) : (
-                  <p className="text-sm">Location not detected</p>
+                  <p className="text-sm">San Antonio, Texas - District TX-23</p>
                 )}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <LocationSelector />
               </div>
               <Button 
                 onClick={detectLocation}
                 disabled={loading}
                 variant="ghost"
                 size="sm"
-                className="mt-3 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                className="mt-2 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 w-full"
               >
                 <MapPin className="w-4 h-4 mr-1" />
                 {loading ? t("common.loading") : t("hero.updateLocation")}

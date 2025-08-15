@@ -26,8 +26,8 @@ export default function Header() {
               <Landmark className="text-primary-foreground text-lg w-5 h-5" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-foreground">{t("header.title")}</h1>
-              <p className="text-xs text-muted-foreground">{t("header.subtitle")}</p>
+              <h1 className="text-xl font-bold text-foreground">Connected Civics</h1>
+              <p className="text-xs text-muted-foreground">Civic Engagement Platform</p>
             </div>
           </div>
 
@@ -39,7 +39,7 @@ export default function Header() {
               </div>
               <Input
                 type="text"
-                placeholder={t("header.search")}
+                placeholder="Search bills, legislators, or topics..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-3"

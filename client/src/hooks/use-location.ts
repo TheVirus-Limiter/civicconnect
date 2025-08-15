@@ -68,7 +68,7 @@ export function useLocation() {
   };
 
   useEffect(() => {
-    // Load location from localStorage on mount
+    // Load location from localStorage on mount or set default
     const savedLocation = localStorage.getItem("userLocation");
     if (savedLocation) {
       try {
@@ -76,7 +76,24 @@ export function useLocation() {
       } catch (error) {
         console.error("Error parsing saved location:", error);
         localStorage.removeItem("userLocation");
+        // Set default San Antonio location
+        setLocation({
+          city: "San Antonio",
+          state: "Texas", 
+          district: "TX-23",
+          latitude: 29.4241,
+          longitude: -98.4936,
+        });
       }
+    } else {
+      // Set default San Antonio location
+      setLocation({
+        city: "San Antonio",
+        state: "Texas",
+        district: "TX-23", 
+        latitude: 29.4241,
+        longitude: -98.4936,
+      });
     }
   }, []);
 
@@ -104,10 +121,10 @@ async function reverseGeocode(latitude: number, longitude: number): Promise<Part
     };
   }
 
-  // For other locations, return a generic response
+  // Default to San Antonio, Texas for other locations
   return {
-    city: "Unknown City",
-    state: "Unknown State",
-    district: "Unknown District",
+    city: "San Antonio",
+    state: "Texas",
+    district: "TX-23",
   };
 }

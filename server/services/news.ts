@@ -64,11 +64,9 @@ export class NewsService {
         throw new Error("NewsAPI request failed");
       }
 
-      const realArticles: NewsArticle[] = data.articles
+      const articles: NewsArticle[] = data.articles
         .filter(article => article.title && article.url)
         .map((article) => this.transformNewsAPIArticle(article));
-      
-      const articles = realArticles.length > 0 ? realArticles : this.getFallbackNews();
 
       return {
         articles,
@@ -106,13 +104,11 @@ export class NewsService {
         throw new Error("NewsAPI request failed");
       }
 
-      // Return real news data if available, otherwise fallback
-      const realArticles = data.articles
+      // Return real news data 
+      return data.articles
         .filter(article => article.title && article.url)
         .map((article) => this.transformNewsAPIArticle(article))
         .slice(0, 5);
-      
-      return realArticles.length > 0 ? realArticles : this.getFallbackNews();
     } catch (error) {
       console.error("Error fetching breaking news:", error);
       return this.getFallbackNews();
