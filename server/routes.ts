@@ -166,12 +166,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Legislators API
   app.get("/api/legislators", async (req, res) => {
     try {
-      const { state, district, limit = 10 } = req.query;
+      const { location, level, limit } = req.query;
+      const { legislatorService } = await import("./services/legislators");
       
-      const legislators = await storage.getLegislators({
-        state: state as string,
-        district: district as string,
-        limit: Number(limit),
+      const legislators = await legislatorService.searchLegislators({
+        location: location as string,
+        level: level as "federal" | "state" | "local",
+        limit: limit ? Number(limit) : undefined,
       });
 
       res.json({ legislators });
