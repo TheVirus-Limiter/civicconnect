@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { format } from "date-fns";
 import { 
   Calendar, 
@@ -19,12 +17,8 @@ import {
   Users, 
   Clock, 
   ExternalLink,
-  Phone,
   User,
-  Mail,
-  Languages,
-  MessageSquare,
-  CheckCircle
+  Languages
 } from "lucide-react";
 import type { CivicEvent, EventRsvp } from "@shared/schema";
 
@@ -53,10 +47,16 @@ export default function Events() {
 
   const rsvpMutation = useMutation({
     mutationFn: async (data: { eventId: string; rsvpData: any }) => {
-      return await apiRequest(`/api/events/${data.eventId}/rsvp`, {
+      const response = await fetch(`/api/events/${data.eventId}/rsvp`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data.rsvpData),
       });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create RSVP');
+      }
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -115,7 +115,7 @@ export default function Events() {
     }
   };
 
-  const events = eventsData?.events || [];
+  const events = (eventsData as any)?.events || [];
   const upcomingEvents = events.filter((event: CivicEvent) => new Date(event.date) > new Date());
 
   if (isLoading) {
@@ -220,11 +220,11 @@ export default function Events() {
                             size="sm" 
                             className="flex-1"
                             disabled={
-                              event.maxAttendees && 
+                              !!event.maxAttendees && 
                               (event.currentAttendees || 0) >= event.maxAttendees
                             }
                           >
-                            {event.maxAttendees && (event.currentAttendees || 0) >= event.maxAttendees 
+                            {!!event.maxAttendees && (event.currentAttendees || 0) >= event.maxAttendees 
                               ? "Full" 
                               : "RSVP"
                             }
