@@ -176,7 +176,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Legislators API
   app.get("/api/legislators", async (req, res) => {
     try {
-      const { state, district, limit = 10 } = req.query;
+      const { state = "TX", district = "23", limit = 10 } = req.query;
       
       const legislators = await storage.getLegislators({
         state: state as string,

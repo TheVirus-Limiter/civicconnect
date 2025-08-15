@@ -7,12 +7,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Play, CheckCircle, Clock, Gavel } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import CivicQuiz from "./civic-quiz";
 
 export default function CivicEducation() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showFullQuiz, setShowFullQuiz] = useState(false);
 
   const handleSubmitAnswer = () => {
     if (!selectedAnswer) {
@@ -119,9 +121,13 @@ export default function CivicEducation() {
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-6" variant="outline">
+            <Button 
+              className="w-full mt-6" 
+              variant="outline"
+              onClick={() => window.open('https://www.youtube.com/watch?v=66f4-NKEbzg', '_blank')}
+            >
               <Play className="w-4 h-4 mr-2" />
-              Start Interactive Tutorial
+              Watch Official Tutorial
             </Button>
           </CardContent>
         </Card>
@@ -181,7 +187,11 @@ export default function CivicEducation() {
                 >
                   Submit Answer
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => setShowFullQuiz(true)}
+                >
                   Take Full Quiz
                 </Button>
               </div>
@@ -189,6 +199,8 @@ export default function CivicEducation() {
           </CardContent>
         </Card>
       </div>
+      
+      {showFullQuiz && <CivicQuiz />}
     </section>
   );
 }

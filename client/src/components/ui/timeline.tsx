@@ -46,7 +46,7 @@ export function Timeline({ progress, className }: TimelineProps) {
                   "w-3 h-3 rounded-full flex items-center justify-center",
                   status === "completed" && "bg-green-600",
                   status === "current" && "bg-yellow-600",
-                  status === "pending" && "bg-muted-foreground/30"
+                  status === "pending" && "bg-gray-300 dark:bg-gray-600"
                 )}>
                   {status === "completed" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                   {status === "current" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
@@ -66,7 +66,7 @@ export function Timeline({ progress, className }: TimelineProps) {
                   "flex-1 h-0.5 mx-2",
                   steps[index + 1].completed || status === "completed" 
                     ? "bg-green-600" 
-                    : "bg-muted-foreground/30"
+                    : "bg-gray-300 dark:bg-gray-600"
                 )} />
               )}
             </div>

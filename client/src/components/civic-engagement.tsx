@@ -118,15 +118,11 @@ export default function CivicEngagement() {
               Find town halls, city council meetings, and other civic events in your area.
             </p>
             <div className="space-y-3">
-              <Card>
-                <CardContent className="p-3">
-                  <div className="flex justify-between items-start mb-1">
-                    <h5 className="font-medium text-sm">City Council Meeting</h5>
-                    <span className="text-xs text-muted-foreground">Tomorrow</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">Discussing housing ordinance</p>
-                </CardContent>
-              </Card>
+              <div className="text-center py-4 text-muted-foreground">
+                <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">No upcoming events found</p>
+                <p className="text-xs">Check back soon for new civic events</p>
+              </div>
               <Button variant="outline" className="w-full">
                 View All Events
               </Button>
@@ -153,7 +149,7 @@ export default function CivicEngagement() {
                 <div className="flex items-center space-x-2">
                   <TriangleAlert className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
                   <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                    Next Election: November 5, 2024 (45 days)
+                    Next Election: November 5, 2025 (82 days)
                   </span>
                 </div>
               </div>

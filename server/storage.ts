@@ -562,7 +562,7 @@ export class MemStorage implements IStorage {
           signed: false,
         },
         impactTags: ["border-security", "infrastructure", "texas"],
-        aiSummary: "This bill focuses on upgrading border technology and increasing security personnel along the Texas-Mexico border.",
+        summary: "This bill focuses on upgrading border technology and increasing security personnel along the Texas-Mexico border.",
         isLocal: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -584,7 +584,7 @@ export class MemStorage implements IStorage {
           signed: false,
         },
         impactTags: ["transportation", "public-transit", "san-antonio"],
-        aiSummary: "Local initiative to improve public transportation connectivity across San Antonio with new BRT lines.",
+        summary: "Local initiative to improve public transportation connectivity across San Antonio with new BRT lines.",
         isLocal: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -606,7 +606,7 @@ export class MemStorage implements IStorage {
           signed: false,
         },
         impactTags: ["veterans", "healthcare", "rural-access"],
-        aiSummary: "Aims to improve healthcare accessibility for veterans in rural Texas communities through innovative delivery methods.",
+        summary: "Aims to improve healthcare accessibility for veterans in rural Texas communities through innovative delivery methods.",
         isLocal: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -634,7 +634,6 @@ export class MemStorage implements IStorage {
         tags: ["border-security", "congress", "tx-23", "infrastructure"],
         imageUrl: null,
         createdAt: new Date("2025-08-14T10:30:00"),
-        updatedAt: new Date("2025-08-14T10:30:00"),
       },
       {
         id: "news-sa-transit-expansion",
@@ -649,7 +648,6 @@ export class MemStorage implements IStorage {
         tags: ["transportation", "san-antonio", "public-transit", "city-council"],
         imageUrl: null,
         createdAt: new Date("2025-08-13T18:45:00"),
-        updatedAt: new Date("2025-08-13T18:45:00"),
       },
       {
         id: "news-veterans-healthcare",
@@ -664,7 +662,6 @@ export class MemStorage implements IStorage {
         tags: ["veterans", "healthcare", "rural-access", "congress", "bipartisan"],
         imageUrl: null,
         createdAt: new Date("2025-08-12T14:20:00"),
-        updatedAt: new Date("2025-08-12T14:20:00"),
       },
       {
         id: "news-alamodome-renovation",
@@ -679,7 +676,6 @@ export class MemStorage implements IStorage {
         tags: ["alamodome", "san-antonio", "renovation", "sports", "entertainment"],
         imageUrl: null,
         createdAt: new Date("2025-08-11T16:15:00"),
-        updatedAt: new Date("2025-08-11T16:15:00"),
       },
       {
         id: "news-energy-independence",
@@ -694,7 +690,6 @@ export class MemStorage implements IStorage {
         tags: ["energy", "texas", "renewable", "oil-gas", "senate", "bipartisan"],
         imageUrl: null,
         createdAt: new Date("2025-08-10T12:00:00"),
-        updatedAt: new Date("2025-08-10T12:00:00"),
       }
     ];
 

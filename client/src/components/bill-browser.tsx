@@ -176,7 +176,12 @@ export default function BillBrowser() {
               {/* Category Filter */}
               <div>
                 <Label htmlFor="category" className="text-sm font-medium">Category</Label>
-                <Select>
+                <Select 
+                  value={filters.categories.join(",")} 
+                  onValueChange={(value) => 
+                    handleFilterChange("categories", value === "all" ? [] : [value])
+                  }
+                >
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>

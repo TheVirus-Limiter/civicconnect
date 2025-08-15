@@ -126,8 +126,8 @@ export default function Home() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-blue-700 font-semibold px-8 py-3 rounded-full transition-all duration-200"
-                onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' })}
+                className="border-2 border-white text-blue-600 bg-white hover:bg-blue-50 font-semibold px-8 py-3 rounded-full transition-all duration-200"
+                onClick={() => window.open('https://www.youtube.com/watch?v=Otbml6WIQPo', '_blank')}
               >
                 Learn How It Works
               </Button>
