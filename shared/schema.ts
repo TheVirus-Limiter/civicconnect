@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { sql, relations } from "drizzle-orm";
 import { pgTable, text, varchar, boolean, timestamp, jsonb, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -114,14 +114,63 @@ export const civicEvents = pgTable("civic_events", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
   description: text("description"),
-  eventType: text("event_type").notNull(), // town_hall, hearing, meeting
+  eventType: text("event_type").notNull(), // town_hall, hearing, committee_meeting, community_forum
   date: timestamp("date").notNull(),
-  location: text("location"),
-  organizer: text("organizer"),
+  endDate: timestamp("end_date"),
+  location: text("location").notNull(),
+  address: text("address"),
+  virtualUrl: text("virtual_url"),
+  organizer: text("organizer").notNull(),
+  organizerContact: text("organizer_contact"),
+  level: text("level").notNull(), // federal, state, local
+  maxAttendees: integer("max_attendees"),
+  currentAttendees: integer("current_attendees").default(0),
+  requiresRsvp: boolean("requires_rsvp").default(false),
+  rsvpDeadline: timestamp("rsvp_deadline"),
   relatedBills: text("related_bills").array(),
-  url: text("url"),
+  tags: text("tags").array(),
+  status: text("status").default("scheduled"), // scheduled, cancelled, completed, rescheduled
+  language: text("language").default("en"), // en, es, both
+  accessibilityInfo: text("accessibility_info"),
+  agenda: text("agenda"),
+  livestreamUrl: text("livestream_url"),
+  recordingUrl: text("recording_url"),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+export const eventRsvps = pgTable("event_rsvps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  eventId: varchar("event_id").references(() => civicEvents.id).notNull(),
+  userId: varchar("user_id").references(() => users.id),
+  attendeeName: text("attendee_name").notNull(),
+  attendeeEmail: text("attendee_email").notNull(),
+  attendeePhone: text("attendee_phone"),
+  preferredLanguage: text("preferred_language").default("en"),
+  accessibilityNeeds: text("accessibility_needs"),
+  questions: text("questions"),
+  status: text("status").default("confirmed"), // confirmed, cancelled, waitlist
+  reminderSent: boolean("reminder_sent").default(false),
+  checkInTime: timestamp("check_in_time"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Relations for events and RSVPs
+export const eventsRelations = relations(civicEvents, ({ many }) => ({
+  rsvps: many(eventRsvps),
+}));
+
+export const rsvpsRelations = relations(eventRsvps, ({ one }) => ({
+  event: one(civicEvents, {
+    fields: [eventRsvps.eventId],
+    references: [civicEvents.id],
+  }),
+  user: one(users, {
+    fields: [eventRsvps.userId],
+    references: [users.id],
+  }),
+}));
 
 // Schemas for validation
 export const insertUserSchema = createInsertSchema(users).omit({
@@ -156,6 +205,13 @@ export const insertChatSessionSchema = createInsertSchema(chatSessions).omit({
 export const insertCivicEventSchema = createInsertSchema(civicEvents).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
+});
+
+export const insertEventRsvpSchema = createInsertSchema(eventRsvps).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 // Types
@@ -173,3 +229,5 @@ export type InsertChatSession = z.infer<typeof insertChatSessionSchema>;
 export type ChatSession = typeof chatSessions.$inferSelect;
 export type InsertCivicEvent = z.infer<typeof insertCivicEventSchema>;
 export type CivicEvent = typeof civicEvents.$inferSelect;
+export type InsertEventRsvp = z.infer<typeof insertEventRsvpSchema>;
+export type EventRsvp = typeof eventRsvps.$inferSelect;

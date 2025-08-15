@@ -297,6 +297,155 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Town Halls & Events API
+  app.get("/api/events", async (req, res) => {
+    try {
+      const { level, eventType, upcoming, limit } = req.query;
+      const { townHallService } = await import("./services/town-halls");
+      
+      const searchParams: any = {
+        level: level as string,
+        eventType: eventType as string,
+        limit: limit ? Number(limit) : undefined,
+      };
+
+      if (upcoming === "true") {
+        searchParams.dateRange = {
+          start: new Date(),
+          end: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000) // Next 90 days
+        };
+      }
+
+      const events = await townHallService.searchEvents(searchParams);
+      res.json({ events });
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      res.status(500).json({ error: "Failed to fetch events" });
+    }
+  });
+
+  app.get("/api/events/:id", async (req, res) => {
+    try {
+      const { townHallService } = await import("./services/town-halls");
+      const event = await townHallService.getEventById(req.params.id);
+      
+      if (!event) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+
+      res.json(event);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      res.status(500).json({ error: "Failed to fetch event" });
+    }
+  });
+
+  // RSVP API
+  app.post("/api/events/:eventId/rsvp", async (req, res) => {
+    try {
+      const { rsvpService } = await import("./services/rsvp");
+      const { townHallService } = await import("./services/town-halls");
+      
+      const eventId = req.params.eventId;
+      const event = await townHallService.getEventById(eventId);
+      
+      if (!event) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+
+      if (!event.requiresRsvp) {
+        return res.status(400).json({ error: "This event does not require RSVP" });
+      }
+
+      // Check if event is full
+      if (event.maxAttendees && await rsvpService.isEventFull(eventId, event.maxAttendees)) {
+        return res.status(400).json({ error: "Event is full" });
+      }
+
+      // Check if RSVP deadline has passed
+      if (event.rsvpDeadline && new Date() > new Date(event.rsvpDeadline)) {
+        return res.status(400).json({ error: "RSVP deadline has passed" });
+      }
+
+      // Check for existing RSVP
+      const existingRsvp = await rsvpService.getRsvpByEmailAndEvent(req.body.attendeeEmail, eventId);
+      if (existingRsvp) {
+        return res.status(400).json({ error: "RSVP already exists for this email" });
+      }
+
+      const rsvp = await rsvpService.createRsvp({
+        eventId,
+        ...req.body
+      });
+
+      res.status(201).json(rsvp);
+    } catch (error) {
+      console.error("Error creating RSVP:", error);
+      res.status(500).json({ error: "Failed to create RSVP" });
+    }
+  });
+
+  app.get("/api/rsvp/:id", async (req, res) => {
+    try {
+      const { rsvpService } = await import("./services/rsvp");
+      const rsvp = await rsvpService.getRsvpById(req.params.id);
+      
+      if (!rsvp) {
+        return res.status(404).json({ error: "RSVP not found" });
+      }
+
+      res.json(rsvp);
+    } catch (error) {
+      console.error("Error fetching RSVP:", error);
+      res.status(500).json({ error: "Failed to fetch RSVP" });
+    }
+  });
+
+  app.patch("/api/rsvp/:id", async (req, res) => {
+    try {
+      const { rsvpService } = await import("./services/rsvp");
+      const rsvp = await rsvpService.updateRsvp(req.params.id, req.body);
+      
+      if (!rsvp) {
+        return res.status(404).json({ error: "RSVP not found" });
+      }
+
+      res.json(rsvp);
+    } catch (error) {
+      console.error("Error updating RSVP:", error);
+      res.status(500).json({ error: "Failed to update RSVP" });
+    }
+  });
+
+  app.delete("/api/rsvp/:id", async (req, res) => {
+    try {
+      const { rsvpService } = await import("./services/rsvp");
+      const success = await rsvpService.cancelRsvp(req.params.id);
+      
+      if (!success) {
+        return res.status(404).json({ error: "RSVP not found" });
+      }
+
+      res.json({ message: "RSVP cancelled successfully" });
+    } catch (error) {
+      console.error("Error cancelling RSVP:", error);
+      res.status(500).json({ error: "Failed to cancel RSVP" });
+    }
+  });
+
+  app.get("/api/events/:eventId/rsvps", async (req, res) => {
+    try {
+      const { rsvpService } = await import("./services/rsvp");
+      const rsvps = await rsvpService.getRsvpsForEvent(req.params.eventId);
+      const count = await rsvpService.getAttendeeCount(req.params.eventId);
+      
+      res.json({ rsvps, count });
+    } catch (error) {
+      console.error("Error fetching event RSVPs:", error);
+      res.status(500).json({ error: "Failed to fetch RSVPs" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

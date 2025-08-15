@@ -7,11 +7,13 @@ import OfflineIndicator from "@/components/offline-indicator";
 import OfflineNotification from "@/components/offline-notification";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import Events from "@/pages/events";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/events" component={Events} />
       <Route component={NotFound} />
     </Switch>
   );
