@@ -280,7 +280,7 @@ export default function BillBrowser() {
               {bills.length > 0 && bills.length < total && (
                 <div className="text-center mt-8">
                   <Button onClick={loadMore} variant="outline">
-                    {t("bills.loadMore")}
+                    Load More Bills
                   </Button>
                 </div>
               )}
@@ -385,15 +385,15 @@ function BillCard({ bill }: { bill: Bill }) {
             </Button>
             <Button variant="outline" size="sm">
               <Bookmark className="w-4 h-4 mr-1" />
-              {t("bills.save")}
+              Save
             </Button>
             <Button variant="outline" size="sm">
               <Share2 className="w-4 h-4 mr-1" />
-              {t("bills.share")}
+              Share
             </Button>
             <Button size="sm">
               <ExternalLink className="w-4 h-4 mr-1" />
-              {t("bills.viewDetails")}
+              View Details
             </Button>
           </div>
         </div>

@@ -103,12 +103,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { query, category, pageSize = 20, page = 1 } = req.query;
 
-      const result = await newsService.searchCivicNews({
-        query: query as string,
-        category: category as string,
-        pageSize: Number(pageSize),
-        page: Number(page),
-      });
+      let result;
+      if (category === "local") {
+        const articles = await newsService.getLocalNews("San Antonio, Texas");
+        result = { articles, total: articles.length };
+      } else if (category === "explainer") {
+        const articles = await newsService.getExplainerNews();
+        result = { articles, total: articles.length };
+      } else {
+        result = await newsService.searchCivicNews({
+          query: query as string,
+          category: category as string,
+          pageSize: Number(pageSize),
+          page: Number(page),
+        });
+      }
 
       // Store articles in local storage
       for (const article of result.articles) {
@@ -139,11 +148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/news/local", async (req, res) => {
     try {
-      const { location } = req.query;
-      
-      if (!location) {
-        return res.status(400).json({ error: "Location parameter required" });
-      }
+      const { location = "San Antonio, Texas" } = req.query;
 
       const articles = await newsService.getLocalNews(location as string);
       

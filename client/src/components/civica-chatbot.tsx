@@ -216,7 +216,7 @@ export default function CivicaChatbot() {
                   <div className="relative">
                     <Input
                       type="text"
-                      placeholder={t("civica.placeholder")}
+                      placeholder="Ask me anything about legislation..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
@@ -262,28 +262,28 @@ export default function CivicaChatbot() {
                   variant="outline"
                   size="sm"
                   className="h-7 text-xs"
-                  onClick={() => handleQuickQuestion(t("civica.quickQuestions.howBillBecomesLaw"))}
+                  onClick={() => handleQuickQuestion("How does a bill become a law?")}
                   disabled={sendMessageMutation.isPending}
                 >
-                  {t("civica.quickQuestions.howBillBecomesLaw")}
+                  How does a bill become a law?
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   className="h-7 text-xs"
-                  onClick={() => handleQuickQuestion(t("civica.quickQuestions.localNews"))}
+                  onClick={() => handleQuickQuestion("What's happening in local politics?")}
                   disabled={sendMessageMutation.isPending}
                 >
-                  {t("civica.quickQuestions.localNews")}
+                  What's happening locally?
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   className="h-7 text-xs"
-                  onClick={() => handleQuickQuestion(t("civica.quickQuestions.explainBill"))}
+                  onClick={() => handleQuickQuestion("Can you explain this bill in simple terms?")}
                   disabled={sendMessageMutation.isPending}
                 >
-                  {t("civica.quickQuestions.explainBill")}
+                  Explain a bill
                 </Button>
               </div>
             </div>

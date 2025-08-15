@@ -129,7 +129,7 @@ export class NewsService {
 
   async getLocalNews(location: string): Promise<NewsArticle[]> {
     try {
-      const query = `${location} AND (politics OR government OR city council OR mayor)`;
+      const query = `"${location}" AND (politics OR government OR city council OR mayor OR local)`;
       
       const searchParams = new URLSearchParams({
         q: query,
@@ -149,8 +149,9 @@ export class NewsService {
 
       const data: NewsAPIResponse = await response.json();
 
-      if (data.status !== "ok") {
-        throw new Error("NewsAPI request failed");
+      if (data.status !== "ok" || !data.articles || data.articles.length === 0) {
+        console.log("No local articles returned, using local fallback news");
+        return this.getLocalFallbackNews(location);
       }
 
       return data.articles
@@ -161,7 +162,46 @@ export class NewsService {
         }));
     } catch (error) {
       console.error("Error fetching local news:", error);
-      return this.getFallbackNews();
+      return this.getLocalFallbackNews(location);
+    }
+  }
+
+  async getExplainerNews(): Promise<NewsArticle[]> {
+    try {
+      const query = `("how does" OR "what is" OR "explained" OR "explainer") AND (politics OR government OR legislation)`;
+      
+      const searchParams = new URLSearchParams({
+        q: query,
+        apiKey: this.apiKey,
+        language: "en",
+        sortBy: "publishedAt",
+        pageSize: "10",
+      });
+
+      const response = await fetch(
+        `${this.baseUrl}/everything?${searchParams.toString()}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`NewsAPI error: ${response.statusText}`);
+      }
+
+      const data: NewsAPIResponse = await response.json();
+
+      if (data.status !== "ok" || !data.articles || data.articles.length === 0) {
+        console.log("No explainer articles returned, using explainer fallback");
+        return this.getExplainerFallbackNews();
+      }
+
+      return data.articles
+        .filter(article => article.title && article.url)
+        .map((article) => ({
+          ...this.transformNewsAPIArticle(article),
+          category: "explainer",
+        }));
+    } catch (error) {
+      console.error("Error fetching explainer news:", error);
+      return this.getExplainerFallbackNews();
     }
   }
 
@@ -266,6 +306,78 @@ export class NewsService {
         tags: ["healthcare", "community"],
         createdAt: new Date()
       }
+    ];
+  }
+
+  private getLocalFallbackNews(location: string): NewsArticle[] {
+    const now = Date.now();
+    return [
+      {
+        id: `local-${now}-1`,
+        title: `${location} City Council Approves New Housing Development`,
+        summary: `The city council voted 6-3 to approve a new 200-unit affordable housing complex, addressing the growing housing shortage in ${location}.`,
+        content: `After months of public hearings and community input, the ${location} City Council has approved plans for a new affordable housing development...`,
+        url: `https://example.com/${location.toLowerCase().replace(' ', '-')}/housing-development`,
+        source: `${location} Tribune`,
+        publishedAt: new Date(now - 4 * 60 * 60 * 1000),
+        category: "local",
+        imageUrl: null,
+        author: "Local Reporter",
+        relatedBills: [],
+        tags: ["housing", "development"],
+        createdAt: new Date(),
+      },
+      {
+        id: `local-${now}-2`,
+        title: `${location} Mayor Announces Infrastructure Investment Plan`,
+        summary: `A $50 million plan to upgrade roads, bridges, and public facilities across ${location} was unveiled by the mayor yesterday.`,
+        content: `The comprehensive infrastructure plan will address critical maintenance needs throughout ${location}...`,
+        url: `https://example.com/${location.toLowerCase().replace(' ', '-')}/infrastructure-plan`,
+        source: `${location} News`,
+        publishedAt: new Date(now - 8 * 60 * 60 * 1000),
+        category: "local",
+        imageUrl: null,
+        author: "City Reporter",
+        relatedBills: [],
+        tags: ["infrastructure", "mayor"],
+        createdAt: new Date(),
+      },
+    ];
+  }
+
+  private getExplainerFallbackNews(): NewsArticle[] {
+    const now = Date.now();
+    return [
+      {
+        id: `explainer-${now}-1`,
+        title: "How Does Congressional Committee System Work?",
+        summary: "A comprehensive guide to understanding how congressional committees review, modify, and advance legislation through the federal process.",
+        content: "Congressional committees serve as the workhorses of Congress, where most of the detailed work on legislation happens...",
+        url: "https://example.com/explainer/congressional-committees",
+        source: "Civic Education Hub",
+        publishedAt: new Date(now - 6 * 60 * 60 * 1000),
+        category: "explainer",
+        imageUrl: null,
+        author: "Education Team",
+        relatedBills: [],
+        tags: ["congress", "committees", "education"],
+        createdAt: new Date(),
+      },
+      {
+        id: `explainer-${now}-2`,
+        title: "What Is the Federal Budget Process?",
+        summary: "Breaking down the complex federal budget process, from presidential proposals to congressional appropriations and final spending bills.",
+        content: "The federal budget process is a year-long cycle that involves multiple steps and key deadlines...",
+        url: "https://example.com/explainer/federal-budget",
+        source: "Government Guide",
+        publishedAt: new Date(now - 12 * 60 * 60 * 1000),
+        category: "explainer",
+        imageUrl: null,
+        author: "Policy Analyst",
+        relatedBills: [],
+        tags: ["budget", "federal", "education"],
+        createdAt: new Date(),
+      },
     ];
   }
 }

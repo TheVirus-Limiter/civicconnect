@@ -79,7 +79,7 @@ export default function Home() {
                 className="mt-2 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 w-full"
               >
                 <MapPin className="w-4 h-4 mr-1" />
-                {loading ? t("common.loading") : t("hero.updateLocation")}
+                {loading ? "Detecting..." : "Update Location"}
               </Button>
             </div>
 
@@ -90,21 +90,21 @@ export default function Home() {
                   <TrendingUp className="w-6 h-6" />
                   <span>1,247</span>
                 </div>
-                <div className="text-primary-foreground/80">{t("hero.activeBills")}</div>
+                <div className="text-primary-foreground/80">Active Bills</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold flex items-center justify-center space-x-2">
                   <Clock className="w-6 h-6" />
                   <span>89</span>
                 </div>
-                <div className="text-primary-foreground/80">{t("hero.recentUpdates")}</div>
+                <div className="text-primary-foreground/80">Recent Updates</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold flex items-center justify-center space-x-2">
                   <Users className="w-6 h-6" />
                   <span>23</span>
                 </div>
-                <div className="text-primary-foreground/80">{t("hero.localBills")}</div>
+                <div className="text-primary-foreground/80">Local Bills</div>
               </div>
             </div>
           </div>

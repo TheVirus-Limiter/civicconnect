@@ -11,6 +11,13 @@ import type { NewsArticle } from "@shared/schema";
 export default function NewsAggregator() {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("breaking");
+  const [showAll, setShowAll] = useState(false);
+  
+  // Reset showAll when category changes
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setShowAll(false);
+  };
 
   const { data: newsData, isLoading, error } = useQuery({
     queryKey: ["/api/news", activeCategory],
@@ -111,17 +118,43 @@ export default function NewsAggregator() {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article: NewsArticle, index: number) => (
-            <NewsCard key={article.id} article={article} featured={index === 0} />
-          ))}
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(showAll ? articles : articles.slice(0, 3)).map((article: NewsArticle, index: number) => (
+              <NewsCard key={article.id} article={article} featured={index === 0} />
+            ))}
+            
+            {articles.length === 0 && (
+              <div className="col-span-full text-center py-8">
+                <p className="text-muted-foreground">No news articles found for this category.</p>
+              </div>
+            )}
+          </div>
           
-          {articles.length === 0 && (
-            <div className="col-span-full text-center py-8">
-              <p className="text-muted-foreground">No news articles found for this category.</p>
+          {articles.length > 3 && !showAll && (
+            <div className="text-center mt-8">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowAll(true)}
+                className="px-8"
+              >
+                Show More Articles ({articles.length - 3} more)
+              </Button>
             </div>
           )}
-        </div>
+          
+          {showAll && articles.length > 3 && (
+            <div className="text-center mt-8">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowAll(false)}
+                className="px-8"
+              >
+                Show Less
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
