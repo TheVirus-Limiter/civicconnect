@@ -3,6 +3,18 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     const text = (await res.text()) || res.statusText;
+    
+    // Check if this is an offline response
+    try {
+      const data = JSON.parse(text);
+      if (data._offline) {
+        // Don't throw for offline responses, let them pass through
+        return;
+      }
+    } catch {
+      // Not JSON, continue with normal error handling
+    }
+    
     throw new Error(`${res.status}: ${text}`);
   }
 }
