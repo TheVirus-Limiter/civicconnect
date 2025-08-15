@@ -1,0 +1,118 @@
+
+
+ Development Prompt: Connected Civics – A Modern, Bilingual Civic Engagement App
+ Objective
+Build a webbased application where users can:
+ Follow and understand bills (local, state, and federal) through summaries, timelines, and visualizations.
+ Chat with an AI assistant for explanations and context.
+ Access curated news and events related to legislation.
+ Engage with government by tracking legislators, attending town halls, and contacting representatives.
+ Use the app in both English and Spanish.
+ Deploy the final version to GitHub Pages for public use.
+
+ Core Features
+1. Bill Browser & Timeline
+ Search/filter bills by jurisdiction, status, and issue area.
+ Horizontal visual timeline showing bill stages.
+ Each bill shows: summary, sponsors, voting history, impact tags.
+ “Impact Tags” label which sectors or groups are affected (Education, Healthcare, etc.).
+2. LocationBased Insights
+ Detect user location (HTML5 Geolocation API) or allow manual entry.
+ Show relevant city, state, and districtlevel bills.
+3. AI Chatbot – “Civica”
+ Conversational interface to answer questions like:
+ “What’s this bill about?”
+ “How does it affect me?”
+ Use OpenAI API (`gpt4omini` or `gpt4`) to:
+ Summarize bills from API sources into plain English or Spanish.
+ Explain political/legal jargon simply.
+ Generate short educational blurbs.
+ Responses must cite the data source.
+4. News Aggregator
+ Pull billrelated articles from APIs (NewsAPI.org, GNews.io, or Bing News Search).
+ Categorize into “Breaking,” “Explainer,” “Local,” “National.”
+ Display in modern news card format with image, headline, snippet, source, date.
+ Optional notifications for major updates.
+5. Bilingual UI
+ Toggle between English and Spanish instantly.
+ Use a translation library (e.g., i18next or reacti18next) for UI.
+ For bill summaries/news:
+ Use OpenAI API translation or Google Cloud Translation API for highquality translation.
+ Store translations locally to reduce API calls.
+6. Bookmarks & Notifications
+ Save bills and legislators for ongoing tracking.
+ Notify when status changes or new votes occur.
+ “Legislator Tracker” with their sponsored bills and voting history.
+7. Civic Engagement Tools
+ Autogenerate email drafts or call scripts to contact reps (English & Spanish).
+ Town hall and public hearing calendar (fetched from local/state feeds).
+ Public petition or comment form links when available.
+8. Interactive Data Visualizations
+ Vote breakdowns by party and chamber (Chart.js or D3.js).
+ Map of states/districts supporting or opposing.
+ Progress graph for bill movement over time.
+9. AccessibilityFirst Design
+ Texttospeech for summaries (Web Speech API).
+ Adjustable font size and contrast.
+ WCAG 2.1 AA compliance.
+10. Civic Education Mode
+ “How a Bill Becomes Law” explained in interactive steps.
+ Mini quizzes and explainer animations.
+11. Community Feedback & Polls
+ Anonymous poll: “Do you support this bill?”
+ See districtwide aggregated results.
+12. Offline Mode
+ Save bills/news for offline reading.
+
+ Data Sources & APIs
+Bill Data
+ GovTrack API (Federal bills): `https://www.govtrack.us/developers/api`
+ ProPublica Congress API: `https://projects.propublica.org/apidocs/congressapi/`
+ State Legislature APIs: Check individual state government developer portals.
+ City/County Data: OpenData portals (e.g., `data.gov`, `opendata.cityname.gov`).
+News
+ [NewsAPI.org](https://newsapi.org/) – General & keywordspecific searches.
+ [GNews API](https://gnews.io/) – Google Newsbased articles.
+ [Bing News Search API](https://learn.microsoft.com/enus/bing/searchapis/bingnewssearch/overview).
+Translation
+ Google Cloud Translation API or DeepL API for highquality translations.
+ Backup: OpenAI API (`gpt4omini`) for inline translations.
+AI Summaries
+ OpenAI API:
+ `gpt4omini` or `gpt4` for summarizing bill text into clear English or Spanish.
+ Prompt format:
+```
+Summarize the following bill in simple, clear [English/Spanish], at a 9thgrade reading level, including:
+1. Purpose
+2. Key Provisions
+3. Potential Impact
+Source: [URL]
+```
+ Use separate API calls for English and Spanish summaries when necessary.
+
+ Tech Stack
+ Frontend Framework: React (recommended), Vue, or Vanilla JS + HTML/CSS.
+ Styling: Tailwind CSS for modern UI, accessible color palette.
+ Data Visualization: Chart.js or D3.js.
+ Translation: i18next/reacti18next + translation API.
+ Deployment: GitHub Pages.
+ Version Control: GitHub repository with clear README and contribution guide.
+ Build Tools: Vite (for React/Vue) or Create React App.
+
+ Design Guidelines
+ Look & Feel: Clean, modern, minimal; cardbased layouts, rounded corners, subtle shadows.
+ Color Coding: Bill status colors (green = passed, yellow = pending, red = failed).
+ MobileFirst: Fully responsive from start.
+ Animations: Smooth transitions for chatbot, card expansion, and timeline changes.
+ Accessibility: Ensure compatibility with screen readers; test with Lighthouse.
+
+ Deployment Plan
+1. Build MVP with bill browsing, AI summaries, news feed, and bilingual toggle.
+2. Host via GitHub Pages (set up `ghpages` branch and GitHub Actions for autodeploy).
+3. Add engagement tools and visualizations after MVP is stable.
+4. Optimize for performance and accessibility before Congressional App Challenge submission.
+
+ Goal
+Deliver a fully functional, bilingual, publicly accessible civic engagement web app that is easy on the eyes, educational, and interactive—ready for launch on GitHub Pages as part of the Congressional App Challenge.
+
+
