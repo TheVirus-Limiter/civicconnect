@@ -263,18 +263,20 @@ export class MemStorage implements IStorage {
     let legislators = Array.from(this.legislators.values());
     console.log(`All legislators:`, legislators.map(l => `${l.name} (${l.state}-${l.district})`));
 
-    // For TX-23, return all Texas legislators (including senators who represent the whole state)
+    // Normalize state filtering - handle both "TX" and "Texas"
     if (params.state) {
-      legislators = legislators.filter(leg => leg.state === params.state);
-      console.log(`After state filter (${params.state}):`, legislators.map(l => l.name));
+      const stateCode = params.state === "Texas" ? "TX" : params.state;
+      legislators = legislators.filter(leg => leg.state === stateCode);
+      console.log(`After state filter (${params.state} -> ${stateCode}):`, legislators.map(l => l.name));
     }
 
-    // For district filtering, include both the specific district and statewide positions (senators)
+    // Normalize district filtering - handle both "23" and "TX-23"
     if (params.district) {
+      const districtNumber = params.district.replace("TX-", "");
       legislators = legislators.filter(leg => 
-        leg.district === params.district || leg.district === null // senators have null district
+        leg.district === districtNumber || leg.district === null // senators have null district
       );
-      console.log(`After district filter (${params.district}):`, legislators.map(l => l.name));
+      console.log(`After district filter (${params.district} -> ${districtNumber}):`, legislators.map(l => l.name));
     }
 
     const limit = params.limit || 10;
@@ -431,7 +433,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 225-4511",
         email: "tony.gonzales@mail.house.gov",
         website: "https://gonzales.house.gov",
-        imageUrl: null,
+        imageUrl: "https://gonzales.house.gov/sites/evo-subsites/gonzales.house.gov/files/evo-media-image/tony-gonzales-headshot.jpg",
         yearsInOffice: 4,
         billsSponsored: 27,
         recentActivity: [
@@ -451,7 +453,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 224-2934",
         email: "john.cornyn@cornyn.senate.gov",
         website: "https://cornyn.senate.gov",
-        imageUrl: null,
+        imageUrl: "https://cornyn.senate.gov/sites/default/files/2023-07/Cornyn%20Official%20Photo%202023.jpg",
         yearsInOffice: 22,
         billsSponsored: 89,
         recentActivity: [
@@ -471,7 +473,7 @@ export class MemStorage implements IStorage {
         phone: "(202) 224-5922",
         email: "ted.cruz@cruz.senate.gov",
         website: "https://cruz.senate.gov",
-        imageUrl: null,
+        imageUrl: "https://cruz.senate.gov/sites/default/files/styles/senator_large/public/Cruz%20Official%20Photo%202019_0.jpg",
         yearsInOffice: 12,
         billsSponsored: 156,
         recentActivity: [
