@@ -9,12 +9,12 @@ import Footer from "@/components/footer";
 import { useTranslation } from "@/hooks/use-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Button } from "@/components/ui/button";
-import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare } from "lucide-react";
+import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare, Languages } from "lucide-react";
 import LocationSelector from "@/components/location-selector";
 import { Link } from "wouter";
 
 export default function Home() {
-  const { t, language } = useTranslation();
+  const { t, language, toggleLanguage } = useTranslation();
   const { location, detectLocation, loading } = useLocation();
 
   return (
@@ -24,97 +24,145 @@ export default function Home() {
       {/* Main Navigation */}
       <nav className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8 overflow-x-auto">
-            <a href="#bills" className="whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
-              Bills
-            </a>
-            <a href="#news" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              News
-            </a>
-            <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              Legislators
-            </a>
-            <Link href="/community/polls" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
-              <Vote className="w-4 h-4" />
-              Community Polls
-            </Link>
-            <Link href="/community/feedback" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
-              <MessageSquare className="w-4 h-4" />
-              Feedback
-            </Link>
-            <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              Engage
-            </a>
-            <a href="#education" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-              Learn
-            </a>
+          <div className="flex items-center justify-between">
+            <div className="flex space-x-8 overflow-x-auto">
+              <a href="#bills" className="whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
+                {t("nav.bills")}
+              </a>
+              <a href="#news" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
+                {t("nav.news")}
+              </a>
+              <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
+                {t("nav.legislators")}
+              </a>
+              <Link href="/community/polls" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
+                <Vote className="w-4 h-4" />
+                Community Polls
+              </Link>
+              <Link href="/community/feedback" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
+                <MessageSquare className="w-4 h-4" />
+                Feedback
+              </Link>
+              <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
+                {t("nav.engage")}
+              </a>
+              <a href="#education" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
+                {t("nav.education")}
+              </a>
+            </div>
+            
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="ml-4 flex items-center gap-2"
+            >
+              <Languages className="w-4 h-4" />
+              {language === 'en' ? 'ES' : 'EN'}
+            </Button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16 overflow-hidden">
+        {/* Civic illustration background */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="absolute right-0 top-0 h-full w-auto" viewBox="0 0 400 300" fill="currentColor">
+            <path d="M200 50 L120 100 L120 250 L280 250 L280 100 Z M200 70 L240 90 L240 230 L160 230 L160 90 Z M180 120 L220 120 L220 140 L180 140 Z M180 160 L220 160 L220 180 L180 180 Z M180 200 L220 200 L220 220 L180 220 Z" />
+          </svg>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Stay Connected to Your Democracy</h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto">
-              Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.
+            {/* Main headline */}
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
+              {t("hero.title")}
+            </h1>
+            
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto font-light leading-relaxed">
+              {t("hero.subtitle")}
             </p>
             
-            {/* Location Display */}
-            <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-lg p-6 max-w-md mx-auto mb-8">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <MapPin className="w-6 h-6" />
-                <span className="text-lg font-medium">Your Location</span>
+            {/* Location Input */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-full p-1 max-w-md mx-auto mb-8 border border-white/20">
+              <div className="flex items-center px-4 py-3">
+                <MapPin className="w-5 h-5 text-blue-200 mr-3 flex-shrink-0" />
+                <div className="flex-1 text-left">
+                  <div className="text-white font-medium">
+                    {location.city && location.state ? (
+                      `${location.city}, ${location.state}`
+                    ) : (
+                      "San Antonio, Texas"
+                    )}
+                  </div>
+                  <div className="text-blue-200 text-sm">
+                    {location.district || "District TX-23"}
+                  </div>
+                </div>
+                <Button 
+                  onClick={detectLocation}
+                  disabled={loading}
+                  variant="secondary"
+                  size="sm"
+                  className="ml-3 bg-white/20 hover:bg-white/30 text-white border-none rounded-full px-4"
+                >
+                  {loading ? "Updating..." : "Update Location"}
+                </Button>
               </div>
-              <div className="text-primary-foreground/90 text-center">
-                {location.city && location.state ? (
-                  <>
-                    <p className="font-medium">{location.city}, {location.state}</p>
-                    {location.district && <p className="text-sm">District {location.district}</p>}
-                  </>
-                ) : (
-                  <p className="text-sm">San Antonio, Texas - District TX-23</p>
-                )}
-              </div>
-              <div className="mt-4 flex justify-center">
-                <LocationSelector />
-              </div>
+            </div>
+
+            {/* Call to Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button 
-                onClick={detectLocation}
-                disabled={loading}
-                variant="ghost"
-                size="sm"
-                className="mt-2 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 w-full"
+                size="lg"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+                onClick={() => document.getElementById('bills')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                <MapPin className="w-4 h-4 mr-1" />
-                {loading ? "Detecting..." : "Update Location"}
+                Explore Bills
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-blue-700 font-semibold px-8 py-3 rounded-full transition-all duration-200"
+                onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Learn How It Works
               </Button>
             </div>
 
-            {/* Quick Stats */}
+            {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold flex items-center justify-center space-x-2">
-                  <TrendingUp className="w-6 h-6" />
-                  <span>1,247</span>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
+                <div className="flex items-center justify-center w-16 h-16 bg-green-500 rounded-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+                  <TrendingUp className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-primary-foreground/80">Active Bills</div>
+                <div className="text-3xl font-bold mb-2">1,247</div>
+                <div className="text-blue-200 font-medium">Active Bills</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold flex items-center justify-center space-x-2">
-                  <Clock className="w-6 h-6" />
-                  <span>89</span>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
+                <div className="flex items-center justify-center w-16 h-16 bg-yellow-500 rounded-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+                  <Clock className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-primary-foreground/80">Recent Updates</div>
+                <div className="text-3xl font-bold mb-2">89</div>
+                <div className="text-blue-200 font-medium">Recent Updates</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold flex items-center justify-center space-x-2">
-                  <Users className="w-6 h-6" />
-                  <span>23</span>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
+                <div className="flex items-center justify-center w-16 h-16 bg-purple-500 rounded-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-primary-foreground/80">Local Bills</div>
+                <div className="text-3xl font-bold mb-2">23</div>
+                <div className="text-blue-200 font-medium">Local Bills</div>
               </div>
+            </div>
+
+            {/* Language Support Indicator */}
+            <div className="mt-8 text-blue-200 text-sm">
+              Available in English and Spanish • Disponible en inglés y español
             </div>
           </div>
         </div>

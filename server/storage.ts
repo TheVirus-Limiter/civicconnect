@@ -408,65 +408,65 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
-    // Seed some sample legislators
+    // Seed TX-23 legislators
     const sampleLegislators: Legislator[] = [
       {
-        id: "rep-pelosi",
-        name: "Nancy Pelosi",
+        id: "rep-tx23",
+        name: "Tony Gonzales",
         title: "Representative",
-        party: "Democratic",
-        state: "CA",
-        district: "11",
+        party: "Republican",
+        state: "TX",
+        district: "23",
         office: "U.S. House of Representatives",
-        phone: "(202) 225-4965",
-        email: "sf.nancy@mail.house.gov",
-        website: "https://pelosi.house.gov",
+        phone: "(202) 225-4511",
+        email: "tony.gonzales@mail.house.gov",
+        website: "https://gonzales.house.gov",
         imageUrl: null,
-        yearsInOffice: 37,
-        billsSponsored: 23,
+        yearsInOffice: 4,
+        billsSponsored: 27,
         recentActivity: [
-          { action: "Voted Yes", bill: "Clean Energy Infrastructure Act", date: "2024-08-10" },
-          { action: "Sponsored", bill: "Student Loan Relief Amendment", date: "2024-08-05" }
+          { action: "Voted Yes", bill: "Border Security Enhancement Act", date: "2025-08-12" },
+          { action: "Sponsored", bill: "Rural Broadband Infrastructure Bill", date: "2025-08-08" }
         ],
         updatedAt: new Date(),
       },
       {
-        id: "sen-feinstein",
-        name: "Dianne Feinstein",
+        id: "sen-cornyn",
+        name: "John Cornyn",
         title: "Senator",
-        party: "Democratic",
-        state: "CA",
+        party: "Republican",
+        state: "TX",
         district: null,
         office: "U.S. Senate",
-        phone: "(202) 224-3841",
-        email: "senator@feinstein.senate.gov",
-        website: "https://feinstein.senate.gov",
+        phone: "(202) 224-2934",
+        email: "john.cornyn@cornyn.senate.gov",
+        website: "https://cornyn.senate.gov",
         imageUrl: null,
-        yearsInOffice: 31,
-        billsSponsored: 45,
+        yearsInOffice: 22,
+        billsSponsored: 89,
         recentActivity: [
-          { action: "Co-sponsored", bill: "Climate Action Framework", date: "2024-08-12" },
-          { action: "Voted No", bill: "Tax Reform Amendment", date: "2024-08-08" }
+          { action: "Co-sponsored", bill: "Veterans Healthcare Expansion", date: "2025-08-10" },
+          { action: "Voted Yes", bill: "Infrastructure Investment Act", date: "2025-08-06" }
         ],
         updatedAt: new Date(),
       },
       {
-        id: "mayor-breed",
-        name: "London Breed",
-        title: "Mayor",
-        party: "Democratic",
-        state: "CA",
+        id: "sen-cruz",
+        name: "Ted Cruz",
+        title: "Senator",
+        party: "Republican",
+        state: "TX",
         district: null,
-        office: "Mayor of San Francisco",
-        phone: "(415) 554-6141",
-        email: "mayor@sfgov.org",
-        website: "https://sf.gov/mayor",
+        office: "U.S. Senate",
+        phone: "(202) 224-5922",
+        email: "ted.cruz@cruz.senate.gov",
+        website: "https://cruz.senate.gov",
         imageUrl: null,
-        yearsInOffice: 6,
-        billsSponsored: 12,
+        yearsInOffice: 12,
+        billsSponsored: 156,
         recentActivity: [
-          { action: "Proposed", bill: "Housing Affordability Initiative", date: "2024-08-13" },
-          { action: "Signed", bill: "Public Transit Expansion Plan", date: "2024-08-11" }
+          { action: "Proposed", bill: "Energy Independence Act", date: "2025-08-13" },
+          { action: "Voted No", bill: "Climate Action Framework", date: "2025-08-09" }
         ],
         updatedAt: new Date(),
       },
@@ -476,24 +476,231 @@ export class MemStorage implements IStorage {
       this.legislators.set(legislator.id, legislator);
     });
 
-    // Seed a sample civic event
-    const sampleEvent: CivicEvent = {
-      id: "event-city-council",
-      title: "City Council Meeting",
-      description: "Monthly city council meeting discussing the housing ordinance",
-      eventType: "meeting",
-      date: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
-      location: "San Francisco City Hall",
-      organizer: "San Francisco City Council",
-      relatedBills: ["SF-2024-12"],
-      url: "https://sf.gov/meetings",
-      createdAt: new Date(),
-    };
+    // Seed San Antonio civic events for August 2025
+    const sampleEvents: CivicEvent[] = [
+      {
+        id: "event-sa-council",
+        title: "San Antonio City Council Meeting",
+        description: "Regular city council meeting discussing budget allocation for public transportation improvements",
+        eventType: "meeting",
+        date: new Date("2025-08-21T18:00:00"), // Next Thursday
+        location: "San Antonio City Hall, 100 Military Plaza",
+        organizer: "San Antonio City Council",
+        relatedBills: ["SA-2025-08"],
+        url: "https://sanantonio.gov/meetings",
+        createdAt: new Date(),
+      },
+      {
+        id: "event-townhall-tx23",
+        title: "Town Hall with Rep. Tony Gonzales",
+        description: "Community town hall to discuss border security, veteran affairs, and upcoming legislation affecting TX-23",
+        eventType: "town_hall",
+        date: new Date("2025-08-28T19:00:00"), // Next Thursday evening
+        location: "UTSA Downtown Campus, 501 W Cesar E Chavez Blvd",
+        organizer: "Office of Rep. Tony Gonzales",
+        relatedBills: ["HR-2025-234", "HR-2025-189"],
+        url: "https://gonzales.house.gov/events",
+        createdAt: new Date(),
+      },
+      {
+        id: "event-voting-info",
+        title: "Voter Registration Drive",
+        description: "Register to vote and learn about upcoming local elections. Bilingual assistance available.",
+        eventType: "public_event",
+        date: new Date("2025-08-24T10:00:00"), // Saturday morning
+        location: "Alamodome, 100 Montana St",
+        organizer: "Bexar County Elections Department",
+        relatedBills: null,
+        url: "https://bexar.org/elections",
+        createdAt: new Date(),
+      },
+      {
+        id: "event-budget-hearing",
+        title: "Public Budget Hearing",
+        description: "Public hearing on the proposed 2026 San Antonio city budget. Public comment period included.",
+        eventType: "hearing",
+        date: new Date("2025-08-30T14:00:00"), // Following Saturday
+        location: "San Antonio City Hall, Council Chambers",
+        organizer: "San Antonio Budget Office",
+        relatedBills: ["SA-2025-Budget"],
+        url: "https://sanantonio.gov/budget",
+        createdAt: new Date(),
+      }
+    ];
 
-    this.civicEvents.set(sampleEvent.id, sampleEvent);
+    sampleEvents.forEach(event => {
+      this.civicEvents.set(event.id, event);
+    });
 
+    // Seed TX-23 relevant bills
+    this.seedLocalBills();
+    
+    // Seed San Antonio/TX-23 news articles
+    this.seedNewsArticles();
+    
     // Seed sample polls
     this.seedPolls();
+  }
+
+  private seedLocalBills() {
+    // Seed TX-23 and San Antonio relevant bills
+    const localBills: Bill[] = [
+      {
+        id: "hr-2025-234",
+        title: "Border Infrastructure Modernization Act",
+        summary: "Comprehensive legislation to modernize border infrastructure along the Texas-Mexico border, including technology upgrades at ports of entry and additional staffing for border patrol.",
+        status: "in_committee",
+        jurisdiction: "federal",
+        introducedDate: new Date("2025-07-15"),
+        lastActionDate: new Date("2025-08-10"),
+        sponsor: "Rep. Tony Gonzales (R-TX-23)",
+        progress: {
+          introduced: true,
+          committee: true,
+          passed_house: false,
+          passed_senate: false,
+          signed: false,
+        },
+        impactTags: ["border-security", "infrastructure", "texas"],
+        aiSummary: "This bill focuses on upgrading border technology and increasing security personnel along the Texas-Mexico border.",
+        isLocal: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "sa-2025-08",
+        title: "San Antonio Public Transit Expansion",
+        summary: "City ordinance to expand VIA Metropolitan Transit with new bus rapid transit lines connecting downtown to major employment centers and universities.",
+        status: "active",
+        jurisdiction: "local",
+        introducedDate: new Date("2025-06-20"),
+        lastActionDate: new Date("2025-08-12"),
+        sponsor: "San Antonio City Council",
+        progress: {
+          introduced: true,
+          committee: true,
+          passed_house: false,
+          passed_senate: false,
+          signed: false,
+        },
+        impactTags: ["transportation", "public-transit", "san-antonio"],
+        aiSummary: "Local initiative to improve public transportation connectivity across San Antonio with new BRT lines.",
+        isLocal: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "hr-2025-189",
+        title: "Veterans Healthcare Access Enhancement",
+        summary: "Legislation to expand healthcare access for veterans in rural areas, including telemedicine services and mobile healthcare units.",
+        status: "passed_house",
+        jurisdiction: "federal",
+        introducedDate: new Date("2025-05-03"),
+        lastActionDate: new Date("2025-08-08"),
+        sponsor: "Rep. Tony Gonzales (R-TX-23)",
+        progress: {
+          introduced: true,
+          committee: true,
+          passed_house: true,
+          passed_senate: false,
+          signed: false,
+        },
+        impactTags: ["veterans", "healthcare", "rural-access"],
+        aiSummary: "Aims to improve healthcare accessibility for veterans in rural Texas communities through innovative delivery methods.",
+        isLocal: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ];
+
+    localBills.forEach(bill => {
+      this.bills.set(bill.id, bill);
+    });
+  }
+
+  private seedNewsArticles() {
+    // Seed San Antonio and TX-23 relevant news articles
+    const newsArticles: NewsArticle[] = [
+      {
+        id: "news-border-infrastructure",
+        title: "Rep. Gonzales Pushes for $2.1B Border Infrastructure Investment",
+        summary: "Texas congressman Tony Gonzales introduces comprehensive border security legislation targeting technology upgrades and additional personnel along the Texas-Mexico border corridor.",
+        content: "Representative Tony Gonzales (R-TX-23) announced his Border Infrastructure Modernization Act this week, calling for significant federal investment in border security technology and staffing. The legislation would allocate $2.1 billion over five years for upgraded surveillance systems, biometric processing capabilities, and 1,500 additional border patrol agents specifically for the Texas border region.",
+        category: "breaking",
+        source: "San Antonio Express-News",
+        author: "Maria Rodriguez",
+        url: "https://expressnews.com/border-infrastructure-2025",
+        publishedAt: new Date("2025-08-14T10:30:00"),
+        tags: ["border-security", "congress", "tx-23", "infrastructure"],
+        imageUrl: null,
+        createdAt: new Date("2025-08-14T10:30:00"),
+        updatedAt: new Date("2025-08-14T10:30:00"),
+      },
+      {
+        id: "news-sa-transit-expansion",
+        title: "San Antonio City Council Approves VIA Transit Expansion",
+        summary: "City council unanimously votes to expand public transportation with new bus rapid transit lines connecting downtown to UTSA and medical center districts.",
+        content: "The San Antonio City Council voted 11-0 Thursday to approve a $180 million VIA Metropolitan Transit expansion plan. The project will create three new bus rapid transit (BRT) lines connecting downtown San Antonio to major employment centers including the Texas Medical Center, UTSA's main campus, and the Port San Antonio technology district. Construction is expected to begin in fall 2025 with the first line operational by 2027.",
+        category: "local", 
+        source: "KSAT 12",
+        author: "James Patterson",
+        url: "https://ksat.com/via-transit-expansion-2025",
+        publishedAt: new Date("2025-08-13T18:45:00"),
+        tags: ["transportation", "san-antonio", "public-transit", "city-council"],
+        imageUrl: null,
+        createdAt: new Date("2025-08-13T18:45:00"),
+        updatedAt: new Date("2025-08-13T18:45:00"),
+      },
+      {
+        id: "news-veterans-healthcare",
+        title: "Rural Veterans Healthcare Bill Passes House Committee",
+        summary: "Legislation co-sponsored by Rep. Gonzales to expand telemedicine and mobile health services for veterans in rural Texas communities advances to full House vote.",
+        content: "The Veterans Healthcare Access Enhancement Act passed the House Veterans' Affairs Committee with bipartisan support Wednesday. Co-sponsored by Rep. Tony Gonzales (R-TX-23), the legislation would establish mobile healthcare units and expand telemedicine services for veterans living in rural areas. The bill specifically addresses healthcare access challenges in South Texas, where many veterans travel over 100 miles to reach the nearest VA facility.",
+        category: "national",
+        source: "Military Times",
+        author: "Patricia Williams",
+        url: "https://militarytimes.com/veterans-healthcare-rural-access",
+        publishedAt: new Date("2025-08-12T14:20:00"),
+        tags: ["veterans", "healthcare", "rural-access", "congress", "bipartisan"],
+        imageUrl: null,
+        createdAt: new Date("2025-08-12T14:20:00"),
+        updatedAt: new Date("2025-08-12T14:20:00"),
+      },
+      {
+        id: "news-alamodome-renovation",
+        title: "Alamodome Renovation Project Gets $85M City Approval",
+        summary: "San Antonio approves major renovation of the Alamodome to improve accessibility, modernize facilities, and attract major sporting events and concerts.",
+        content: "The San Antonio City Council approved an $85 million renovation plan for the Alamodome on Thursday, aimed at modernizing the 32-year-old venue and making it more competitive for major events. The project includes upgraded audio-visual systems, improved accessibility features, expanded concourses, and energy-efficient lighting. City officials expect the renovations to attract more NCAA tournament games, major concerts, and potentially position San Antonio for future Super Bowl consideration.",
+        category: "local",
+        source: "San Antonio Current",
+        author: "Carlos Mendez",
+        url: "https://sacurrent.com/alamodome-renovation-2025",
+        publishedAt: new Date("2025-08-11T16:15:00"),
+        tags: ["alamodome", "san-antonio", "renovation", "sports", "entertainment"],
+        imageUrl: null,
+        createdAt: new Date("2025-08-11T16:15:00"),
+        updatedAt: new Date("2025-08-11T16:15:00"),
+      },
+      {
+        id: "news-energy-independence",
+        title: "Texas Energy Independence Act Gains Senate Support",
+        summary: "Senator Ted Cruz's energy legislation receives bipartisan backing as Texas leads nation in renewable energy production alongside traditional oil and gas sectors.",
+        content: "Senator Ted Cruz's Energy Independence Act gained momentum in the Senate Energy Committee this week, with three Democratic senators joining Republican supporters. The legislation aims to reduce federal regulations on energy production while incentivizing both traditional and renewable energy development. Texas currently leads the nation in wind energy production and ranks second in solar capacity, while maintaining its position as the top oil and natural gas producer.",
+        category: "national",
+        source: "Houston Chronicle",
+        author: "Rebecca Thompson",
+        url: "https://houstonchronicle.com/energy-independence-act-2025",
+        publishedAt: new Date("2025-08-10T12:00:00"),
+        tags: ["energy", "texas", "renewable", "oil-gas", "senate", "bipartisan"],
+        imageUrl: null,
+        createdAt: new Date("2025-08-10T12:00:00"),
+        updatedAt: new Date("2025-08-10T12:00:00"),
+      }
+    ];
+
+    newsArticles.forEach(article => {
+      this.newsArticles.set(article.id, article);
+    });
   }
 
   // Polls

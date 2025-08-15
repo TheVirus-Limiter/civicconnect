@@ -235,10 +235,9 @@ function NewsCard({ article, featured = false }: { article: NewsArticle; feature
               <Bot className="w-4 h-4 mr-1" />
               Ask AI
             </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="w-4 h-4 mr-1" />
-                {t("news.readMore")}
+            <Button variant="ghost" size="icon" asChild>
+              <a href={article.url} target="_blank" rel="noopener noreferrer" title="Read full article">
+                <ExternalLink className="w-4 h-4" />
               </a>
             </Button>
           </div>

@@ -371,10 +371,7 @@ function BillCard({ bill }: { bill: Bill }) {
                   Updated {formatDate(bill.lastActionDate)}
                 </span>
               )}
-              <span className="flex items-center">
-                <Eye className="w-4 h-4 mr-1" />
-                1,234 views
-              </span>
+
             </div>
           </div>
           
