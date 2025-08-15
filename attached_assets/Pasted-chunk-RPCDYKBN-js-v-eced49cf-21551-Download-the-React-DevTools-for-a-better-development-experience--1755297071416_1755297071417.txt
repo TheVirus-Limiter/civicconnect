@@ -1,0 +1,246 @@
+chunk-RPCDYKBN.js?v=eced49cf:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+chunk-WERSD76P.js?v=4f455442:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+client:536 WebSocket connection to 'wss://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/?token=CbQC1PZLJxMV' failed: 
+setupWebSocket @ client:536
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at Object.useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useToast (use-toast.ts:172:35)
+    at Toaster (toaster.tsx:12:22)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useTranslation (use-translation.ts:5:35)
+    at Home (home.tsx:16:27)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useOffline (use-offline.ts:17:29)
+    at OfflineIndicator (offline-indicator.tsx:18:7)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useOffline (use-offline.ts:17:29)
+    at OfflineNotification (offline-notification.tsx:12:40)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at Object.useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useToast (use-toast.ts:172:35)
+    at Toaster (toaster.tsx:12:22)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useTranslation (use-translation.ts:5:35)
+    at Home (home.tsx:16:27)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useOffline (use-offline.ts:17:29)
+    at OfflineIndicator (offline-indicator.tsx:18:7)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-3TFVT2CW.js?v=4f455442:136
+chunk-3TFVT2CW.js?v=4f455442:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useOffline (use-offline.ts:17:29)
+    at OfflineNotification (offline-notification.tsx:12:40)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-RPCDYKBN.js?v=eced49cf:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-RPCDYKBN.js?v=eced49cf:3699:24)
+    at invokeGuardedCallback (chunk-RPCDYKBN.js?v=eced49cf:3733:39)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19765:15)
+chunk-RPCDYKBN.js?v=eced49cf:14032 The above error occurred in the <Toaster> component:
+
+    at Toaster (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/src/components/ui/toaster.tsx:29:22)
+    at QueryClientProvider (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=eced49cf:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-RPCDYKBN.js?v=eced49cf:14032
+chunk-RPCDYKBN.js?v=eced49cf:14032 The above error occurred in the <Home> component:
+
+    at Home (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/src/pages/home.tsx:33:27)
+    at Route (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=eced49cf:323:16)
+    at Switch (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=eced49cf:379:17)
+    at Router
+    at QueryClientProvider (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=eced49cf:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-RPCDYKBN.js?v=eced49cf:14032
+chunk-RPCDYKBN.js?v=eced49cf:14032 The above error occurred in the <OfflineIndicator> component:
+
+    at OfflineIndicator (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/src/components/offline-indicator.tsx:35:7)
+    at QueryClientProvider (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=eced49cf:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-RPCDYKBN.js?v=eced49cf:14032
+chunk-RPCDYKBN.js?v=eced49cf:14032 The above error occurred in the <OfflineNotification> component:
+
+    at OfflineNotification (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/src/components/offline-notification.tsx:23:39)
+    at QueryClientProvider (https://e58af231-6a9d-436a-b7e2-fc45950c16ac-00-36v9sry6psgto.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=eced49cf:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-RPCDYKBN.js?v=eced49cf:14032
+chunk-RPCDYKBN.js?v=eced49cf:19413 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at Object.useState (chunk-3TFVT2CW.js?v=4f455442:1066:29)
+    at useToast (use-toast.ts:172:35)
+    at Toaster (toaster.tsx:12:22)
+    at renderWithHooks (chunk-RPCDYKBN.js?v=eced49cf:11548:26)
+    at mountIndeterminateComponent (chunk-RPCDYKBN.js?v=eced49cf:14926:21)
+    at beginWork (chunk-RPCDYKBN.js?v=eced49cf:15914:22)
+    at beginWork$1 (chunk-RPCDYKBN.js?v=eced49cf:19753:22)
+    at performUnitOfWork (chunk-RPCDYKBN.js?v=eced49cf:19198:20)
+    at workLoopSync (chunk-RPCDYKBN.js?v=eced49cf:19137:13)
+    at renderRootSync (chunk-RPCDYKBN.js?v=eced49cf:19116:15)
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=CbQC1PZLJxMV' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+read.js:2530 READ - Host validation failed: Object
+content.js:2524 Host is not supported
+content.js:2526 Host is not valid or supported
+content.js:2526 Host is not in insights whitelist
