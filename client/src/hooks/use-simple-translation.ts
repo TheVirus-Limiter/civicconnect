@@ -138,7 +138,28 @@ const translations: Record<string, string> = {
   "Office": "Oficina",
   "Email": "Correo electrónico",
   "Website": "Sitio web",
-  "Phone": "Teléfono"
+  "Phone": "Teléfono",
+  
+  // Bill content translations
+  "American Innovation and Manufacturing Act of 2025": "Ley de Innovación y Manufactura Estadounidense de 2025",
+  "Comprehensive legislation to strengthen domestic manufacturing, support emerging technologies, and create jobs in clean energy sectors.": "Legislación integral para fortalecer la manufactura doméstica, apoyar tecnologías emergentes y crear empleos en sectores de energía limpia.",
+  "Healthcare Access and Affordability Act of 2025": "Ley de Acceso y Asequibilidad de Atención Médica de 2025",
+  "Comprehensive healthcare reform to reduce prescription drug costs, expand coverage options, and improve access to mental health services.": "Reforma integral de atención médica para reducir costos de medicamentos recetados, expandir opciones de cobertura y mejorar el acceso a servicios de salud mental.",
+  "jobs": "empleos",
+  "technology": "tecnología", 
+  "manufacturing": "manufactura",
+  "healthcare": "atención médica",
+  "education": "educación",
+  "infrastructure": "infraestructura",
+  "environment": "medio ambiente",
+  "economy": "economía",
+  "security": "seguridad",
+  "veterans": "veteranos",
+  "immigration": "inmigración",
+  "energy": "energía",
+  "agriculture": "agricultura",
+  "transportation": "transporte",
+  "housing": "vivienda"
 };
 
 export function useSimpleTranslation() {
@@ -154,27 +175,23 @@ export function useSimpleTranslation() {
 
   const translatePage = useCallback(() => {
     if (currentLanguage === "es") {
-      // Find all text content and translate it
+      // Get all text nodes in the document
       const walker = document.createTreeWalker(
         document.body,
         NodeFilter.SHOW_TEXT,
-        (node) => {
-          // Skip script and style tags
-          const parent = node.parentElement;
-          if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) {
-            return NodeFilter.FILTER_REJECT;
-          }
-          // Only process nodes with meaningful text content
-          return node.textContent && node.textContent.trim().length > 0 
-            ? NodeFilter.FILTER_ACCEPT 
-            : NodeFilter.FILTER_REJECT;
-        }
+        null
       );
 
       const textNodes: Text[] = [];
       let node;
       while (node = walker.nextNode()) {
-        textNodes.push(node as Text);
+        const parent = node.parentElement;
+        // Skip script, style, and input elements
+        if (parent && !['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA'].includes(parent.tagName)) {
+          if (node.textContent && node.textContent.trim().length > 0) {
+            textNodes.push(node as Text);
+          }
+        }
       }
 
       // Translate each text node
@@ -182,16 +199,33 @@ export function useSimpleTranslation() {
         if (textNode.textContent) {
           let translated = textNode.textContent;
           
-          // Apply translations
+          // Apply exact phrase translations first
           Object.entries(translations).forEach(([english, spanish]) => {
-            // Create regex with word boundaries for better matching
-            const regex = new RegExp(`\\b${english.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
-            translated = translated.replace(regex, spanish);
+            if (translated.includes(english)) {
+              translated = translated.replaceAll(english, spanish);
+            }
+          });
+          
+          // Apply word-by-word translations for individual words
+          Object.entries(translations).forEach(([english, spanish]) => {
+            if (english.split(' ').length === 1) { // Single words only
+              const regex = new RegExp(`\\b${english.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+              translated = translated.replace(regex, spanish);
+            }
           });
           
           if (translated !== textNode.textContent) {
             textNode.textContent = translated;
           }
+        }
+      });
+
+      // Also translate placeholder attributes
+      const inputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
+      inputs.forEach(input => {
+        const placeholder = input.getAttribute('placeholder');
+        if (placeholder && translations[placeholder]) {
+          input.setAttribute('placeholder', translations[placeholder]);
         }
       });
     }
@@ -203,8 +237,11 @@ export function useSimpleTranslation() {
     localStorage.setItem("preferredLanguage", newLanguage);
     
     if (newLanguage === "es") {
-      // Translate the page after a short delay
-      setTimeout(translatePage, 100);
+      // Translate immediately and then again after content loads
+      setTimeout(translatePage, 50);
+      setTimeout(translatePage, 500);
+      setTimeout(translatePage, 1000);
+      setTimeout(translatePage, 2000);
     } else {
       // Reload page to reset to English
       window.location.reload();
