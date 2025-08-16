@@ -49,10 +49,10 @@ export default function Home() {
                 {t("Give Feedback")}
               </Link>
               <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                Engage
+                {t("Engage")}
               </a>
               <a href="#education" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                Learn
+                {t("Learn")}
               </a>
             </div>
             
@@ -145,7 +145,7 @@ export default function Home() {
                   <TrendingUp className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-3xl font-bold mb-2">1,247</div>
-                <div className="text-blue-200 font-medium">Active Bills</div>
+                <div className="text-blue-200 font-medium">{t("Active Bills")}</div>
               </div>
               
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
@@ -153,7 +153,7 @@ export default function Home() {
                   <Clock className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-3xl font-bold mb-2">89</div>
-                <div className="text-blue-200 font-medium">Recent Updates</div>
+                <div className="text-blue-200 font-medium">{t("Recent Updates")}</div>
               </div>
               
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
@@ -161,13 +161,13 @@ export default function Home() {
                   <Users className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-3xl font-bold mb-2">23</div>
-                <div className="text-blue-200 font-medium">Local Bills</div>
+                <div className="text-blue-200 font-medium">{t("Local Bills")}</div>
               </div>
             </div>
 
             {/* Language Support Indicator */}
             <div className="mt-8 text-blue-200 text-sm">
-              Available in English and Spanish • Disponible en inglés y español
+              {t("Available in English and Spanish")} • Disponible en inglés y español
             </div>
           </div>
         </div>
@@ -177,8 +177,8 @@ export default function Home() {
       <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Join the Community</h3>
-            <p className="text-gray-600 dark:text-gray-300">Make your voice heard on important issues in TX-23</p>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t("Join the Community")}</h3>
+            <p className="text-gray-600 dark:text-gray-300">{t("Make your voice heard on important issues in TX-23")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Link href="/community/polls" className="group">
@@ -188,15 +188,15 @@ export default function Home() {
                     <Vote className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Community Polls</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Vote on local issues</p>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{t("Community Polls")}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t("Vote on local issues")}</p>
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.
+                  {t("Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.")}
                 </p>
                 <div className="text-sm text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300">
-                  View Active Polls →
+                  {t("View Active Polls")} →
                 </div>
               </div>
             </Link>
@@ -208,15 +208,15 @@ export default function Home() {
                     <MessageSquare className="w-6 h-6 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Community Feedback</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Share your concerns</p>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{t("Community Feedback")}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t("Share your concerns")}</p>
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  Submit feedback about local issues, suggest improvements, and see responses from your representatives.
+                  {t("Submit feedback about local issues, suggest improvements, and see responses from your representatives.")}
                 </p>
                 <div className="text-sm text-green-600 dark:text-green-400 font-medium group-hover:text-green-700 dark:group-hover:text-green-300">
-                  Submit Feedback →
+                  {t("Submit Feedback")} →
                 </div>
               </div>
             </Link>

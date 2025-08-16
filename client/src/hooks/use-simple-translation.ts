@@ -79,7 +79,118 @@ const translations = {
   "Office": "Oficina",
   "Email": "Correo electrónico",
   "Website": "Sitio web",
-  "Phone": "Teléfono"
+  "Phone": "Teléfono",
+  
+  // Stats and numbers
+  "Active Bills": "Proyectos Activos",
+  "Recent Updates": "Actualizaciones Recientes",
+  "Local Bills": "Proyectos Locales",
+  "Available in English and Spanish": "Disponible en inglés y español",
+  
+  // Community sections
+  "Join the Community": "Únete a la Comunidad",
+  "Make your voice heard on important issues in TX-23": "Haz escuchar tu voz en temas importantes en TX-23",
+  "Vote on local issues": "Vota en temas locales",
+  "Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.": "Comparte tu opinión sobre atención médica, infraestructura, seguridad fronteriza y otros temas clave que afectan nuestro distrito.",
+  "View Active Polls": "Ver Encuestas Activas",
+  "Community Feedback": "Comentarios de la Comunidad",
+  "Share your concerns": "Comparte tus preocupaciones",
+  "Submit feedback about local issues, suggest improvements, and see responses from your representatives.": "Envía comentarios sobre temas locales, sugiere mejoras y ve respuestas de tus representantes.",
+  "Submit Feedback": "Enviar Comentarios",
+  
+  // Bill filtering and search
+  "Filter Bills": "Filtrar Proyectos",
+  "Search": "Buscar",
+  "Search bills...": "Buscar proyectos...",
+  "Status": "Estado",
+  "Active": "Activo",
+  "Passed": "Aprobado",
+  "Failed": "Fallido",
+  "Category": "Categoría",
+  "All Categories": "Todas las Categorías",
+  "Jurisdiction": "Jurisdicción",
+  "All Levels": "Todos los Niveles",
+  "Federal": "Federal",
+  "State": "Estatal",
+  "Local": "Local",
+  "Clear Filters": "Limpiar Filtros",
+  "Most Recent": "Más Recientes",
+  
+  // Bill status
+  "PASSED HOUSE": "APROBADO EN CÁMARA",
+  "IN COMMITTEE": "EN COMITÉ",
+  "Bill Progress": "Progreso del Proyecto",
+  "Introduced": "Introducido",
+  "Committee": "Comité",
+  "House": "Cámara",
+  "Senate": "Senado",
+  "Signed": "Firmado",
+  "Updated": "Actualizado",
+  "Ask AI": "Preguntar a IA",
+  "Save": "Guardar",
+  "Share": "Compartir",
+  "View Details": "Ver Detalles",
+  "Load More Bills": "Cargar Más Proyectos",
+  
+  // News sections
+  "Civic News": "Noticias Cívicas",
+  "Breaking": "Última Hora",
+  "National": "Nacional",
+  "Explainer": "Explicativo",
+  "BREAKING": "ÚLTIMA HORA",
+  
+  // AI Assistant
+  "Meet Civica": "Conoce a Cívica",
+  "Your AI assistant for understanding legislation": "Tu asistente de IA para entender la legislación",
+  "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?": "¡Hola! Soy Cívica, tu asistente de IA para entender la legislación. Puedo ayudar a explicar proyectos, sus impactos y responder preguntas sobre el proceso legislativo. ¿Qué te gustaría saber?",
+  "Ask me anything about legislation...": "Pregúntame cualquier cosa sobre legislación...",
+  "How does a bill become a law?": "¿Cómo se convierte un proyecto en ley?",
+  "What's happening locally?": "¿Qué está pasando localmente?",
+  "Explain a bill": "Explicar un proyecto",
+  
+  // Take Action section
+  "Take Action": "Tomar Acción",
+  "Contact Your Reps": "Contacta a tus Representantes",
+  "Generate personalized letters to your representatives about important legislation.": "Genera cartas personalizadas a tus representantes sobre legislación importante.",
+  "Select a bill to discuss": "Selecciona un proyecto para discutir",
+  "Generate Template": "Generar Plantilla",
+  
+  // Events
+  "Upcoming Events": "Próximos Eventos",
+  "Find town halls, city council meetings, and other civic events in your area.": "Encuentra ayuntamientos, reuniones del consejo municipal y otros eventos cívicos en tu área.",
+  "No upcoming events found": "No se encontraron eventos próximos",
+  "Check back soon for new civic events": "Vuelve pronto para nuevos eventos cívicos",
+  "View All Events": "Ver Todos los Eventos",
+  
+  // Voter Information
+  "Voter Information": "Información del Votante",
+  "Check your registration status, find polling locations, and get important voting dates.": "Verifica tu estado de registro, encuentra lugares de votación y obtén fechas importantes de votación.",
+  "Next Election": "Próxima Elección",
+  "days": "días",
+  "Check Registration Status": "Verificar Estado de Registro",
+  
+  // Civic Education
+  "Civic Education": "Educación Cívica",
+  "How a Bill Becomes Law": "Cómo un Proyecto se Convierte en Ley",
+  "Introduction": "Introducción",
+  "Bill is introduced in House or Senate": "El proyecto se introduce en la Cámara o Senado",
+  "Committee Review": "Revisión del Comité",
+  "Committee studies and marks up bill": "El comité estudia y marca el proyecto",
+  "Floor Vote": "Votación en el Pleno",
+  "Full chamber debates and votes": "La cámara completa debate y vota",
+  "Senate Vote": "Votación del Senado",
+  "Senate debates and votes on the bill": "El Senado debate y vota sobre el proyecto",
+  "Presidential Action": "Acción Presidencial",
+  "President signs or vetoes the bill": "El presidente firma o veta el proyecto",
+  "Watch Official Tutorial": "Ver Tutorial Oficial",
+  "Test Your Knowledge": "Prueba tu Conocimiento",
+  "Quick Quiz: Legislative Basics": "Quiz Rápido: Fundamentos Legislativos",
+  "How many votes are needed to override a presidential veto?": "¿Cuántos votos se necesitan para anular un veto presidencial?",
+  "Simple Majority (51%)": "Mayoría Simple (51%)",
+  "Two-Thirds Majority (67%)": "Mayoría de Dos Tercios (67%)",
+  "Three-Quarters Majority (75%)": "Mayoría de Tres Cuartos (75%)",
+  "Submit Answer": "Enviar Respuesta",
+  "Take Full Quiz": "Tomar Quiz Completo"
 };
 
 export function useSimpleTranslation() {

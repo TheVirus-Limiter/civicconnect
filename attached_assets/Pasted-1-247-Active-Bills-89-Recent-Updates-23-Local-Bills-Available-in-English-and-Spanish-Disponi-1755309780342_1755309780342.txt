@@ -1,0 +1,262 @@
+1,247
+Active Bills
+89
+Recent Updates
+23
+Local Bills
+Available in English and Spanish • Disponible en inglés y español
+Join the Community
+Make your voice heard on important issues in TX-23
+
+Community Polls
+Vote on local issues
+
+Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.
+
+View Active Polls →
+Community Feedback
+Share your concerns
+
+Submit feedback about local issues, suggest improvements, and see responses from your representatives.
+
+Submit Feedback →
+Filter Bills
+Search
+Search bills...
+Status
+
+Active
+234
+
+Passed
+67
+
+Failed
+23
+Category
+All Categories
+Jurisdiction
+
+All Levels
+
+Federal
+
+State
+
+Local
+Clear Filters
+Recent Bills
+
+Most Recent
+PASSED HOUSE
+fallback-hr8245
+federal
+American Innovation and Manufacturing Act of 2025
+Comprehensive legislation to strengthen domestic manufacturing, support emerging technologies, and create jobs in clean energy sectors.
+
+jobs
+technology
+manufacturing
+Bill Progress
+Introduced
+Committee
+House
+Senate
+Signed
+Rep. Hakeem Jeffries (D-NY)
+Updated Aug 12, 2025
+Ask AI
+Save
+Share
+View Details
+IN COMMITTEE
+fallback-s4567
+federal
+Healthcare Access and Affordability Act of 2025
+Comprehensive healthcare reform to reduce prescription drug costs, expand coverage options, and improve access to mental health services.
+
+healthcare
+families
+affordability
+Bill Progress
+Introduced
+Committee
+House
+Senate
+Signed
+Sen. Bernie Sanders (I-VT)
+Updated Aug 10, 2025
+Ask AI
+Save
+Share
+View Details
+Load More Bills
+Civic News
+Breaking
+Local
+National
+Explainer
+BREAKING
+Congressional News
+367d ago
+Congress Passes Landmark Infrastructure Bill
+After months of negotiation, Congress has passed a comprehensive infrastructure bill investing in roads, bridges, and broadband access.
+
+infrastructure
+transportation
+Ask AI
+NATIONAL
+Environmental Times
+368d ago
+New Climate Legislation Advances in Senate
+The Senate Environment Committee approved new climate legislation aimed at reducing carbon emissions by 50% by 2030.
+
+climate
+environment
+Ask AI
+LOCAL
+Local Tribune
+369d ago
+Local Town Hall Addresses Healthcare Access
+City council members met with residents to discuss improving healthcare access in underserved communities.
+
+healthcare
+community
+Ask AI
+Meet Civica
+Your AI assistant for understanding legislation
+
+Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?
+
+9:01 PM
+Ask me anything about legislation...
+
+
+
+How does a bill become a law?
+What's happening locally?
+Explain a bill
+Your Representatives
+Find All Reps
+Tony Gonzales
+Tony Gonzales
+U.S. House of Representatives
+
+District 23, TX
+
+Party
+Republican
+Years in Office
+4
+Bills Sponsored
+27
+Recent Activity
+Voted Yes on Border Security Enhancement Act
+Sponsored on Rural Broadband Infrastructure Bill
+Contact
+More Info
+John Cornyn
+John Cornyn
+U.S. Senate
+
+TX
+
+Party
+Republican
+Years in Office
+22
+Bills Sponsored
+89
+Recent Activity
+Co-sponsored on Veterans Healthcare Expansion
+Voted Yes on Infrastructure Investment Act
+Contact
+More Info
+Ted Cruz
+Ted Cruz
+U.S. Senate
+
+TX
+
+Party
+Republican
+Years in Office
+12
+Bills Sponsored
+156
+Recent Activity
+Proposed on Energy Independence Act
+Voted No on Climate Action Framework
+Contact
+More Info
+Take Action
+Contact Your Reps
+Generate personalized letters to your representatives about important legislation.
+
+
+Select a bill to discuss
+Generate Template
+Upcoming Events
+Find town halls, city council meetings, and other civic events in your area.
+
+No upcoming events found
+
+Check back soon for new civic events
+
+View All Events
+Voter Information
+Check your registration status, find polling locations, and get important voting dates.
+
+Next Election: November 5, 2025 (82 days)
+Check Registration Status
+Civic Education
+How a Bill Becomes Law
+Introduction
+Bill is introduced in House or Senate
+
+Committee Review
+Committee studies and marks up bill
+
+Floor Vote
+Full chamber debates and votes
+
+Senate Vote
+Senate debates and votes on the bill
+
+Presidential Action
+President signs or vetoes the bill
+
+Watch Official Tutorial
+Test Your Knowledge
+Quick Quiz: Legislative Basics
+How many votes are needed to override a presidential veto?
+
+
+Simple Majority (51%)
+
+Two-Thirds Majority (67%)
+
+Three-Quarters Majority (75%)
+Submit AnswerTake Full Quiz
+header.title
+Empowering civic engagement through technology, making democracy accessible to everyone.
+
+Explore
+nav.bills
+nav.news
+nav.legislators
+nav.education
+Tools
+AI Assistant
+Contact Templates
+Event Calendar
+Voting Information
+Support
+Help Center
+About Us
+Privacy Policy
+Terms of Service
+© 2024 header.title. Built for the Congressional App Challenge.
+
+Made with
+for democracy
