@@ -1,0 +1,79 @@
+Fixes & Improvements
+1. True Map Visualization
+
+Issue: The current grid layout is not an actual map—it loses the geographic context of where each district is.
+
+Fix:
+
+Replace grid with an interactive map using Leaflet.js or Mapbox GL JS.
+
+Render Texas congressional district GeoJSON from TxDOT’s Open Data Portal.
+
+Users should be able to zoom, pan, and click directly on a district shape to get details.
+
+Keep your “District Information” panel on the right, updating dynamically when a district is clicked.
+
+2. Visual Styling
+
+Current Problem: The solid red/blue blocks are flat and feel outdated.
+
+Fix:
+
+Add soft gradient fills with borders around each district shape.
+
+Use hover glow/highlight effects for interactivity.
+
+Match colors to accessible contrast ratios so red/blue are readable for colorblind users—use patterns or icons in addition to color.
+
+3. District Information Panel
+
+Current Problem: The right panel is functional but feels cramped and static.
+
+Fix:
+
+Add district map preview (small inset map) inside the panel.
+
+Use a clean card layout with section headers (Representative, Party, Population, Area).
+
+If available, add representative photo and contact buttons (email, phone, website).
+
+Include a link to “Bills Sponsored by this Representative” pulling from ProPublica API.
+
+4. Search & Filter
+
+Current Problem: Users can’t quickly jump to their district unless they already know it.
+
+Fix:
+
+Add a search bar for district number or representative name.
+
+Add filters: by party, population range, or representative name.
+
+5. Legend & Usability
+
+Current Problem: Legend is fine, but static and visually bland.
+
+Fix:
+
+Make legend interactive—clicking “Republican” hides/shows Republican districts.
+
+Add hover tooltips in the legend explaining party color codes.
+
+6. Technical Implementation Suggestions
+
+Mapping:
+
+Leaflet.js (lightweight) or Mapbox GL JS (better styling).
+
+Load Texas GeoJSON from:
+TxDOT Congressional Districts
+
+Data Integration:
+
+ProPublica Congress API for representative details & bills.
+
+Census API for updated population data.
+
+Styling Framework:
+
+Tailwind CSS for consistent modern styling.

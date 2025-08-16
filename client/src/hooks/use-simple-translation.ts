@@ -60,7 +60,6 @@ const translations: Record<string, string> = {
   "Years in Office": "Años en el Cargo",
   "Bills Sponsored": "Proyectos Patrocinados",
   "Recent Activity": "Actividad Reciente",
-  "Contact": "Contactar",
   "Voted Yes on": "Votó Sí en",
   "Sponsored on": "Patrocinó",
   "No recent activity": "Sin actividad reciente",
@@ -174,7 +173,12 @@ const translations: Record<string, string> = {
   "View Representative Details": "Ver Detalles del Representante",
   "Click on a district to view details": "Haz clic en un distrito para ver detalles",
   "Legend": "Leyenda",
-  "Independent": "Independiente"
+  "Independent": "Independiente",
+  "Search district or representative...": "Buscar distrito o representante...",
+  "Contact": "Contacto",
+  "Official Website": "Sitio Web Oficial",
+  "Visit Official Website": "Visitar Sitio Web Oficial",
+  "View Sponsored Bills": "Ver Proyectos de Ley Patrocinados"
 };
 
 export function useSimpleTranslation() {
