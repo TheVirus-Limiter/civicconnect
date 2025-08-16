@@ -30,15 +30,24 @@ export class NewsService {
     page?: number;
   }): Promise<{ articles: NewsArticle[]; total: number }> {
     try {
-      // Build search query for civic/political news
-      const civicKeywords = [
-        "bill", "legislation", "congress", "senate", "house", 
-        "government", "policy", "election", "voting", "civic"
-      ];
-      
-      let query = params.query || civicKeywords.join(" OR ");
-      if (params.query) {
-        query = `(${params.query}) AND (${civicKeywords.slice(0, 3).join(" OR ")})`;
+      // Category-specific search queries
+      let query;
+      if (params.category === "local") {
+        query = "Texas OR San Antonio OR border OR immigration OR (TX-23) OR (congressional district)";
+      } else if (params.category === "national") {
+        query = "Congress OR Senate OR House OR federal OR legislation OR Biden OR politics";
+      } else if (params.category === "explainer") {
+        query = "(how does) OR (what is) OR (explained) OR (guide to) AND (government OR politics OR legislation)";
+      } else {
+        // Default civic keywords
+        const civicKeywords = [
+          "bill", "legislation", "congress", "senate", "house", 
+          "government", "policy", "election", "voting", "civic"
+        ];
+        query = params.query || civicKeywords.join(" OR ");
+        if (params.query) {
+          query = `(${params.query}) AND (${civicKeywords.slice(0, 3).join(" OR ")})`;
+        }
       }
 
       const searchParams = new URLSearchParams({

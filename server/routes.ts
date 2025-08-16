@@ -174,6 +174,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Congressional Districts API
+  app.get("/api/congressional-districts", async (req, res) => {
+    try {
+      // Mock congressional districts data - in production this would come from the USDOT API
+      const districts = [
+        {
+          id: 'tx-23',
+          state: 'Texas',
+          district: '23',
+          representative: 'Tony Gonzales',
+          party: 'Republican',
+          population: 766987,
+          area: 58000,
+          coordinates: []
+        },
+        {
+          id: 'tx-20',
+          state: 'Texas', 
+          district: '20',
+          representative: 'Joaquin Castro',
+          party: 'Democrat',
+          population: 798012,
+          area: 1200,
+          coordinates: []
+        },
+        {
+          id: 'tx-21',
+          state: 'Texas',
+          district: '21', 
+          representative: 'Chip Roy',
+          party: 'Republican',
+          population: 766669,
+          area: 7200,
+          coordinates: []
+        }
+      ];
+
+      res.json({ districts });
+    } catch (error) {
+      console.error("Error fetching congressional districts:", error);
+      res.status(500).json({ error: "Failed to fetch congressional districts" });
+    }
+  });
+
   // Legislators API
   app.get("/api/legislators", async (req, res) => {
     try {

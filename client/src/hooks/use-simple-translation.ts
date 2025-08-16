@@ -159,7 +159,22 @@ const translations: Record<string, string> = {
   "energy": "energía",
   "agriculture": "agricultura",
   "transportation": "transporte",
-  "housing": "vivienda"
+  "housing": "vivienda",
+  
+  // Congressional Districts Map
+  "Congressional Districts": "Distritos Congresionales",
+  "Explore interactive map of US congressional districts and representatives": "Explora el mapa interactivo de distritos congresionales de EE.UU. y representantes",
+  "Interactive Map": "Mapa Interactivo",
+  "Loading map data...": "Cargando datos del mapa...",
+  "District Information": "Información del Distrito",
+  "Congressional District": "Distrito Congresional",
+  "Representative": "Representante",
+  "Population": "Población",
+  "Area": "Área",
+  "View Representative Details": "Ver Detalles del Representante",
+  "Click on a district to view details": "Haz clic en un distrito para ver detalles",
+  "Legend": "Leyenda",
+  "Independent": "Independiente"
 };
 
 export function useSimpleTranslation() {

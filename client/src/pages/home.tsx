@@ -4,6 +4,7 @@ import NewsAggregator from "@/components/news-aggregator";
 import CivicaChatbot from "@/components/civica-chatbot";
 import LegislatorTracker from "@/components/legislator-tracker";
 import CivicEngagement from "@/components/civic-engagement";
+import CongressionalDistrictsMap from "@/components/congressional-districts-map";
 import CivicEducation from "@/components/civic-education";
 import Footer from "@/components/footer";
 import React from "react";
@@ -228,6 +229,7 @@ export default function Home() {
         <BillBrowser />
         <NewsAggregator />
         <CivicaChatbot />
+        <CongressionalDistrictsMap />
         <LegislatorTracker />
         <CivicEngagement />
         <CivicEducation />
