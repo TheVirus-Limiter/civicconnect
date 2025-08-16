@@ -1,5 +1,5 @@
-import { CommunityPolls } from "@/components/community-polls";
+import { SimplePolls } from "@/components/simple-polls";
 
 export default function CommunityPollsPage() {
-  return <CommunityPolls />;
+  return <SimplePolls />;
 }

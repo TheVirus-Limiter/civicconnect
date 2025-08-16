@@ -46,7 +46,7 @@ export default function Home() {
               </Link>
               <Link href="/community/feedback" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
                 <MessageSquare className="w-4 h-4" />
-                Feedback
+                {t("Give Feedback")}
               </Link>
               <a href="#engage" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
                 Engage

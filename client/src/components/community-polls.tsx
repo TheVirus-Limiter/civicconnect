@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle, Clock, MapPin, Users, Vote } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import type { Poll } from "@shared/schema";
 
 interface PollWithResults extends Poll {
@@ -20,7 +21,7 @@ interface PollWithResults extends Poll {
 
 export function CommunityPolls() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [language, setLanguage] = useState<string>("en");
+  const { currentLanguage, t } = useSimpleTranslation();
   const queryClient = useQueryClient();
 
   const { data: pollsData, isLoading } = useQuery({
@@ -42,6 +43,10 @@ export function CommunityPolls() {
   const polls: PollWithResults[] = pollsData?.polls || [];
   
   console.log('Polls data received:', { pollsData, pollsCount: polls.length });
+  
+  if (!polls.length) {
+    console.log('No polls found, checking API response:', pollsData);
+  }
 
   if (isLoading) {
     return (
@@ -165,8 +170,8 @@ export function CommunityPolls() {
               <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
                   {poll.allowMultipleChoice ? 
-                    (language === "es" ? "Selecciona todas las que apliquen" : "Select all that apply") :
-                    (language === "es" ? "Selecciona una opción" : "Select one option")
+                    "Select all that apply" :
+                    "Select one option"
                   }
                 </div>
                 <Button 
@@ -175,12 +180,12 @@ export function CommunityPolls() {
                   size="sm"
                 >
                   <Vote className="w-4 h-4 mr-2" />
-                  {language === "es" ? "Votar" : "Vote"}
+                  {t("Vote")}
                 </Button>
               </div>
             </div>
           ) : (
-            <PollResults poll={poll} language={language} />
+            <PollResults poll={poll} language={currentLanguage} />
           )}
         </CardContent>
       </Card>
@@ -191,29 +196,26 @@ export function CommunityPolls() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          {language === "es" ? "Encuestas Comunitarias" : "Community Polls"}
+          {t("Community Polls")}
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
-          {language === "es" 
-            ? "Comparte tu opinión sobre temas importantes en TX-23"
-            : "Share your opinion on important issues in TX-23"
-          }
+          {t("Share your opinion")} sobre temas importantes en TX-23
         </p>
       </div>
 
       <Tabs value={activeCategory} onValueChange={setActiveCategory} className="mb-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="all">
-            {language === "es" ? "Todas" : "All"}
+            {t("All")}
           </TabsTrigger>
           <TabsTrigger value="local">
-            {language === "es" ? "Local" : "Local"}
+            {t("Local")}
           </TabsTrigger>
           <TabsTrigger value="state">
-            {language === "es" ? "Estatal" : "State"}
+            {t("State")}
           </TabsTrigger>
           <TabsTrigger value="national">
-            {language === "es" ? "Nacional" : "National"}
+            {t("National")}
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -228,13 +230,10 @@ export function CommunityPolls() {
             <CardContent className="py-8 text-center">
               <Users className="w-12 h-12 mx-auto text-gray-400 mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                {language === "es" ? "No hay encuestas disponibles" : "No polls available"}
+                {t("No polls available")}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                {language === "es" 
-                  ? "No hay encuestas activas en esta categoría en este momento."
-                  : "There are no active polls in this category right now."
-                }
+                {t("There are no active polls")} in this category right now.
               </p>
             </CardContent>
           </Card>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-// Removed translation hook - using hardcoded English for now
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import type { Legislator } from "@shared/schema";
 
 export default function LegislatorTracker() {
   const { location } = useLocation();
+  const { t } = useSimpleTranslation();
 
   const { data: legislatorsData, isLoading, error } = useQuery({
     queryKey: ["/api/legislators", location.state, location.district],
@@ -59,7 +60,7 @@ export default function LegislatorTracker() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-bold flex items-center">
           <Users className="w-6 h-6 mr-3 text-primary" />
-          Your Representatives
+          {t("Your Representatives")}
         </h3>
         <Button variant="outline">
           <Search className="w-4 h-4 mr-1" />
@@ -115,6 +116,7 @@ export default function LegislatorTracker() {
 }
 
 function LegislatorCard({ legislator }: { legislator: Legislator }) {
+  const { t } = useSimpleTranslation();
 
   const getPartyColor = (party: string) => {
     switch (party?.toLowerCase()) {
@@ -209,7 +211,7 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
             onClick={() => window.open(`mailto:${legislator.email}`, '_blank')}
           >
             <Mail className="w-4 h-4 mr-1" />
-            Contact
+            {t("Contact")}
           </Button>
           <Button 
             variant="outline" 
@@ -218,7 +220,7 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
             onClick={() => legislator.website && window.open(legislator.website, '_blank')}
           >
             <Plus className="w-4 h-4 mr-1" />
-            Learn More
+            {t("Learn More")}
           </Button>
         </div>
       </CardContent>
