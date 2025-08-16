@@ -24,6 +24,8 @@ export function useAITranslation() {
       targetLanguage: Language;
       context?: string;
     }): Promise<TranslationResult> => {
+      console.log('Translation request:', { targetLanguage, contentLength: content.length });
+      
       const response = await fetch('/api/translate', {
         method: 'POST',
         headers: {
@@ -37,12 +39,17 @@ export function useAITranslation() {
       });
 
       if (!response.ok) {
-        throw new Error('Translation failed');
+        const errorText = await response.text();
+        console.error('Translation API error:', errorText);
+        throw new Error(`Translation failed: ${response.status} ${errorText}`);
       }
 
-      return response.json();
+      const result = await response.json();
+      console.log('Translation result received:', result.targetLanguage);
+      return result;
     },
     onSuccess: (result) => {
+      console.log('Translation successful, applying content...');
       setTranslatedContent(result.translatedContent);
       setIsTranslating(false);
     },
@@ -53,16 +60,22 @@ export function useAITranslation() {
   });
 
   const translatePage = useCallback(async (targetLanguage: Language) => {
+    console.log('translatePage called:', { currentLanguage, targetLanguage });
+    
     if (currentLanguage === targetLanguage) {
+      console.log('Already in target language, skipping...');
       return; // Already in target language
     }
 
+    console.log('Starting translation...');
     setIsTranslating(true);
     
     try {
       // Get all text content from the main content area
       const mainContent = document.querySelector('main') || document.body;
       const contentToTranslate = mainContent.innerHTML;
+      
+      console.log('Content to translate length:', contentToTranslate.length);
 
       await translationMutation.mutateAsync({
         content: contentToTranslate,
@@ -72,6 +85,7 @@ export function useAITranslation() {
 
       setCurrentLanguage(targetLanguage);
       localStorage.setItem("preferredLanguage", targetLanguage);
+      console.log('Language preference saved:', targetLanguage);
     } catch (error) {
       console.error('Failed to translate page:', error);
       setIsTranslating(false);
@@ -88,6 +102,7 @@ export function useAITranslation() {
 
   const toggleLanguage = useCallback(() => {
     const newLanguage = currentLanguage === "en" ? "es" : "en";
+    console.log('toggleLanguage called:', { currentLanguage, newLanguage });
     translatePage(newLanguage);
   }, [currentLanguage, translatePage]);
 
