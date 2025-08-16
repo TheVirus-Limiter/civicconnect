@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useTranslation } from "@/hooks/use-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,13 +23,13 @@ interface ChatSession {
 }
 
 export default function CivicaChatbot() {
-  const { t, language } = useTranslation();
+  const { t, currentLanguage: language } = useSimpleTranslation();
   const [message, setMessage] = useState("");
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?",
+      content: t("Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?"),
       timestamp: new Date().toISOString(),
       language,
     },
@@ -143,8 +143,8 @@ export default function CivicaChatbot() {
             <Bot className="text-primary-foreground text-xl w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold">Meet Civica</h3>
-            <p className="text-muted-foreground">Your AI assistant for understanding legislation</p>
+            <h3 className="text-2xl font-bold">{t("Meet Civica")}</h3>
+            <p className="text-muted-foreground">{t("Your AI assistant for understanding legislation")}</p>
           </div>
         </div>
 

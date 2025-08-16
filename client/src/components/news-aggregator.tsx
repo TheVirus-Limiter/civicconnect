@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "@/hooks/use-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,7 @@ import { Newspaper, ExternalLink, Bot } from "lucide-react";
 import type { NewsArticle } from "@shared/schema";
 
 export default function NewsAggregator() {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
   const [activeCategory, setActiveCategory] = useState("breaking");
   const [showAll, setShowAll] = useState(false);
   
@@ -35,10 +35,10 @@ export default function NewsAggregator() {
   const articles = newsData?.articles || [];
 
   const categories = [
-    { key: "breaking", label: "Breaking" },
-    { key: "local", label: "Local" },
-    { key: "national", label: "National" },
-    { key: "explainer", label: "Explainer" },
+    { key: "breaking", label: t("Breaking") },
+    { key: "local", label: t("Local") },
+    { key: "national", label: t("National") },
+    { key: "explainer", label: t("Explainer") },
   ];
 
   const getCategoryColor = (category: string) => {
@@ -88,7 +88,7 @@ export default function NewsAggregator() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-bold flex items-center">
           <Newspaper className="w-6 h-6 mr-3 text-primary" />
-          Civic News
+          {t("Civic News")}
         </h3>
         <div className="flex space-x-2">
           {categories.map((category) => (
@@ -161,7 +161,7 @@ export default function NewsAggregator() {
 }
 
 function NewsCard({ article, featured = false }: { article: NewsArticle; featured?: boolean }) {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
 
   const getCategoryColor = (category: string) => {
     switch (category) {

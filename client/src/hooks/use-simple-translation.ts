@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 
 export type Language = "en" | "es";
 
-const translations = {
+const translations: Record<string, string> = {
   // Page sections
   "Your Representatives": "Sus Representantes",
   "Recent Bills": "Proyectos de Ley Recientes",
@@ -67,11 +67,8 @@ const translations = {
   "Engage": "Participar",
   "Learn": "Aprender",
   
-  // Legislator specific
-  "Party": "Partido",
-  "Years in Office": "Años en el Cargo", 
-  "Bills Sponsored": "Proyectos Patrocinados",
-  "Recent Activity": "Actividad Reciente",
+  // Legislator specific  
+  "Search": "Buscar",
   "No recent activity": "Sin actividad reciente",
   
   // Common words
@@ -100,9 +97,7 @@ const translations = {
   
   // Bill filtering and search
   "Filter Bills": "Filtrar Proyectos",
-  "Search": "Buscar",
   "Search bills...": "Buscar proyectos...",
-  "Status": "Estado",
   "Active": "Activo",
   "Passed": "Aprobado",
   "Failed": "Fallido",
@@ -110,9 +105,6 @@ const translations = {
   "All Categories": "Todas las Categorías",
   "Jurisdiction": "Jurisdicción",
   "All Levels": "Todos los Niveles",
-  "Federal": "Federal",
-  "State": "Estatal",
-  "Local": "Local",
   "Clear Filters": "Limpiar Filtros",
   "Most Recent": "Más Recientes",
   
@@ -120,7 +112,6 @@ const translations = {
   "PASSED HOUSE": "APROBADO EN CÁMARA",
   "IN COMMITTEE": "EN COMITÉ",
   "Bill Progress": "Progreso del Proyecto",
-  "Introduced": "Introducido",
   "Committee": "Comité",
   "House": "Cámara",
   "Senate": "Senado",
@@ -134,8 +125,6 @@ const translations = {
   
   // News sections
   "Civic News": "Noticias Cívicas",
-  "Breaking": "Última Hora",
-  "National": "Nacional",
   "Explainer": "Explicativo",
   "BREAKING": "ÚLTIMA HORA",
   

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslation } from "@/hooks/use-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,7 +10,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 export default function CivicEngagement() {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
   const { toast } = useToast();
   const [selectedBill, setSelectedBill] = useState("");
 
@@ -57,7 +57,7 @@ export default function CivicEngagement() {
     <section id="engage" className="mb-12">
       <h3 className="text-2xl font-bold mb-6 flex items-center">
         <Megaphone className="w-6 h-6 mr-3 text-primary" />
-        Take Action
+        {t("Take Action")}
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,17 +68,17 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <Mail className="text-primary-foreground w-5 h-5" />
               </div>
-              <span>Contact Your Reps</span>
+              <span>{t("Contact Your Reps")}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              Generate personalized letters to your representatives about important legislation.
+              {t("Generate personalized letters to your representatives about important legislation.")}
             </p>
             <div className="space-y-3">
               <Select value={selectedBill} onValueChange={setSelectedBill}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a bill to discuss" />
+                  <SelectValue placeholder={t("Select a bill to discuss")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="H.R. 1234 - Clean Energy Infrastructure">
@@ -97,7 +97,7 @@ export default function CivicEngagement() {
                 onClick={handleGenerateTemplate}
                 disabled={generateTemplateMutation.isPending}
               >
-                {generateTemplateMutation.isPending ? "Generating..." : "Generate Template"}
+                {generateTemplateMutation.isPending ? "Generating..." : t("Generate Template")}
               </Button>
             </div>
           </CardContent>
@@ -110,7 +110,7 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
                 <Calendar className="text-white w-5 h-5" />
               </div>
-              <span>Upcoming Events</span>
+              <span>{t("Upcoming Events")}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -154,7 +154,7 @@ export default function CivicEngagement() {
                 </div>
               </div>
               <Button className="w-full bg-yellow-600 hover:bg-yellow-700">
-                Check Registration Status
+                {t("Check Registration Status")}
               </Button>
             </div>
           </CardContent>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "@/hooks/use-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { Bill } from "@shared/schema";
 
 export default function BillBrowser() {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
   const [filters, setFilters] = useState({
     query: "",
     status: "",
@@ -109,17 +109,17 @@ export default function BillBrowser() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-primary" />
-                <span>Filter Bills</span>
+                <span>{t("Filter Bills")}</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Search */}
               <div>
-                <Label className="text-sm font-medium">Search</Label>
+                <Label className="text-sm font-medium">{t("Search")}</Label>
                 <div className="relative mt-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search bills..."
+                    placeholder={t("Search bills...")}
                     value={filters.query}
                     onChange={(e) => handleFilterChange("query", e.target.value)}
                     className="pl-10"
@@ -129,7 +129,7 @@ export default function BillBrowser() {
 
               {/* Status Filter */}
               <div>
-                <Label className="text-sm font-medium mb-2 block">Status</Label>
+                <Label className="text-sm font-medium mb-2 block">{t("Status")}</Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Checkbox 
@@ -140,7 +140,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-active" className="text-sm flex items-center justify-between w-full">
-                      <span>Active</span>
+                      <span>{t("Active")}</span>
                       <Badge variant="secondary" className="text-xs">234</Badge>
                     </Label>
                   </div>
@@ -153,7 +153,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-passed" className="text-sm flex items-center justify-between w-full">
-                      <span>Passed</span>
+                      <span>{t("Passed")}</span>
                       <Badge variant="secondary" className="text-xs">67</Badge>
                     </Label>
                   </div>
@@ -166,7 +166,7 @@ export default function BillBrowser() {
                       }
                     />
                     <Label htmlFor="status-failed" className="text-sm flex items-center justify-between w-full">
-                      <span>Failed</span>
+                      <span>{t("Failed")}</span>
                       <Badge variant="secondary" className="text-xs">23</Badge>
                     </Label>
                   </div>
@@ -285,7 +285,7 @@ export default function BillBrowser() {
               {bills.length > 0 && bills.length < total && (
                 <div className="text-center mt-8">
                   <Button onClick={loadMore} variant="outline">
-                    Load More Bills
+                    {t("Load More Bills")}
                   </Button>
                 </div>
               )}
@@ -298,7 +298,7 @@ export default function BillBrowser() {
 }
 
 function BillCard({ bill }: { bill: Bill }) {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
 
   const formatDate = (date: Date | null | undefined) => {
     if (!date) return "";
@@ -383,19 +383,19 @@ function BillCard({ bill }: { bill: Bill }) {
           <div className="flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-2 mt-4 lg:mt-0 lg:ml-6">
             <Button variant="ghost" size="sm">
               <Bot className="w-4 h-4 mr-1" />
-              Ask AI
+              {t("Ask AI")}
             </Button>
             <Button variant="outline" size="sm">
               <Bookmark className="w-4 h-4 mr-1" />
-              Save
+              {t("Save")}
             </Button>
             <Button variant="outline" size="sm">
               <Share2 className="w-4 h-4 mr-1" />
-              Share
+              {t("Share")}
             </Button>
             <Button size="sm">
               <ExternalLink className="w-4 h-4 mr-1" />
-              View Details
+              {t("View Details")}
             </Button>
           </div>
         </div>
