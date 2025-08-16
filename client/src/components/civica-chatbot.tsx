@@ -10,6 +10,28 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Bot, Send, Mic, Globe, User } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
+// Simple markdown renderer for chat messages
+function MarkdownText({ content }: { content: string }) {
+  // Convert **bold** to <strong>
+  const boldRegex = /\*\*(.*?)\*\*/g;
+  // Convert *italic* to <em>
+  const italicRegex = /\*(.*?)\*/g;
+  // Convert `code` to <code>
+  const codeRegex = /`(.*?)`/g;
+  
+  let html = content
+    .replace(boldRegex, '<strong>$1</strong>')
+    .replace(italicRegex, '<em>$1</em>')
+    .replace(codeRegex, '<code class="bg-muted px-1 py-0.5 rounded text-sm">$1</code>');
+  
+  return (
+    <div 
+      className="text-sm whitespace-pre-wrap"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
@@ -171,7 +193,7 @@ export default function CivicaChatbot() {
                             : "bg-muted"
                         }`}
                       >
-                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                        <MarkdownText content={msg.content} />
                       </div>
                       <span className={`text-xs text-muted-foreground mt-1 block ${
                         msg.role === "user" ? "text-right" : ""
