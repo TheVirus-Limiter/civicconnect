@@ -153,8 +153,11 @@ export default function CivicEngagement() {
                   </span>
                 </div>
               </div>
-              <Button className="w-full bg-yellow-600 hover:bg-yellow-700">
-                {t("Check Registration Status")}
+              <Button 
+                className="w-full bg-yellow-600 hover:bg-yellow-700"
+                onClick={() => window.open("https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml", "_blank")}
+              >
+                {t("More Info")}
               </Button>
             </div>
           </CardContent>

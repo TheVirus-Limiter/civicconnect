@@ -179,7 +179,8 @@ const translations: Record<string, string> = {
   "Official Website": "Sitio Web Oficial",
   "Visit Official Website": "Visitar Sitio Web Oficial",
   "View Sponsored Bills": "Ver Proyectos de Ley Patrocinados",
-  "Interactive GovTrack Map": "Mapa Interactivo de GovTrack"
+  "Interactive GovTrack Map": "Mapa Interactivo de GovTrack",
+  "More Info": "Más Información"
 };
 
 export function useSimpleTranslation() {
