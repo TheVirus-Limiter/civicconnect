@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
-import { Map, MapPin, Info, Search, Filter, Phone, Globe, ExternalLink, ZoomIn, ZoomOut } from "lucide-react";
+
+import { Map, MapPin, Info, Phone, Globe, ExternalLink } from "lucide-react";
 
 interface CongressionalDistrict {
   id: string;
@@ -24,44 +24,24 @@ interface CongressionalDistrict {
 export default function CongressionalDistrictsMap() {
   const { t } = useSimpleTranslation();
   const [selectedDistrict, setSelectedDistrict] = useState<CongressionalDistrict | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [districts, setDistricts] = useState<CongressionalDistrict[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [partyFilter, setPartyFilter] = useState<string | null>(null);
-  const [filteredDistricts, setFilteredDistricts] = useState<CongressionalDistrict[]>([]);
+  const [mapLoaded, setMapLoaded] = useState(true);
 
+  // Set default district information for TX-23
   useEffect(() => {
-    // Load congressional districts data
-    fetch('/api/congressional-districts')
-      .then(response => response.json())
-      .then(data => {
-        setDistricts(data.districts || []);
-        setFilteredDistricts(data.districts || []);
-        setMapLoaded(true);
-      })
-      .catch(error => {
-        console.error('Error loading districts:', error);
-        setMapLoaded(true);
-      });
+    setSelectedDistrict({
+      id: "tx-23",
+      state: "TX", 
+      district: "23",
+      representative: "Tony Gonzales",
+      party: "Republican",
+      population: 766987,
+      area: 58000,
+      coordinates: [],
+      bioguideId: "G000594",
+      websiteUrl: "https://gonzales.house.gov/",
+      phone: "(202) 225-4511"
+    });
   }, []);
-
-  // Filter districts based on search and party
-  useEffect(() => {
-    let filtered = districts;
-    
-    if (searchTerm) {
-      filtered = filtered.filter(district => 
-        district.district.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        district.representative.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    if (partyFilter) {
-      filtered = filtered.filter(district => district.party === partyFilter);
-    }
-    
-    setFilteredDistricts(filtered);
-  }, [districts, searchTerm, partyFilter]);
 
   const handleDistrictClick = (district: CongressionalDistrict) => {
     setSelectedDistrict(district);
@@ -110,21 +90,8 @@ export default function CongressionalDistrictsMap() {
                   <MapPin className="w-5 h-5" />
                   <span>{t("Interactive Map")}</span>
                 </CardTitle>
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {/* TODO: Implement zoom functionality */}}
-                  >
-                    <ZoomIn className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {/* TODO: Implement zoom functionality */}}
-                  >
-                    <ZoomOut className="w-4 h-4" />
-                  </Button>
+                <div className="text-sm text-muted-foreground">
+                  {t("Interactive GovTrack Map")}
                 </div>
               </div>
             </CardHeader>
@@ -137,84 +104,18 @@ export default function CongressionalDistrictsMap() {
                   </div>
                 </div>
               ) : (
-                <div className="relative w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-900 overflow-hidden">
-                  {/* Search and Filter Controls */}
-                  <div className="absolute top-4 left-4 right-4 z-10 flex gap-2">
-                    <div className="relative flex-1">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <Input
-                        placeholder={t("Search district or representative...")}
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 bg-white/90 backdrop-blur-sm"
-                      />
-                    </div>
-                    
-                    <div className="flex gap-1">
-                      <Button
-                        variant={partyFilter === null ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setPartyFilter(null)}
-                        className="bg-white/90 backdrop-blur-sm"
-                      >
-                        All
-                      </Button>
-                      <Button
-                        variant={partyFilter === "Republican" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setPartyFilter(partyFilter === "Republican" ? null : "Republican")}
-                        className="bg-white/90 backdrop-blur-sm"
-                        style={partyFilter === "Republican" ? { backgroundColor: getPartyColor("Republican"), color: "white" } : {}}
-                      >
-                        R
-                      </Button>
-                      <Button
-                        variant={partyFilter === "Democrat" ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setPartyFilter(partyFilter === "Democrat" ? null : "Democrat")}
-                        className="bg-white/90 backdrop-blur-sm"
-                        style={partyFilter === "Democrat" ? { backgroundColor: getPartyColor("Democrat"), color: "white" } : {}}
-                      >
-                        D
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* District Grid */}
-                  {districts.length > 0 ? (
-                    <div className="grid grid-cols-4 gap-2 p-4 pt-20 h-full overflow-y-auto">
-                      {filteredDistricts.slice(0, 20).map((district, index) => (
-                        <div
-                          key={district.id}
-                          className="relative bg-white dark:bg-slate-700 rounded-lg border-2 border-gray-200 dark:border-slate-600 cursor-pointer hover:shadow-lg transition-all duration-200 p-3 flex flex-col justify-center items-center group"
-                          style={{ 
-                            borderColor: getPartyColor(district.party),
-                            backgroundColor: selectedDistrict?.id === district.id ? `${getPartyColor(district.party)}20` : `${getPartyColor(district.party)}10`
-                          }}
-                          onClick={() => handleDistrictClick(district)}
-                        >
-                          <div className="text-center">
-                            <div className="text-lg font-bold text-slate-800 dark:text-slate-200">
-                              TX-{district.district}
-                            </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400 mt-1 truncate w-full">
-                              {district.representative.split(',')[0].split(' ').slice(-1)[0]}
-                            </div>
-                            <div 
-                              className="w-3 h-3 rounded-full mx-auto mt-2 group-hover:scale-125 transition-transform"
-                              style={{ backgroundColor: getPartyColor(district.party) }}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center h-full">
-                      <div className="text-center text-muted-foreground">
-                        <p>{t("Loading district data...")}</p>
-                      </div>
-                    </div>
-                  )}
+                <div className="relative w-full h-full bg-white dark:bg-slate-900 flex items-center justify-center">
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameBorder="0" 
+                    scrolling="no" 
+                    marginHeight={0} 
+                    marginWidth={0}
+                    src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-152.091,58.14,-35.31,21.316"
+                    className="rounded-lg"
+                    title="Congressional Districts Map"
+                  />
                 </div>
               )}
             </CardContent>
