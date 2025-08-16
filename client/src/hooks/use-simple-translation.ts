@@ -16,7 +16,6 @@ const translations: Record<string, string> = {
   "Party": "Partido",
   "Years in Office": "Años en el Cargo",
   "Bills Sponsored": "Proyectos Patrocinados",
-  "Recent Activity": "Actividad Reciente",
   "Vote": "Votar",
   "Results": "Resultados",
   
@@ -115,7 +114,6 @@ const translations: Record<string, string> = {
   "Committee": "Comité",
   "House": "Cámara",
   "Senate": "Senado",
-  "Signed": "Firmado",
   "Updated": "Actualizado",
   "Ask AI": "Preguntar a IA",
   "Save": "Guardar",
@@ -137,15 +135,30 @@ const translations: Record<string, string> = {
   "What's happening locally?": "¿Qué está pasando localmente?",
   "Explain a bill": "Explicar un proyecto",
   
-  // Take Action section
-  "Take Action": "Tomar Acción",
-  "Contact Your Reps": "Contacta a tus Representantes",
-  "Generate personalized letters to your representatives about important legislation.": "Genera cartas personalizadas a tus representantes sobre legislación importante.",
-  "Select a bill to discuss": "Selecciona un proyecto para discutir",
-  "Generate Template": "Generar Plantilla",
+  // Civic Education section
+  "Civic Education": "Educación Cívica",
+  "How a Bill Becomes Law": "Cómo un Proyecto se Convierte en Ley",
+  "Introduction": "Introducción",
+  "Bill is introduced in House or Senate": "El proyecto se presenta en la Cámara o el Senado",
+  "Committee Review": "Revisión del Comité",
+  "Committee studies and marks up bill": "El comité estudia y marca el proyecto",
+  "Floor Vote": "Votación General",
+  "Full chamber debates and votes": "La cámara completa debate y vota",
+  "Senate Vote": "Votación del Senado",
+  "Senate debates and votes on the bill": "El Senado debate y vota sobre el proyecto",
+  "Presidential Action": "Acción Presidencial",
+  "President signs or vetoes the bill": "El presidente firma o veta el proyecto",
+  "Watch Official Tutorial": "Ver Tutorial Oficial",
+  "Test Your Knowledge": "Pon a Prueba tu Conocimiento",
+  "Quick Quiz: Legislative Basics": "Cuestionario Rápido: Conceptos Básicos Legislativos",
+  "How many votes are needed to override a presidential veto?": "¿Cuántos votos se necesitan para anular un veto presidencial?",
+  "Simple Majority (51%)": "Mayoría Simple (51%)",
+  "Two-Thirds Majority (67%)": "Mayoría de Dos Tercios (67%)",
+  "Three-Quarters Majority (75%)": "Mayoría de Tres Cuartos (75%)",
+  "Submit Answer": "Enviar Respuesta",
+  "Take Full Quiz": "Tomar Cuestionario Completo",
   
-  // Events
-  "Upcoming Events": "Próximos Eventos",
+  // Events section
   "Find town halls, city council meetings, and other civic events in your area.": "Encuentra ayuntamientos, reuniones del consejo municipal y otros eventos cívicos en tu área.",
   "No upcoming events found": "No se encontraron eventos próximos",
   "Check back soon for new civic events": "Vuelve pronto para nuevos eventos cívicos",
@@ -156,30 +169,26 @@ const translations: Record<string, string> = {
   "Check your registration status, find polling locations, and get important voting dates.": "Verifica tu estado de registro, encuentra lugares de votación y obtén fechas importantes de votación.",
   "Next Election": "Próxima Elección",
   "days": "días",
-  "Check Registration Status": "Verificar Estado de Registro",
   
-  // Civic Education
-  "Civic Education": "Educación Cívica",
-  "How a Bill Becomes Law": "Cómo un Proyecto se Convierte en Ley",
-  "Introduction": "Introducción",
-  "Bill is introduced in House or Senate": "El proyecto se introduce en la Cámara o Senado",
-  "Committee Review": "Revisión del Comité",
-  "Committee studies and marks up bill": "El comité estudia y marca el proyecto",
-  "Floor Vote": "Votación en el Pleno",
-  "Full chamber debates and votes": "La cámara completa debate y vota",
-  "Senate Vote": "Votación del Senado",
-  "Senate debates and votes on the bill": "El Senado debate y vota sobre el proyecto",
-  "Presidential Action": "Acción Presidencial",
-  "President signs or vetoes the bill": "El presidente firma o veta el proyecto",
-  "Watch Official Tutorial": "Ver Tutorial Oficial",
-  "Test Your Knowledge": "Prueba tu Conocimiento",
-  "Quick Quiz: Legislative Basics": "Quiz Rápido: Fundamentos Legislativos",
-  "How many votes are needed to override a presidential veto?": "¿Cuántos votos se necesitan para anular un veto presidencial?",
-  "Simple Majority (51%)": "Mayoría Simple (51%)",
-  "Two-Thirds Majority (67%)": "Mayoría de Dos Tercios (67%)",
-  "Three-Quarters Majority (75%)": "Mayoría de Tres Cuartos (75%)",
-  "Submit Answer": "Enviar Respuesta",
-  "Take Full Quiz": "Tomar Quiz Completo"
+  // Recent Activity
+  "Recent Activity": "Actividad Reciente",
+  "Voted Yes on": "Votó Sí en",
+  "Sponsored on": "Patrocinó",
+  "Border Security Enhancement Act": "Ley de Mejora de Seguridad Fronteriza",
+  "Rural Broadband Infrastructure Bill": "Proyecto de Ley de Infraestructura de Banda Ancha Rural",
+  "Voted No on": "Votó No en",
+  "Co-sponsored": "Co-patrocinó",
+  "Proposed": "Propuso",
+  "Signed": "Firmó",
+  
+  // Take Action section
+  "Take Action": "Tomar Acción",
+  "Contact Your Reps": "Contacta a tus Representantes",
+  "Generate personalized letters to your representatives about important legislation.": "Genera cartas personalizadas a tus representantes sobre legislación importante.",
+  "Select a bill to discuss": "Selecciona un proyecto para discutir",
+  "Generate Template": "Generar Plantilla",
+  "Upcoming Events": "Próximos Eventos",
+  "Check Registration Status": "Verificar Estado de Registro"
 };
 
 export function useSimpleTranslation() {

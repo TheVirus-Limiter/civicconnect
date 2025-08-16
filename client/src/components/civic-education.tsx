@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "@/hooks/use-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import CivicQuiz from "./civic-quiz";
 
 export default function CivicEducation() {
-  const { t } = useTranslation();
+  const { t } = useSimpleTranslation();
   const { toast } = useToast();
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
@@ -40,32 +40,32 @@ export default function CivicEducation() {
   const billSteps = [
     {
       number: 1,
-      title: "Introduction",
-      description: "Bill is introduced in House or Senate",
+      title: t("Introduction"),
+      description: t("Bill is introduced in House or Senate"),
       status: "completed" as const,
     },
     {
       number: 2,
-      title: "Committee Review",
-      description: "Committee studies and marks up bill",
+      title: t("Committee Review"),
+      description: t("Committee studies and marks up bill"),
       status: "completed" as const,
     },
     {
       number: 3,
-      title: "Floor Vote",
-      description: "Full chamber debates and votes",
+      title: t("Floor Vote"),
+      description: t("Full chamber debates and votes"),
       status: "current" as const,
     },
     {
       number: 4,
-      title: "Senate Vote",
-      description: "Senate debates and votes on the bill",
+      title: t("Senate Vote"),
+      description: t("Senate debates and votes on the bill"),
       status: "pending" as const,
     },
     {
       number: 5,
-      title: "Presidential Action",
-      description: "President signs or vetoes the bill",
+      title: t("Presidential Action"),
+      description: t("President signs or vetoes the bill"),
       status: "pending" as const,
     },
   ];
@@ -96,14 +96,14 @@ export default function CivicEducation() {
     <section id="education" className="mb-12">
       <h3 className="text-2xl font-bold mb-6 flex items-center">
         <GraduationCap className="w-6 h-6 mr-3 text-primary" />
-        Civic Education
+        {t("Civic Education")}
       </h3>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* How a Bill Becomes Law */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">How a Bill Becomes Law</CardTitle>
+            <CardTitle className="text-xl">{t("How a Bill Becomes Law")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -127,7 +127,7 @@ export default function CivicEducation() {
               onClick={() => window.open('https://www.youtube.com/watch?v=66f4-NKEYz4', '_blank')}
             >
               <Play className="w-4 h-4 mr-2" />
-              Watch Official Tutorial
+              {t("Watch Official Tutorial")}
             </Button>
           </CardContent>
         </Card>
@@ -135,14 +135,14 @@ export default function CivicEducation() {
         {/* Knowledge Quiz */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">Test Your Knowledge</CardTitle>
+            <CardTitle className="text-xl">{t("Test Your Knowledge")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-slate-700 dark:to-slate-600 rounded-lg p-4">
-                <h5 className="font-medium mb-2">Quick Quiz: Legislative Basics</h5>
+                <h5 className="font-medium mb-2">{t("Quick Quiz: Legislative Basics")}</h5>
                 <p className="text-sm text-muted-foreground mb-4">
-                  How many votes are needed to override a presidential veto?
+                  {t("How many votes are needed to override a presidential veto?")}
                 </p>
                 <RadioGroup 
                   value={selectedAnswer} 
@@ -152,7 +152,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="simple-majority" id="simple-majority" />
                     <Label htmlFor="simple-majority" className="text-sm">
-                      Simple Majority (51%)
+                      {t("Simple Majority (51%)")}
                     </Label>
                     {showAnswer && selectedAnswer === "simple-majority" && (
                       <Badge variant="destructive" className="text-xs">Incorrect</Badge>
@@ -161,7 +161,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="two-thirds" id="two-thirds" />
                     <Label htmlFor="two-thirds" className="text-sm">
-                      Two-Thirds Majority (67%)
+                      {t("Two-Thirds Majority (67%)")}
                     </Label>
                     {showAnswer && selectedAnswer === "two-thirds" && (
                       <Badge className="text-xs bg-green-600">Correct!</Badge>
@@ -170,7 +170,7 @@ export default function CivicEducation() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="three-quarters" id="three-quarters" />
                     <Label htmlFor="three-quarters" className="text-sm">
-                      Three-Quarters Majority (75%)
+                      {t("Three-Quarters Majority (75%)")}
                     </Label>
                     {showAnswer && selectedAnswer === "three-quarters" && (
                       <Badge variant="destructive" className="text-xs">Incorrect</Badge>
@@ -185,14 +185,14 @@ export default function CivicEducation() {
                   className="w-full"
                   disabled={showAnswer}
                 >
-                  Submit Answer
+                  {t("Submit Answer")}
                 </Button>
                 <Button 
                   variant="outline" 
                   className="w-full"
                   onClick={() => setShowFullQuiz(true)}
                 >
-                  Take Full Quiz
+                  {t("Take Full Quiz")}
                 </Button>
               </div>
             </div>

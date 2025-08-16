@@ -115,16 +115,16 @@ export default function CivicEngagement() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              Find town halls, city council meetings, and other civic events in your area.
+              {t("Find town halls, city council meetings, and other civic events in your area.")}
             </p>
             <div className="space-y-3">
               <div className="text-center py-4 text-muted-foreground">
                 <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">No upcoming events found</p>
-                <p className="text-xs">Check back soon for new civic events</p>
+                <p className="text-sm">{t("No upcoming events found")}</p>
+                <p className="text-xs">{t("Check back soon for new civic events")}</p>
               </div>
               <Button variant="outline" className="w-full">
-                View All Events
+                {t("View All Events")}
               </Button>
             </div>
           </CardContent>
@@ -137,19 +137,19 @@ export default function CivicEngagement() {
               <div className="w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
                 <Vote className="text-white w-5 h-5" />
               </div>
-              <span>Voter Information</span>
+              <span>{t("Voter Information")}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-sm mb-4">
-              Check your registration status, find polling locations, and get important voting dates.
+              {t("Check your registration status, find polling locations, and get important voting dates.")}
             </p>
             <div className="space-y-3">
               <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
                 <div className="flex items-center space-x-2">
                   <TriangleAlert className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
                   <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                    Next Election: November 5, 2025 (82 days)
+                    {t("Next Election")}: November 5, 2025 (82 {t("days")})
                   </span>
                 </div>
               </div>

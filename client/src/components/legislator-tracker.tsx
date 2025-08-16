@@ -133,12 +133,12 @@ function LegislatorCard({ legislator }: { legislator: Legislator }) {
 
   const getActivityText = (activity: { action: string; bill: string; date: string }) => {
     const actionMap: Record<string, string> = {
-      "Voted Yes": "Voted Yes",
-      "Voted No": "Voted No", 
-      "Sponsored": "Sponsored",
-      "Co-sponsored": "Co-sponsored",
-      "Proposed": "Proposed",
-      "Signed": "Signed",
+      "Voted Yes": t("Voted Yes on"),
+      "Voted No": t("Voted No on"), 
+      "Sponsored": t("Sponsored on"),
+      "Co-sponsored": t("Co-sponsored"),
+      "Proposed": t("Proposed"),
+      "Signed": t("Signed"),
     };
 
     return actionMap[activity.action] || activity.action;
