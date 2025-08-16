@@ -7,7 +7,7 @@ import CivicEngagement from "@/components/civic-engagement";
 import CivicEducation from "@/components/civic-education";
 import Footer from "@/components/footer";
 import React from "react";
-import { useAITranslation } from "@/hooks/use-ai-translation";
+import { useSimpleTranslation } from "@/hooks/use-simple-translation";
 import { useLocation } from "@/hooks/use-location";
 import { Button } from "@/components/ui/button";
 import { MapPin, TrendingUp, Clock, Users, Vote, MessageSquare, Languages, Loader2 } from "lucide-react";
@@ -15,34 +15,14 @@ import LocationSelector from "@/components/location-selector";
 import { Link } from "wouter";
 
 export default function Home() {
-  const { currentLanguage, isTranslating, toggleLanguage, applyTranslation, translatedContent } = useAITranslation();
+  const { currentLanguage, toggleLanguage, t } = useSimpleTranslation();
   const { location, detectLocation, loading } = useLocation();
 
-  // Apply translation when content is ready
-  React.useEffect(() => {
-    if (translatedContent) {
-      applyTranslation();
-    }
-  }, [translatedContent, applyTranslation]);
+  // Simple translation system - no loading needed
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Translation Loading Overlay */}
-      {isTranslating && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 flex items-center space-x-4">
-            <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-            <div>
-              <p className="font-medium text-gray-900 dark:text-white">
-                {currentLanguage === 'en' ? 'Traduciendo página...' : 'Translating page...'}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {currentLanguage === 'en' ? 'Por favor espere' : 'Please wait'}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+
       
       <Header />
       
@@ -52,17 +32,17 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex space-x-8 overflow-x-auto">
               <a href="#bills" className="whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
-                Bills
+                {t("Recent Bills")}
               </a>
               <a href="#news" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                News
+                {t("Breaking News")}
               </a>
               <a href="#legislators" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border">
-                Legislators
+                {t("Your Representatives")}
               </a>
               <Link href="/community/polls" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
                 <Vote className="w-4 h-4" />
-                Community Polls
+                {t("Community Polls")}
               </Link>
               <Link href="/community/feedback" className="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-border flex items-center gap-1">
                 <MessageSquare className="w-4 h-4" />
@@ -81,14 +61,9 @@ export default function Home() {
               variant="ghost"
               size="sm"
               onClick={toggleLanguage}
-              disabled={isTranslating}
               className="ml-4 flex items-center gap-2"
             >
-              {isTranslating ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Languages className="w-4 h-4" />
-              )}
+              <Languages className="w-4 h-4" />
               {currentLanguage === 'en' ? 'ES' : 'EN'}
             </Button>
           </div>

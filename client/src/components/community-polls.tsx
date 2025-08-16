@@ -29,7 +29,7 @@ export function CommunityPolls() {
 
   const voteMutation = useMutation({
     mutationFn: async ({ pollId, selectedOptions }: { pollId: string; selectedOptions: number[] }) => {
-      await apiRequest(`/api/polls/${pollId}/vote`, {
+      return apiRequest(`/api/polls/${pollId}/vote`, {
         method: "POST",
         body: { selectedOptions, userId: null }, // Anonymous voting for now
       });
@@ -40,6 +40,8 @@ export function CommunityPolls() {
   });
 
   const polls: PollWithResults[] = pollsData?.polls || [];
+  
+  console.log('Polls data received:', { pollsData, pollsCount: polls.length });
 
   if (isLoading) {
     return (
@@ -265,7 +267,7 @@ function PollResults({ poll, language }: { poll: PollWithResults; language: stri
       
       <div className="space-y-3">
         {poll.options.map((option, index) => {
-          const result = results.results.find(r => r.optionIndex === index);
+          const result = results.results.find((r: any) => r.optionIndex === index);
           const percentage = result?.percentage || 0;
           const count = result?.count || 0;
           
