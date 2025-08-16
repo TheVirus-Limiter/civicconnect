@@ -83,12 +83,12 @@ export default function Home() {
           <div className="text-center">
             {/* Main headline */}
             <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
-              Stay Connected to Your Democracy
+              {t("Stay Connected to Your Democracy")}
             </h1>
             
             {/* Subheadline */}
             <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto font-light leading-relaxed">
-              Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.
+              {t("Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.")}
             </p>
             
             {/* Location Input */}
@@ -126,7 +126,7 @@ export default function Home() {
                 className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
                 onClick={() => document.getElementById('bills')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Explore Bills
+                {t("Explore Bills")}
               </Button>
               <Button 
                 size="lg"
@@ -134,7 +134,7 @@ export default function Home() {
                 className="border-2 border-white text-blue-600 bg-white hover:bg-blue-50 font-semibold px-8 py-3 rounded-full transition-all duration-200"
                 onClick={() => window.open('https://www.youtube.com/watch?v=Otbml6WIQPo', '_blank')}
               >
-                Learn How It Works
+                {t("Learn How It Works")}
               </Button>
             </div>
 

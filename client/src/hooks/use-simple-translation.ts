@@ -12,6 +12,7 @@ const translations = {
   // UI Elements
   "Contact": "Contactar",
   "Learn More": "Aprende Más",
+  "More Info": "Más Información",
   "Party": "Partido",
   "Years in Office": "Años en el Cargo",
   "Bills Sponsored": "Proyectos Patrocinados",
@@ -52,7 +53,33 @@ const translations = {
   "Introduced": "Introducido",
   "Status": "Estado",
   "Summary": "Resumen",
-  "Sponsor": "Patrocinador"
+  "Sponsor": "Patrocinador",
+  
+  // Hero and main content
+  "Connected Civics": "Cívicos Conectados",
+  "Your Voice in TX-23": "Tu Voz en TX-23",
+  "Stay Connected to Your Democracy": "Manténgase Conectado a Su Democracia",
+  "Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.": "Rastree la legislación, comprenda proyectos de ley complejos con asistencia de IA y participe con sus representantes, todo en inglés y español.",
+  "Explore Bills": "Explorar Proyectos",
+  "Learn How It Works": "Aprenda Cómo Funciona",
+  "Get Started": "Empezar",
+  "Learn How": "Aprende Cómo",
+  "Engage": "Participar",
+  "Learn": "Aprender",
+  
+  // Legislator specific
+  "Party": "Partido",
+  "Years in Office": "Años en el Cargo", 
+  "Bills Sponsored": "Proyectos Patrocinados",
+  "Recent Activity": "Actividad Reciente",
+  "No recent activity": "Sin actividad reciente",
+  
+  // Common words
+  "District": "Distrito",
+  "Office": "Oficina",
+  "Email": "Correo electrónico",
+  "Website": "Sitio web",
+  "Phone": "Teléfono"
 };
 
 export function useSimpleTranslation() {
@@ -64,7 +91,12 @@ export function useSimpleTranslation() {
   const translateText = useCallback((text: string, targetLanguage: Language = currentLanguage): string => {
     if (targetLanguage === "en") return text;
     
-    // Simple text replacement for Spanish
+    // Direct lookup for exact matches
+    if (translations[text]) {
+      return translations[text];
+    }
+    
+    // Fallback: Simple text replacement for Spanish
     let translated = text;
     Object.entries(translations).forEach(([english, spanish]) => {
       const regex = new RegExp(`\\b${english}\\b`, 'gi');
