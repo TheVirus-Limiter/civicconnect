@@ -114,76 +114,41 @@ export default function CongressionalDistrictsMap() {
                   </div>
                 </div>
               ) : (
-                <div className="relative w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-900">
-                  {/* Simplified US Map with Districts */}
-                  <svg
-                    viewBox="0 0 1000 600"
-                    className="w-full h-full"
-                    style={{ transform: `scale(${zoom})` }}
-                  >
-                    {/* Texas highlighted */}
-                    <g>
-                      {/* Texas outline */}
-                      <path
-                        d="M200 300 L350 290 L380 350 L350 420 L200 400 Z"
-                        fill="#f3f4f6"
-                        stroke="#d1d5db"
-                        strokeWidth="2"
-                        className="cursor-pointer hover:fill-blue-100 transition-colors"
-                      />
-                      
-                      {/* TX-23 District */}
-                      <path
-                        d="M200 350 L280 345 L290 390 L220 395 Z"
-                        fill={getPartyColor('Republican')}
-                        fillOpacity="0.7"
-                        stroke="#ffffff"
-                        strokeWidth="2"
-                        className="cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleDistrictClick({
-                          id: 'tx-23',
-                          state: 'Texas',
-                          district: '23',
-                          representative: 'Tony Gonzales',
-                          party: 'Republican',
-                          population: 766987,
-                          area: 58000,
-                          coordinates: []
-                        })}
-                      />
-                      
-                      {/* Other sample districts */}
-                      <path
-                        d="M280 300 L350 295 L340 340 L275 345 Z"
-                        fill={getPartyColor('Democrat')}
-                        fillOpacity="0.7"
-                        stroke="#ffffff"
-                        strokeWidth="2"
-                        className="cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleDistrictClick({
-                          id: 'tx-20',
-                          state: 'Texas',
-                          district: '20',
-                          representative: 'Joaquin Castro',
-                          party: 'Democrat',
-                          population: 798012,
-                          area: 1200,
-                          coordinates: []
-                        })}
-                      />
-                    </g>
-                    
-                    {/* Map Labels */}
-                    <text x="275" y="325" textAnchor="middle" className="text-xs font-semibold fill-slate-700">
-                      TX-23
-                    </text>
-                    <text x="315" y="318" textAnchor="middle" className="text-xs font-semibold fill-slate-700">
-                      TX-20
-                    </text>
-                    <text x="275" y="450" textAnchor="middle" className="text-sm font-bold fill-slate-600">
-                      Texas
-                    </text>
-                  </svg>
+                <div className="relative w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-900 overflow-hidden">
+                  {districts.length > 0 ? (
+                    <div className="grid grid-cols-3 gap-2 p-4 h-full">
+                      {districts.slice(0, 9).map((district, index) => (
+                        <div
+                          key={district.id}
+                          className="relative bg-white dark:bg-slate-700 rounded-lg border-2 border-gray-200 dark:border-slate-600 cursor-pointer hover:shadow-lg transition-all duration-200 p-3 flex flex-col justify-center items-center"
+                          style={{ 
+                            borderColor: getPartyColor(district.party),
+                            backgroundColor: `${getPartyColor(district.party)}10`
+                          }}
+                          onClick={() => handleDistrictClick(district)}
+                        >
+                          <div className="text-center">
+                            <div className="text-lg font-bold text-slate-800 dark:text-slate-200">
+                              TX-{district.district}
+                            </div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                              {district.representative.split(',')[0]}
+                            </div>
+                            <div 
+                              className="w-3 h-3 rounded-full mx-auto mt-2"
+                              style={{ backgroundColor: getPartyColor(district.party) }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-full">
+                      <div className="text-center text-muted-foreground">
+                        <p>{t("Loading district data...")}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>

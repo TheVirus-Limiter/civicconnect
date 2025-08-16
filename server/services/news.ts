@@ -30,19 +30,23 @@ export class NewsService {
     page?: number;
   }): Promise<{ articles: NewsArticle[]; total: number }> {
     try {
-      // Category-specific search queries
+      // Category-specific search queries with date filtering
+      const today = new Date();
+      const fromDate = new Date(today);
+      fromDate.setDate(fromDate.getDate() - 7); // Last week
+      
       let query;
       if (params.category === "local") {
-        query = "Texas OR San Antonio OR border OR immigration OR (TX-23) OR (congressional district)";
+        query = "(Texas OR \"San Antonio\" OR border OR immigration) AND (politics OR government OR congress)";
       } else if (params.category === "national") {
-        query = "Congress OR Senate OR House OR federal OR legislation OR Biden OR politics";
+        query = "(Congress OR Senate OR House OR federal OR legislation OR Biden OR Trump) AND politics";
       } else if (params.category === "explainer") {
-        query = "(how does) OR (what is) OR (explained) OR (guide to) AND (government OR politics OR legislation)";
+        query = "(\"how does\" OR \"what is\" OR explained OR guide) AND (government OR politics OR legislation OR congress)";
       } else {
         // Default civic keywords
         const civicKeywords = [
-          "bill", "legislation", "congress", "senate", "house", 
-          "government", "policy", "election", "voting", "civic"
+          "politics", "congress", "senate", "house", 
+          "government", "legislation", "election", "voting"
         ];
         query = params.query || civicKeywords.join(" OR ");
         if (params.query) {
@@ -55,6 +59,7 @@ export class NewsService {
         apiKey: this.apiKey,
         language: "en",
         sortBy: "publishedAt",
+        from: fromDate.toISOString().split('T')[0],
         pageSize: (params.pageSize || 20).toString(),
         page: (params.page || 1).toString(),
       });
@@ -74,8 +79,16 @@ export class NewsService {
       }
 
       const articles: NewsArticle[] = data.articles
-        .filter(article => article.title && article.url)
-        .map((article) => this.transformNewsAPIArticle(article));
+        .filter(article => 
+          article.title && 
+          article.url && 
+          article.description &&
+          !article.title.toLowerCase().includes('[removed]')
+        )
+        .map((article) => ({
+          ...this.transformNewsAPIArticle(article),
+          category: params.category || "general"
+        }));
 
       return {
         articles,
@@ -91,16 +104,23 @@ export class NewsService {
 
   async getBreakingNews(): Promise<NewsArticle[]> {
     try {
-      // Use top headlines to avoid rate limits and get better results
+      // Use everything endpoint with political keywords for breaking news
+      const politicalQuery = "politics OR congress OR senate OR house OR legislation OR government OR election OR biden OR trump";
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      
       const searchParams = new URLSearchParams({
+        q: politicalQuery,
         apiKey: this.apiKey,
-        country: "us",
-        category: "general",
+        language: "en",
+        sortBy: "publishedAt",
+        from: yesterday.toISOString().split('T')[0],
         pageSize: "20",
       });
 
       const response = await fetch(
-        `${this.baseUrl}/top-headlines?${searchParams.toString()}`
+        `${this.baseUrl}/everything?${searchParams.toString()}`
       );
 
       if (!response.ok) {
@@ -118,21 +138,19 @@ export class NewsService {
         return this.getFallbackNews();
       }
 
-      console.log(`Found ${data.articles.length} articles from NewsAPI`);
-      // Return real news data and filter for political/government content
+      console.log(`Found ${data.articles.length} political articles from NewsAPI`);
+      // Return real political news data
       const realArticles = data.articles
         .filter(article => 
           article.title && 
           article.url && 
-          (article.title.toLowerCase().includes('government') ||
-           article.title.toLowerCase().includes('congress') ||
-           article.title.toLowerCase().includes('biden') ||
-           article.title.toLowerCase().includes('politics') ||
-           article.title.toLowerCase().includes('election') ||
-           article.title.toLowerCase().includes('senate') ||
-           article.title.toLowerCase().includes('house'))
+          article.description &&
+          !article.title.toLowerCase().includes('[removed]')
         )
-        .map((article) => this.transformNewsAPIArticle(article))
+        .map((article) => ({
+          ...this.transformNewsAPIArticle(article),
+          category: "breaking"
+        }))
         .slice(0, 10);
       
       // If we have fewer than 3 real articles, supplement with fallback
