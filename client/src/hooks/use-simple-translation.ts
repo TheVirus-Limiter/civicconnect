@@ -1,141 +1,71 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export type Language = "en" | "es";
 
+// Complete translation mappings for the entire site
 const translations: Record<string, string> = {
-  // Page sections
-  "Your Representatives": "Sus Representantes",
+  // Navigation
   "Recent Bills": "Proyectos de Ley Recientes",
-  "Breaking News": "Últimas Noticias", 
+  "Breaking News": "Últimas Noticias",
+  "Your Representatives": "Sus Representantes", 
   "Community Polls": "Encuestas de la Comunidad",
+  "Give Feedback": "Dar Comentarios",
+  "Engage": "Participar",
+  "Learn": "Aprender",
   
-  // UI Elements
-  "Contact": "Contactar",
-  "Learn More": "Aprende Más",
-  "More Info": "Más Información",
-  "Party": "Partido",
-  "Years in Office": "Años en el Cargo",
-  "Bills Sponsored": "Proyectos Patrocinados",
-  "Vote": "Votar",
-  "Results": "Resultados",
-  
-  // Categories
-  "Healthcare": "Atención Médica",
-  "Infrastructure": "Infraestructura",
-  "Border Security": "Seguridad Fronteriza",
-  "Education": "Educación",
-  "Economy": "Economía",
-  "Environment": "Medio Ambiente",
-  
-  // Poll content
-  "Share your opinion": "Comparte tu opinión",
-  "All": "Todos",
-  "Local": "Local",  
-  "State": "Estado",
-  "National": "Nacional",
-  "No polls available": "No hay encuestas disponibles",
-  "There are no active polls": "No hay encuestas activas",
-  
-  // Legislator content
-  "Representative": "Representante",
-  "Senator": "Senador",
-  "Republican": "Republicano",
-  "Democrat": "Demócrata",
-  "Independent": "Independiente",
-  
-  // News content
-  "Read More": "Leer Más",
-  "Published": "Publicado",
-  "Source": "Fuente",
-  
-  // Bill content
-  "Introduced": "Introducido",
-  "Status": "Estado",
-  "Summary": "Resumen",
-  "Sponsor": "Patrocinador",
-  
-  // Hero and main content
+  // Hero section
   "Connected Civics": "Cívicos Conectados",
   "Your Voice in TX-23": "Tu Voz en TX-23",
   "Stay Connected to Your Democracy": "Manténgase Conectado a Su Democracia",
   "Track legislation, understand complex bills with AI assistance, and engage with your representatives—all in English and Spanish.": "Rastree la legislación, comprenda proyectos de ley complejos con asistencia de IA y participe con sus representantes, todo en inglés y español.",
   "Explore Bills": "Explorar Proyectos",
   "Learn How It Works": "Aprenda Cómo Funciona",
-  "Get Started": "Empezar",
-  "Learn How": "Aprende Cómo",
-  "Engage": "Participar",
-  "Learn": "Aprender",
   
-  // Legislator specific  
-  "Search": "Buscar",
-  "No recent activity": "Sin actividad reciente",
-  
-  // Common words
-  "District": "Distrito",
-  "Office": "Oficina",
-  "Email": "Correo electrónico",
-  "Website": "Sitio web",
-  "Phone": "Teléfono",
-  
-  // Stats and numbers
-  "Active Bills": "Proyectos Activos",
-  "Recent Updates": "Actualizaciones Recientes",
-  "Local Bills": "Proyectos Locales",
-  "Available in English and Spanish": "Disponible en inglés y español",
-  
-  // Community sections
-  "Join the Community": "Únete a la Comunidad",
-  "Make your voice heard on important issues in TX-23": "Haz escuchar tu voz en temas importantes en TX-23",
-  "Vote on local issues": "Vota en temas locales",
-  "Share your opinion on healthcare, infrastructure, border security, and other key issues affecting our district.": "Comparte tu opinión sobre atención médica, infraestructura, seguridad fronteriza y otros temas clave que afectan nuestro distrito.",
-  "View Active Polls": "Ver Encuestas Activas",
-  "Community Feedback": "Comentarios de la Comunidad",
-  "Share your concerns": "Comparte tus preocupaciones",
-  "Submit feedback about local issues, suggest improvements, and see responses from your representatives.": "Envía comentarios sobre temas locales, sugiere mejoras y ve respuestas de tus representantes.",
-  "Submit Feedback": "Enviar Comentarios",
-  
-  // Bill filtering and search
+  // Bills section
   "Filter Bills": "Filtrar Proyectos",
   "Search bills...": "Buscar proyectos...",
   "Active": "Activo",
-  "Passed": "Aprobado",
+  "Passed": "Aprobado", 
   "Failed": "Fallido",
   "Category": "Categoría",
   "All Categories": "Todas las Categorías",
   "Jurisdiction": "Jurisdicción",
   "All Levels": "Todos los Niveles",
+  "Federal": "Federal",
+  "State": "Estatal",
   "Clear Filters": "Limpiar Filtros",
   "Most Recent": "Más Recientes",
-  
-  // Bill status
   "PASSED HOUSE": "APROBADO EN CÁMARA",
   "IN COMMITTEE": "EN COMITÉ",
   "Bill Progress": "Progreso del Proyecto",
-  "Committee": "Comité",
-  "House": "Cámara",
-  "Senate": "Senado",
-  "Updated": "Actualizado",
   "Ask AI": "Preguntar a IA",
   "Save": "Guardar",
   "Share": "Compartir",
   "View Details": "Ver Detalles",
   "Load More Bills": "Cargar Más Proyectos",
   
-  // News sections
+  // News section  
   "Civic News": "Noticias Cívicas",
+  "Local": "Local",
+  "National": "Nacional",
   "Explainer": "Explicativo",
   "BREAKING": "ÚLTIMA HORA",
+  "Read More": "Leer Más",
+  "More Info": "Más Información",
   
-  // AI Assistant
-  "Meet Civica": "Conoce a Cívica",
-  "Your AI assistant for understanding legislation": "Tu asistente de IA para entender la legislación",
-  "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?": "¡Hola! Soy Cívica, tu asistente de IA para entender la legislación. Puedo ayudar a explicar proyectos, sus impactos y responder preguntas sobre el proceso legislativo. ¿Qué te gustaría saber?",
-  "Ask me anything about legislation...": "Pregúntame cualquier cosa sobre legislación...",
-  "How does a bill become a law?": "¿Cómo se convierte un proyecto en ley?",
-  "What's happening locally?": "¿Qué está pasando localmente?",
-  "Explain a bill": "Explicar un proyecto",
+  // Representatives
+  "Party": "Partido",
+  "Republican": "Republicano",
+  "Democrat": "Demócrata",
+  "Years in Office": "Años en el Cargo",
+  "Bills Sponsored": "Proyectos Patrocinados",
+  "Recent Activity": "Actividad Reciente",
+  "Contact": "Contactar",
+  "Voted Yes on": "Votó Sí en",
+  "Sponsored on": "Patrocinó",
+  "No recent activity": "Sin actividad reciente",
   
-  // Civic Education section
+  // Civic Education
   "Civic Education": "Educación Cívica",
   "How a Bill Becomes Law": "Cómo un Proyecto se Convierte en Ley",
   "Introduction": "Introducción",
@@ -158,37 +88,57 @@ const translations: Record<string, string> = {
   "Submit Answer": "Enviar Respuesta",
   "Take Full Quiz": "Tomar Cuestionario Completo",
   
-  // Events section
-  "Find town halls, city council meetings, and other civic events in your area.": "Encuentra ayuntamientos, reuniones del consejo municipal y otros eventos cívicos en tu área.",
-  "No upcoming events found": "No se encontraron eventos próximos",
-  "Check back soon for new civic events": "Vuelve pronto para nuevos eventos cívicos",
-  "View All Events": "Ver Todos los Eventos",
-  
-  // Voter Information
-  "Voter Information": "Información del Votante",
-  "Check your registration status, find polling locations, and get important voting dates.": "Verifica tu estado de registro, encuentra lugares de votación y obtén fechas importantes de votación.",
-  "Next Election": "Próxima Elección",
-  "days": "días",
-  
-  // Recent Activity
-  "Recent Activity": "Actividad Reciente",
-  "Voted Yes on": "Votó Sí en",
-  "Sponsored on": "Patrocinó",
-  "Border Security Enhancement Act": "Ley de Mejora de Seguridad Fronteriza",
-  "Rural Broadband Infrastructure Bill": "Proyecto de Ley de Infraestructura de Banda Ancha Rural",
-  "Voted No on": "Votó No en",
-  "Co-sponsored": "Co-patrocinó",
-  "Proposed": "Propuso",
-  "Signed": "Firmó",
-  
-  // Take Action section
+  // Take Action
   "Take Action": "Tomar Acción",
   "Contact Your Reps": "Contacta a tus Representantes",
   "Generate personalized letters to your representatives about important legislation.": "Genera cartas personalizadas a tus representantes sobre legislación importante.",
   "Select a bill to discuss": "Selecciona un proyecto para discutir",
   "Generate Template": "Generar Plantilla",
   "Upcoming Events": "Próximos Eventos",
-  "Check Registration Status": "Verificar Estado de Registro"
+  "Find town halls, city council meetings, and other civic events in your area.": "Encuentra ayuntamientos, reuniones del consejo municipal y otros eventos cívicos en tu área.",
+  "No upcoming events found": "No se encontraron eventos próximos",
+  "Check back soon for new civic events": "Vuelve pronto para nuevos eventos cívicos",
+  "View All Events": "Ver Todos los Eventos",
+  "Voter Information": "Información del Votante",
+  "Check your registration status, find polling locations, and get important voting dates.": "Verifica tu estado de registro, encuentra lugares de votación y obtén fechas importantes de votación.",
+  "Next Election": "Próxima Elección",
+  "days": "días",
+  "Check Registration Status": "Verificar Estado de Registro",
+  
+  // AI Assistant
+  "Meet Civica": "Conoce a Cívica",
+  "Your AI assistant for understanding legislation": "Tu asistente de IA para entender la legislación",
+  "Hello! I'm Civica, your AI assistant for understanding legislation. I can help explain bills, their impacts, and answer questions about the legislative process. What would you like to know?": "¡Hola! Soy Cívica, tu asistente de IA para entender la legislación. Puedo ayudar a explicar proyectos, sus impactos y responder preguntas sobre el proceso legislativo. ¿Qué te gustaría saber?",
+  "Ask me anything about legislation...": "Pregúntame cualquier cosa sobre legislación...",
+  "How does a bill become a law?": "¿Cómo se convierte un proyecto en ley?",
+  "What's happening locally?": "¿Qué está pasando localmente?",
+  "Explain a bill": "Explicar un proyecto",
+  
+  // Community
+  "Join the Community": "Únete a la Comunidad",
+  "Make your voice heard on important issues in TX-23": "Haz escuchar tu voz en temas importantes en TX-23",
+  "Vote on local issues": "Vota en temas locales",
+  "View Active Polls": "Ver Encuestas Activas",
+  "Community Feedback": "Comentarios de la Comunidad",
+  "Share your concerns": "Comparte tus preocupaciones",
+  "Submit Feedback": "Enviar Comentarios",
+  "Vote": "Votar",
+  "Results": "Resultados",
+  
+  // Common terms
+  "Status": "Estado",
+  "Summary": "Resumen", 
+  "Sponsor": "Patrocinador",
+  "Published": "Publicado",
+  "Source": "Fuente",
+  "Updated": "Actualizado",
+  "Search": "Buscar",
+  "All": "Todos",
+  "District": "Distrito",
+  "Office": "Oficina",
+  "Email": "Correo electrónico",
+  "Website": "Sitio web",
+  "Phone": "Teléfono"
 };
 
 export function useSimpleTranslation() {
@@ -197,22 +147,54 @@ export function useSimpleTranslation() {
     return (saved as Language) || "en";
   });
 
-  const translateText = useCallback((text: string, targetLanguage: Language = currentLanguage): string => {
-    if (targetLanguage === "en") return text;
-    
-    // Direct lookup for exact matches
-    if (translations[text]) {
-      return translations[text];
+  const translateText = useCallback((text: string): string => {
+    if (currentLanguage === "en") return text;
+    return translations[text] || text;
+  }, [currentLanguage]);
+
+  const translatePage = useCallback(() => {
+    if (currentLanguage === "es") {
+      // Find all text content and translate it
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        (node) => {
+          // Skip script and style tags
+          const parent = node.parentElement;
+          if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          // Only process nodes with meaningful text content
+          return node.textContent && node.textContent.trim().length > 0 
+            ? NodeFilter.FILTER_ACCEPT 
+            : NodeFilter.FILTER_REJECT;
+        }
+      );
+
+      const textNodes: Text[] = [];
+      let node;
+      while (node = walker.nextNode()) {
+        textNodes.push(node as Text);
+      }
+
+      // Translate each text node
+      textNodes.forEach(textNode => {
+        if (textNode.textContent) {
+          let translated = textNode.textContent;
+          
+          // Apply translations
+          Object.entries(translations).forEach(([english, spanish]) => {
+            // Create regex with word boundaries for better matching
+            const regex = new RegExp(`\\b${english.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+            translated = translated.replace(regex, spanish);
+          });
+          
+          if (translated !== textNode.textContent) {
+            textNode.textContent = translated;
+          }
+        }
+      });
     }
-    
-    // Fallback: Simple text replacement for Spanish
-    let translated = text;
-    Object.entries(translations).forEach(([english, spanish]) => {
-      const regex = new RegExp(`\\b${english}\\b`, 'gi');
-      translated = translated.replace(regex, spanish);
-    });
-    
-    return translated;
   }, [currentLanguage]);
 
   const toggleLanguage = useCallback(() => {
@@ -220,18 +202,24 @@ export function useSimpleTranslation() {
     setCurrentLanguage(newLanguage);
     localStorage.setItem("preferredLanguage", newLanguage);
     
-    // Trigger a page re-render by updating a data attribute
-    document.documentElement.setAttribute('data-language', newLanguage);
-    
-    // Dispatch a custom event for components to listen to
-    window.dispatchEvent(new CustomEvent('languageChange', { 
-      detail: { language: newLanguage } 
-    }));
-  }, [currentLanguage]);
+    if (newLanguage === "es") {
+      // Translate the page after a short delay
+      setTimeout(translatePage, 100);
+    } else {
+      // Reload page to reset to English
+      window.location.reload();
+    }
+  }, [currentLanguage, translatePage]);
+
+  // Auto-translate on load if Spanish is selected
+  useEffect(() => {
+    if (currentLanguage === "es") {
+      setTimeout(translatePage, 500);
+    }
+  }, [currentLanguage, translatePage]);
 
   return {
     currentLanguage,
-    translateText,
     toggleLanguage,
     t: translateText
   };
