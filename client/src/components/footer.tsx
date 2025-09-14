@@ -13,7 +13,7 @@ export default function Footer() {
           <p className="text-gray-400 text-sm">
             © 2025 Built for the Congressional App Challenge.
           </p>
-          <p className="text-gray-400 text-sm mt-2">
+          <p className="text-gray-400 text-base mt-2">
             Made by Rehan Raj
           </p>
         </div>
